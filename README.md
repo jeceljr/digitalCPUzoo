@@ -5,4 +5,6 @@ using the [Digital simulator](https://github.com/hneemann/Digital).
 
 The first project, *combinational*, is not actually a processor but a tour through the basic logic gates and other combinational circuits.
 
-The second projet, *sequential*, shows the basic sequential circuits.
+The second project, *sequential*, shows the basic sequential circuits.
+
+Project *fpga* implements a simple, but functional, Field Programmable Gate Array.
