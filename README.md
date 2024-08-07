@@ -8,3 +8,5 @@ The first project, *combinational*, is not actually a processor but a tour throu
 The second project, *sequential*, shows the basic sequential circuits.
 
 Project *fpga* implements a simple, but functional, Field Programmable Gate Array.
+
+*MCPU* is a very simple accumulator based processor with only four instructions.
