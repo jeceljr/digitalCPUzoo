@@ -26,7 +26,7 @@ by the Digital simulator, such as Intel Hex:
 
     objcopy -S -O ihex gcd.o gcd.hex
 
-The project *mcpu_test.dig* uses an FPGA block RAM but has two bugs
+The project *mcpu_bram.dig* uses an FPGA block RAM but has two bugs
 in it: the carry bit is not being calculated correctly and there
 should be a third cycle for the NOR and ADD instructions so they
 can get the data from the memory.
