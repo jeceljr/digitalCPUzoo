@@ -36,4 +36,19 @@ is added and *i* means input b is bitwise inverted. The possible operations are:
 | C     | B+C      | (1-C)-B  | A+B+C    | A-B+(1-C)|
 | logic | A or B   | A xor B  | A and B  | A        | 
 
-The *B* in this table really means *I*, *B* or *M* depending on *s*.
+The *B* in this table really means *I*, *B* or *M* depending on *s*. Four of these
+operations are unlikely to be useful but are a side effect of how the ALU is
+designed.
+
+The first letter in an assembly instruction selects the destination and can be
+"a", "b", "m" or "p". The next letters select the function and can be
+"b", "not", "add", ?, "inc", "neg", ?, "sub",
+?, ?, "addc", "subc", "or", "xor", "and", "a". The final letter indicates the
+source and can be "i", nothing or "m". In the first case there is also an
+expression that generates the second byte in the instruction. That means that
+there are 4 times 12 times 3 possible mnemonics, 144 in all.
+
+There are 4 more mnemonics for the branches, but given the use of "b" above to
+indicate a destination these will instead be "jcc", "jcs", "jzc" and "jzs". It
+might seem odd to only have condiction branches and with such a limited range
+but "pbi 210" can be used to jump to location 210.
