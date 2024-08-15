@@ -23,6 +23,7 @@ neg:
 	JCC start  # carry was not altered
 loop:
 	JCC loop
+	JCC loop
 
 allone: .byte 0xFF
 one:	.byte 1

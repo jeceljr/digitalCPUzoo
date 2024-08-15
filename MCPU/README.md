@@ -26,7 +26,25 @@ by the Digital simulator, such as Intel Hex:
 
     objcopy -S -O ihex gcd.o gcd.hex
 
-The project *mcpu_bram.dig* uses an FPGA block RAM but has two bugs
-in it: the carry bit is not being calculated correctly and there
-should be a third cycle for the NOR and ADD instructions so they
-can get the data from the memory.
+The project *mcpu_bram.dig* uses an FPGA block RAM which complicates
+the timing. Each instruction takes three clock cycles: fetch (F),
+memory (M) and execute (E). The address must be supplied in the
+previous clock cycle:
+
+| signal | F | M | E | F | M | E | F | M | E |
+|--------|---|---|---|---|---|---|---|---|---|
+| Address| X |IR |PC | X |IR |PC | X |IR |PC |
+| DataOut| I | X | D | I | X | D | I | X | D |
+
+![MCPU for BRAM](mcpu_bram.svg)
+
+Most low end RAM chips as asynchronous and some FPGAs can disable the
+internal registers of their BRAMs to have this behavior. Eliminating
+the pipelining will reduce the maximum possible clock speed but it
+will allow a version of the MCPU that only needs two clock cycles
+per instruction:
+
+| signal | F | E | F | E | F | E |
+|--------|---|---|---|---|---|---|
+| Address| PC | IR | PC | IR | PC | IR |
+| DataOut| ...I | ...D | ...I | ...D | ...I | ...D |
