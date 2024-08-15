@@ -38,7 +38,7 @@ previous clock cycle:
 
 ![MCPU for BRAM](mcpu_bram.svg)
 
-Most low end RAM chips as asynchronous and some FPGAs can disable the
+Most low end RAM chips are asynchronous and some FPGAs can disable the
 internal registers of their BRAMs to have this behavior. Eliminating
 the pipelining will reduce the maximum possible clock speed but it
 will allow a version of the MCPU that only needs two clock cycles
