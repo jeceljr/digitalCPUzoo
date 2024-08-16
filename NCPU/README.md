@@ -52,3 +52,10 @@ There are 4 more mnemonics for the branches, but given the use of "b" above to
 indicate a destination these will instead be "jcc", "jcs", "jzc" and "jzs". It
 might seem odd to only have condiction branches and with such a limited range
 but "pbi 210" can be used to jump to location 210.
+
+![test ALU](alu_test.svg)
+
+The circuit *alu_test.dig* is a test to see what the complexity of the ALU needed
+for the NCPU is and how long it takes to create it. So far 12 of the 16 functions
+have been tested. The *enable* pins of the *C* and *Z* registers are not connected
+correctly but it is enough to implement the remaining 4 tests.
