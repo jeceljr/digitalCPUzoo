@@ -64,9 +64,9 @@ sequence of *nop* instructions. In the case of the FCPU a region of memory with
 all zeros will have every two bytes interpred as *abi 0* which clears the
 assumulator *A*.
 
-![test ALU](alu_test.svg)
+![ALU](alu.svg)
 
-The circuit *alu_test.dig* implements all functions of the above table as well
+The circuit *alu.dig* implements all functions of the above table as well
 as tests for each different function.
 
 ## FCPU16
