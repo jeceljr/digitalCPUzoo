@@ -51,11 +51,52 @@ there are 4 times 12 times 3 possible mnemonics, 144 in all.
 There are 4 more mnemonics for the branches, but given the use of "b" above to
 indicate a destination these will instead be "jcc", "jcs", "jzc" and "jzs". It
 might seem odd to only have condiction branches and with such a limited range
-but "pbi 210" can be used to jump to location 210.
+but "pbi 210" can be used to jump to location 210. Macros can be used to define
+*jmp* to be the same as *pbi* to make programs look more traditional and easier
+to understand.
+
+In RISC processors *nop* is also normally a macro and not an instruction that
+the processor actually implements. For the FCPU we could use *bb* (0x50) or
+*aa* (0x4F) as a *nop*. Some processors go out of their way to have their *nop*
+instructions be either all zeros or all ones so that memory that has been
+cleared or EPROMs regions that haven't been "burned" will be interpreted as a
+sequence of *nop* instructions. In the case of the FCPU a region of memory with
+all zeros will have every two bytes interpred as *abi 0* which clears the
+assumulator *A*.
 
 ![test ALU](alu_test.svg)
 
-The circuit *alu_test.dig* is a test to see what the complexity of the ALU needed
-for the NCPU is and how long it takes to create it. So far 12 of the 16 functions
-have been tested. The *enable* pins of the *C* and *Z* registers are not connected
-correctly but it is enough to implement the remaining 4 tests.
+The circuit *alu_test.dig* implements all functions of the above table as well
+as tests for each different function.
+
+## FCPU16
+
+256 bytes of memory is not much to do anything interesting though my first
+computer in 1980, the [MEK6800D2](https://en.wikipedia.org/wiki/MEK6800D2)
+only had that much RAM. Its 6800 processor could address 64KB and the
+machine did have a debugger in a 1KB ROM but in any case such small memory
+is limiting. A solution would be to expand the FCPU to 16 bits. If we use
+word addresses to avoid the complications of bytes then this would raise the
+limit to 128KB.
+
+Only the instruction fetch would have to be slightly modified. The rest of
+the system would just have all components defined as 8 bits wide changed to
+16 bits so the schematic would remain the same. The instructions would
+remain the same but immediate values would be 16 rather than 8 bits. With
+24 bit immemdiate instructions unaligned 16 bit values would have to be
+handled half of the time. It is possible greatly simplify the fetch hardware
+at the cost of complicating the assembler a bit if we define that the
+immediate values are always in the words following the instruction:
+
+    4F       abi 0x1234
+      82     aaddm
+    1234
+    D7       jcs extrabit
+
+So the immediate value for the *abi* instruction comes after the *aaddm*
+instruction which is packed in the same word. When the *abi* instruction
+is being executed the *aaddm* has already been read into *IR* and *P* is
+already pointing to the immediate value. After it executes *P* will be
+pointing to the *jcs* instruction but it would be loaded yet and *aaddm*
+will execute instead. Having both instructions in the same word be
+immediate causes no additional complications.
