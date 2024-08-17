@@ -1,9 +1,11 @@
 # NCPU
 
 This simple 8 bit processor was inspired by the MCPU (hence the similar name),
-the Data General Nova (so the "N" in the name) and has a lot in common with
-the Femto8 from Steven Hugg's book "Designing Video Game Hardware in Verilog"
-and used in the [8 Bit Workshop](https://8bitworkshop.com/) tool.
+the Data General Nova (so the "N" in the name). It has three general purpose
+registers (*r0*, *r1* and *r2*), a program counter (*P*) and an instruction
+register (*IR*). A two bit register in the ALU stores the carry (*C*) and
+zero (*Z*) flags and a two bit register in the control unit indicates the
+current cycle (*fetch*, *execute* and *skip*).
 
 There are two instruction formats:
 
@@ -15,54 +17,52 @@ There are two instruction formats:
 The second format is for conditional branches. The *t* field selects between
 different tests on the two flags (carry=0, carry=1, zero=0 or zero=1) and the
 "b" field is how much to add to the program counter (*P*) if the test passes.
+The names of the instructions are *bcc*, *bcs*, *bzc* and *bzs*. Macros can
+give alternative names for the last two instructions, like *bne* and *beq*.
 
-*d* indicates where the result of an option is stored (accumulator *A*,
-accumulator *B*, memory addressed by B indicated as *M* or the program
-counter *P*).
+*d* indicates where the result of an option is stored (registers *r0*, *r1*,
+*r2* or the program counter *P*).
 
-*s* indicates where the second source (the first is always the accumulator *A*)
-of the operation comes from (an immediate value following the instrucion *I*,
-the accumlator *B* or memory addressed by B *M*). The *s* field can only be 0,
-1 or 2.
+*s* indicates where the second source (the first is the same as the destination)
+of the operation comes from. *P* is not a valid source since it would indicate
+a conditional branch instead.
 
 *c* indicates where the carry in comes from (always 0, always 1, the C register
-or this is a logical operation instead of an addition). *a* means accumulator
-is added and *i* means input b is bitwise inverted. The possible operations are:
+or this is a logical operation instead of an addition). *a* means the destination 
+is added and *i* means the source is bitwise inverted. The possible operations are:
 
 | carry | a=0, i=0 | a=0, i=1 | a=1, i=0 | a=1, i-1 |
 |-------|----------|----------|----------|----------|
 | 0     | B        | not B    | A+B      | A-B-1    |
 | 1     | B+1      | 0-B      | A+B+1    | A-B      |
 | C     | B+C      | (1-C)-B  | A+B+C    | A-B+(1-C)|
-| logic | A or B   | A xor B  | A and B  | A        | 
+| logic | M        | A and B  | A or  B  | A xor B  | 
 
-The *B* in this table really means *I*, *B* or *M* depending on *s*. Four of these
-operations are unlikely to be useful but are a side effect of how the ALU is
-designed.
+Four of these operations are not very useful, but it would complicate the circuit
+not to have them. *M* is data coming from the memory and addressed by *P*, making
+this a *ldi* (load immediate) instruction. While all other instructions take two
+clock cycles, *ldi* has an extra "skip" cycle since it is not possible to both
+store the incremented *P* and the destination at the same time.
 
-The first letter in an assembly instruction selects the destination and can be
-"a", "b", "m" or "p". The next letters select the function and can be
-"b", "not", "add", ?, "inc", "neg", ?, "sub",
-?, ?, "addc", "subc", "or", "xor", "and", "a". The final letter indicates the
-source and can be "i", nothing or "m". In the first case there is also an
-expression that generates the second byte in the instruction. That means that
-there are 4 times 12 times 3 possible mnemonics, 144 in all.
+The "B+C" and "(1-C)-B" operations are replaced by the *lda* (load) and *sta* (store)
+instructions, respectively:
 
-There are 4 more mnemonics for the branches, but given the use of "b" above to
-indicate a destination these will instead be "jcc", "jcs", "jzc" and "jzs". It
-might seem odd to only have condiction branches and with such a limited range
-but "pbi 210" can be used to jump to location 210. Macros can be used to define
-*jmp* to be the same as *pbi* to make programs look more traditional and easier
+| cc / ai | 00  | 01  | 10  | 11  |
+|---------|-----|-----|-----|-----|
+| 00      | mov | not | add | ?   |
+| 01      | inc | neg | ?   | sub |
+| 10      | lda | sta | addc | subc |
+| 11      | ldi | and | or  | xor |
+
+It might seem odd to only have condiction branches and with such a limited range
+but *ldi p,210* can be used to jump to location 210. Macros can be used to define
+*jmp* to be the same this instructio to make programs look more traditional and easier
 to understand.
 
 In RISC processors *nop* is also normally a macro and not an instruction that
-the processor actually implements. For the FCPU we could use *bb* (0x50) or
-*aa* (0x4F) as a *nop*. Some processors go out of their way to have their *nop*
-instructions be either all zeros or all ones so that memory that has been
-cleared or EPROMs regions that haven't been "burned" will be interpreted as a
-sequence of *nop* instructions. In the case of the FCPU a region of memory with
-all zeros will have every two bytes interpred as *abi 0* which clears the
-assumulator *A*.
+the processor actually implements. For the FCPU we could use *mov r0,r0* which
+is 0x00. This means that a region of memory which has been clear will be
+interpreted as a sequence of *nop* instructions.
 
 ![ALU](alu.svg)
 
@@ -88,15 +88,15 @@ handled half of the time. It is possible greatly simplify the fetch hardware
 at the cost of complicating the assembler a bit if we define that the
 immediate values are always in the words following the instruction:
 
-    4F       abi 0x1234
-      82     aaddm
+    0C       ldi r0,0x1234
+      12     add r1,r0
     1234
-    D7       jcs extrabit
+    D7       bcs extrabit
 
-So the immediate value for the *abi* instruction comes after the *aaddm*
-instruction which is packed in the same word. When the *abi* instruction
-is being executed the *aaddm* has already been read into *IR* and *P* is
+So the immediate value for the *ldi* instruction comes after the *add*
+instruction which is packed in the same word. When the *ldi* instruction
+is being executed the *add* has already been read into *IR* and *P* is
 already pointing to the immediate value. After it executes *P* will be
-pointing to the *jcs* instruction but it would be loaded yet and *aaddm*
+pointing to the *bcs* instruction but it would be loaded yet and *add*
 will execute instead. Having both instructions in the same word be
 immediate causes no additional complications.
