@@ -42,7 +42,7 @@ Four of these operations are not very useful, but it would complicate the circui
 not to have them. *M* is data coming from the memory and addressed by *P*, making
 this a *ldi* (load immediate) instruction. While all other instructions take two
 clock cycles, *ldi* has an extra "skip" cycle since it is not possible to both
-store the incremented *P* and the destination at the same time.
+store the incremented *P* and the data from memory to the destination at the same time.
 
 The "B+C" and "(1-C)-B" operations are replaced by the *lda* (load) and *sta* (store)
 instructions, respectively:
@@ -51,18 +51,27 @@ instructions, respectively:
 |---------|-----|-----|-----|-----|
 | 00      | mov | not | add | ?   |
 | 01      | inc | neg | ?   | sub |
-| 10      | lda | sta | addc | subc |
+| 10      | lda | sta | adc | sbb |
 | 11      | ldi | and | or  | xor |
 
 It might seem odd to only have condiction branches and with such a limited range
 but *ldi p,210* can be used to jump to location 210. Macros can be used to define
-*jmp* to be the same this instructio to make programs look more traditional and easier
+*jmp* to be the same this instruction to make programs look more traditional and easier
 to understand.
+
+Another macro is for the *lea* (load effective address) instruction which is just
+*ldi* but with the argument converted into an offset from the start of the
+program. Otherwise GNU AS doesn't handle labels correctly.
 
 In RISC processors *nop* is also normally a macro and not an instruction that
 the processor actually implements. For the FCPU we could use *mov r0,r0* which
 is 0x00. This means that a region of memory which has been clear will be
 interpreted as a sequence of *nop* instructions.
+
+Note that though no instruction name has been defined for the "A+B+1" operation
+it is actually used internally for the branch instructions so that offset 0 does
+something useful instead of just jumping to the next instruction no matter what
+the flags are.
 
 ![ALU](alu.svg)
 
