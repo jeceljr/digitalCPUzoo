@@ -8,7 +8,7 @@ absStart:
     .equ p,  3
 
 	.macro format_branch op, addr
-	.byte (\op | (0x0F & (\addr-0f)))
+	.byte (\op | (0x0F & ((\addr-0f)-1)))
 0:
 	.endm
 

@@ -20,7 +20,7 @@ invert:
 	jmp loop
 
 done:
-	jmp done
+	jmp done /* result in r1 (b) */
 
 a:	.byte 12
 b:	.byte 18
