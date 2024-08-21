@@ -13,3 +13,6 @@ Project *fpga* implements a simple, but functional, Field Programmable Gate Arra
 
 *NCPU* is similar to the *MCPU* but has two accumulators and a nicer instruction set.
 It addresses 256 bytes of memory compared to just 64 for the *MCPU*.
+
+*drv16* is a 16 bit processor that is compatible at the assembly language level with
+the RV32E standard.
