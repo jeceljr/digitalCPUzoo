@@ -82,12 +82,10 @@ as tests for each different function.
 
 ![NCPU system](ncpu_terminal.svg)
 
-In *ncpu_terminal.svg* we have the datapath for the processor on the left,
+In *ncpu_terminal.svg* we have the datapath for the processor on the right,
 a 256 byte RAM and an interface to a text terminal in the top middle
 (writing to address 0xFF saves to memory as well as sending the character
-to the terminal) and some switches on the right where the control unit
-will be. Controlling the switches it is possible to manually execute
-instructions.
+to the terminal) and the control unit on the left.
 
 ## FCPU16
 
