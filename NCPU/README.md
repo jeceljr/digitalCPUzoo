@@ -2,7 +2,7 @@
 
 This simple 8 bit processor was inspired by the MCPU (hence the similar name),
 the Data General Nova (so the "N" in the name). It has three general purpose
-registers (*r0*, *r1* and *r2*), a program counter (*P*) and an instruction
+registers (*r0*, *r1* and *r2*), a program counter (*PC*) and an instruction
 register (*IR*). A two bit register in the ALU stores the carry (*C*) and
 zero (*Z*) flags and a two bit register in the control unit indicates the
 current cycle (*fetch*, *execute* and *skip*).
@@ -21,7 +21,7 @@ The names of the instructions are *bcc*, *bcs*, *bzc* and *bzs*. Macros can
 give alternative names for the last two instructions, like *bne* and *beq*.
 
 *d* indicates where the result of an option is stored (registers *r0*, *r1*,
-*r2* or the program counter *P*).
+*r2* or the program counter *pc*).
 
 *s* indicates where the second source (the first is the same as the destination)
 of the operation comes from. *P* is not a valid source since it would indicate
@@ -39,10 +39,10 @@ is added and *i* means the source is bitwise inverted. The possible operations a
 | logic | M        | A and B  | A or  B  | A xor B  | 
 
 Four of these operations are not very useful, but it would complicate the circuit
-not to have them. *M* is data coming from the memory and addressed by *P*, making
+not to have them. *M* is data coming from the memory and addressed by *pc*, making
 this a *ldi* (load immediate) instruction. While all other instructions take two
 clock cycles, *ldi* has an extra "skip" cycle since it is not possible to both
-store the incremented *P* and the data from memory to the destination at the same time.
+store the incremented *pc* and the data from memory to the destination at the same time.
 
 The "B+C" and "(1-C)-B" operations are replaced by the *lda* (load) and *sta* (store)
 instructions, respectively:
@@ -55,8 +55,10 @@ instructions, respectively:
 | 11      | ldi | and | or  | xor |
 
 It might seem odd to only have condiction branches and with such a limited range
-but *ldi p,210* can be used to jump to location 210. Macros can be used to define
-*jmp* to be the same this instruction to make programs look more traditional and easier
+but *ldi pc,210* can be used to jump to location 211 (because of the *skip* cycle
+the actual destination is one more than the value loaded. Macros can be used to define
+*jmp* to be the same instruction (and even compensate by subtracting one from the
+constant) to make programs look more traditional and easier
 to understand.
 
 Another macro is for the *lea* (load effective address) instruction which is just

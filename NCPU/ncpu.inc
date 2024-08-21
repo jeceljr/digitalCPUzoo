@@ -5,7 +5,7 @@ absStart:
     .equ r0, 0
     .equ r1, 1
     .equ r2, 2
-    .equ p,  3
+    .equ pc, 3
 
 	.macro format_branch op, addr
 	.byte (\op | (0x0F & ((\addr-0f)-1)))
@@ -102,7 +102,7 @@ absStart:
     .endm
     
     .macro jmp addr
-        lea p, \addr
+        ldi pc, ((\addr-absStart)-1)
     .endm
     
     .macro nop
