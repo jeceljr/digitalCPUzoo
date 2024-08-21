@@ -61,6 +61,13 @@ the actual destination is one more than the value loaded. Macros can be used to 
 constant) to make programs look more traditional and easier
 to understand.
 
+Older processors sometimes used the convention that the return address for a
+subroutine call was stored in the first word of the subroutine and the actual
+code started in the second word. This is very simple but does not allow recursion,
+which is why Fortran didn't have recursion in its first decades. A macro
+*jsr sub_addr* can implement this functionality and *ret sub_addr* will fetch the
+stored value.
+
 Another macro is for the *lea* (load effective address) instruction which is just
 *ldi* but with the argument converted into an offset from the start of the
 program. Otherwise GNU AS doesn't handle labels correctly.

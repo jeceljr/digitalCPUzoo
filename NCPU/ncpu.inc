@@ -104,6 +104,19 @@ absStart:
     .macro jmp addr
         ldi pc, ((\addr-absStart)-1)
     .endm
+
+    .macro jsr addr
+    	ldi r1, (0f-absStart)  /* return address */
+	ldi r2, (\addr-absStart)
+	sta r1, r2
+	inc pc, r2  /* skip stored return address */
+0:
+    .endm
+
+    .macro ret addr
+    	ldi r2, (\addr-absStart)
+	lda pc, r2
+    .endm
     
     .macro nop
         mov r0, r0
