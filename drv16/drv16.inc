@@ -58,19 +58,19 @@ absStart:
 .endm
 
 .macro  format_ib op, d, a, b
-        .if \b&0xFFF0
+	/* .if \b&0xFFF0 */
         format_lib \op, \d, \a, \b
-        .else
+        /* .else
         format_r \op, \d, \a, \b
-        .endif
+        .endifi */
 .endm
 
 .macro  format_id op, d, a, b
-        .if \d&0xFFF0
+        /* .if \d&0xFFF0 */
         format_lid \op, \d, \a, \b
-        .else
+        /* .else
         format_r \op, \d, \a, \b
-        .endif
+        .endif */
 .endm
 
 /***** hardware instructions *****/
@@ -156,7 +156,7 @@ absStart:
 .endm
 
 .macro  bne b, a, d
-        format_id 14, (\d-.+1), \a, \b
+        format_id 14, ((\d-.)+1), \a, \b
 .endm
 
 .macro  blt b, a, d
@@ -164,7 +164,7 @@ absStart:
 .endm
 
 .macro  bge b, a, d
-        format_id 15, (\d-.+1), \a, \b
+        format_id 15, ((\d-.)+1), \a, \b
 .endm
 
 /***** RISC-V instructions not implemented in hardware *****/
@@ -193,7 +193,7 @@ absStart:
         addi \d,zero,\a
 .endm
 .macro  la d, a
-        addi \d,zero,(\a-inicio_absoluto)
+        addi \d,zero,(\a-absStart)
 .endm
 .macro  mv d, a
         add \d, \a, zero
