@@ -81,13 +81,13 @@ but can also be implemented using macros.
 
 ![top level](system.svg)
 
-The project *system.dig* include the drv16 processor connected to an asynchronous RAM
+The project *system.dig* includes the drv16 processor connected to an asynchronous RAM
 with 32K words of 16 bits each. Address 0xFFFE (word address 0x7FFF) is also mapped
 to the terminal.
 
 ![drv16](drv16.svg)
 
-The processor currently implements a trivial test: it is always accessing the terminal
+The processor, *drv16.dig*, currently implements a trivial test: it is always accessing the terminal
 address and the reset input (a button on the top level) is used to write the character
 '5' to the terminal. The goal was mainly to check that the memory and terminal work,
 including that *gcd.hex* is correctly loaded into the memory before the simulation with
