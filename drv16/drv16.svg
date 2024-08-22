@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Digital by H.Neemann -->
+<!-- created: Wed Aug 21 22:35:11 BRT 2024 -->
+
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   width="160.95mm"
+   height="29.1mm"
+   viewBox="172 143 1073 194">
+<g stroke-linecap="square">
+<path d="M 1080,160 L 1140,160" stroke="#0000b2" stroke-width="4.0" fill="none"/>
+<path d="M 1080,280 L 1140,280" stroke="#0000b2" stroke-width="4.0" fill="none"/>
+<path d="M 280,220 L 1140,220" stroke="#0000b2" stroke-width="4.0" fill="none"/>
+<g>
+</g>
+<g>
+<circle cx="1156.0" cy="160.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1156.0" cy="160.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1185.0" y="169.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">addr</tspan></text>
+<circle cx="1140.0" cy="160.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<circle cx="1156.0" cy="220.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1156.0" cy="220.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1185.0" y="229.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">wr</tspan></text>
+<circle cx="1140.0" cy="220.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<circle cx="1156.0" cy="280.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1156.0" cy="280.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1185.0" y="289.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">dOut</tspan></text>
+<circle cx="1140.0" cy="280.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<path d="M 249,145 L 279,145 L 279,175 L 249,175 Z" stroke="#000000" stroke-width="4.0" fill="none"/>
+<text text-anchor="end" x="235.0" y="169.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">clock</tspan></text>
+<path d="M 255,165 L 260,165 L 260,155 L 265,155 L 265,165 L 270,165 L 270,155 L 275,155" stroke="#000000" stroke-width="2.0" fill="none"/>
+<circle cx="280.0" cy="160.0" r="2.0" stroke="#b20000" stroke-width="4.0" fill="#b20000" />
+</g>
+<g>
+<path d="M 249,205 L 279,205 L 279,235 L 249,235 Z" stroke="#000000" stroke-width="4.0" fill="none"/>
+<circle cx="264.0" cy="220.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="end" x="235.0" y="229.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">reset</tspan></text>
+<circle cx="280.0" cy="220.0" r="2.0" stroke="#b20000" stroke-width="4.0" fill="#b20000" />
+</g>
+<g>
+<path d="M 249,305 L 279,305 L 279,335 L 249,335 Z" stroke="#000000" stroke-width="4.0" fill="none"/>
+<circle cx="264.0" cy="320.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="end" x="235.0" y="329.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">dIn</tspan></text>
+<circle cx="280.0" cy="320.0" r="2.0" stroke="#b20000" stroke-width="4.0" fill="#b20000" />
+</g>
+<g>
+<text text-anchor="end" x="1077.0" y="169.0" fill="#000000" style="font-size:24px">7FFF</text>
+<circle cx="1080.0" cy="160.0" r="2.0" stroke="#b20000" stroke-width="4.0" fill="#b20000" />
+</g>
+<g>
+<text text-anchor="end" x="1077.0" y="289.0" fill="#000000" style="font-size:24px">0x35</text>
+<circle cx="1080.0" cy="280.0" r="2.0" stroke="#b20000" stroke-width="4.0" fill="#b20000" />
+</g>
+</g>
+</svg>

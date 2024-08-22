@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>2</version>
+  <attributes>
+    <entry>
+      <string>romContent</string>
+      <romList>
+        <roms/>
+      </romList>
+    </entry>
+    <entry>
+      <string>preloadProgram</string>
+      <boolean>true</boolean>
+    </entry>
+    <entry>
+      <string>preloadProgramFile</string>
+      <file>/home/jecel/mario/digitalCPUzoo/drv16/gcd.hex</file>
+    </entry>
+  </attributes>
+  <visualElements>
+    <visualElement>
+      <elementName>RAMDualPort</elementName>
+      <elementAttributes>
+        <entry>
+          <string>AddrBits</string>
+          <int>15</int>
+        </entry>
+        <entry>
+          <string>isProgramMemory</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="1260" y="340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Terminal</elementName>
+      <elementAttributes/>
+      <pos x="1400" y="460"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes/>
+      <pos x="1240" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="1380" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Comparator</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>15</int>
+        </entry>
+      </elementAttributes>
+      <pos x="1240" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>32767</long>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>15</int>
+        </entry>
+      </elementAttributes>
+      <pos x="1200" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>clk</string>
+        </entry>
+        <entry>
+          <string>runRealTime</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="880" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>drv16.dig</elementName>
+      <elementAttributes/>
+      <pos x="960" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Button</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>reset</string>
+        </entry>
+      </elementAttributes>
+      <pos x="880" y="380"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="1180" y="480"/>
+      <p2 x="1400" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="1240" y="320"/>
+      <p2 x="1380" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="1120" y="320"/>
+      <p2 x="1220" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="880" y="320"/>
+      <p2 x="900" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="900" y="320"/>
+      <p2 x="960" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="1240" y="420"/>
+      <p2 x="1260" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="1120" y="360"/>
+      <p2 x="1200" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="940" y="360"/>
+      <p2 x="960" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="1200" y="360"/>
+      <p2 x="1260" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="1460" y="300"/>
+      <p2 x="1480" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="1200" y="460"/>
+      <p2 x="1400" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="1380" y="400"/>
+      <p2 x="1480" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="900" y="400"/>
+      <p2 x="1180" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="1180" y="400"/>
+      <p2 x="1260" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="1220" y="240"/>
+      <p2 x="1240" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="1300" y="240"/>
+      <p2 x="1320" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="1220" y="340"/>
+      <p2 x="1260" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="1120" y="340"/>
+      <p2 x="1160" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="920" y="340"/>
+      <p2 x="960" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="1380" y="500"/>
+      <p2 x="1400" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="940" y="500"/>
+      <p2 x="1340" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="1320" y="280"/>
+      <p2 x="1380" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="1160" y="380"/>
+      <p2 x="1240" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="1320" y="380"/>
+      <p2 x="1340" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="880" y="380"/>
+      <p2 x="920" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="1240" y="380"/>
+      <p2 x="1260" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="1200" y="220"/>
+      <p2 x="1240" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="1200" y="360"/>
+      <p2 x="1200" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="1380" y="400"/>
+      <p2 x="1380" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="1220" y="240"/>
+      <p2 x="1220" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="1220" y="320"/>
+      <p2 x="1220" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="900" y="320"/>
+      <p2 x="900" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="1240" y="320"/>
+      <p2 x="1240" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="1480" y="300"/>
+      <p2 x="1480" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="1320" y="240"/>
+      <p2 x="1320" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="1160" y="340"/>
+      <p2 x="1160" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="920" y="340"/>
+      <p2 x="920" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="1180" y="400"/>
+      <p2 x="1180" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="1340" y="380"/>
+      <p2 x="1340" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="940" y="360"/>
+      <p2 x="940" y="500"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

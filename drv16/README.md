@@ -48,8 +48,8 @@ on whether the previous instruction is par of a pair.
 | 7 | SLTI | @rD := @rS1 < (@IM \| rS2) |
 | 8 | JALR | @rD := @PC + 2. @IR := mem[@PC := @rS1 + (@IM \| rS2)] |
 | 9 | LH | @rD := mem[@rS1 + (@IM \| rS2)] |
-| A | LB | @rD := ExtendeSinal(mem[@rS1 + (@IM \| rS2)]) |
-| B | LBU | @rD := ExtendeZeros(mem[@rS1 + (@IM \| rS2)]) |
+| A | LB | @rD := SignExtend(mem[@rS1 + (@IM \| rS2)]) |
+| B | LBU | @rD := ZeroExtend(mem[@rS1 + (@IM \| rS2)]) |
 | C | SH | mem[@rS1 + rD] := @rS2 |
 | D | SB | mem[@rS1 + rD] := 8Bits(@rS2) |
 | E | BEQ | @RI := mem[@PC := @PC + (@rS1 = @rS2?rD:2)] |
@@ -76,3 +76,19 @@ implemented using the sequence
 but can also be implemented using macros.
 
 **ECALL** in **EBREAK** are the two remaining RV32E instructions missing from drv16.
+
+## Implementation
+
+![top level](system.svg)
+
+The project *system.dig* include the drv16 processor connected to an asynchronous RAM
+with 32K words of 16 bits each. Address 0xFFFE (word address 0x7FFF) is also mapped
+to the terminal.
+
+![drv16](drv16.svg)
+
+The processor currently implements a trivial test: it is always accessing the terminal
+address and the reset input (a button on the top level) is used to write the character
+'5' to the terminal. The goal was mainly to check that the memory and terminal work,
+including that *gcd.hex* is correctly loaded into the memory before the simulation with
+no endian problems.
