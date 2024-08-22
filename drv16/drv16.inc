@@ -75,96 +75,104 @@ absStart:
 
 /***** hardware instructions *****/
 
+.macro	srs d, a, b
+	format_r 0xc, \d, \a, \b
+.endm
+
+.macro	srsi d, a, b
+	format_lib 0xc, \d, \a, \b
+.endm
+
 .macro  and d, a, b
-        format_r 1, \d, \a, \b
+        format_r 0xd, \d, \a, \b
 .endm
 
 .macro  andi d, a, b
-        format_lib 1, \d, \a, \b
+        format_lib 0xd, \d, \a, \b
 .endm
 
 .macro  or d, a, b
-        format_r 2, \d, \a, \b
+        format_r 0xe, \d, \a, \b
 .endm
 
 .macro  ori d, a, b
-        format_lib 2, \d, \a, \b
+        format_lib 0xe, \d, \a, \b
 .endm
 
 .macro  xor d, a, b
-        format_r 3, \d, \a, \b
+        format_r 0xf, \d, \a, \b
 .endm
 
 .macro  xori d, a, b
-        format_lib 3, \d, \a, \b
+        format_lib 0xf, \d, \a, \b
 .endm
 
 .macro jal  d, b
-        format_ib 4, \d, 0, (\b-.)
-.endm
-
-.macro  add d, a, b
-        format_r 5, \d, \a, \b
-.endm
-
-.macro  addi d, a, b
-        format_lib 5, \d, \a, \b
-.endm
-
-.macro  sub d, a, b
-        format_r 6, \d, \a, \b
-.endm
-
-.macro  subi d, a, b
-        format_lib 6, \d, \a, \b
-.endm
-
-.macro  slt d, a, b
-        format_r 7, \d, \a, \b
-.endm
-
-.macro  slti d, a, b
-        format_lib 7, \d, \a, \b
+        format_ib 1, \d, 0, (\b-.)
 .endm
 
 .macro  jalr d, a, b
-        format_ib 8, \d, \a, \b
+        format_ib 1, \d, \a, (\b+1)
+.endm
+
+.macro  add d, a, b
+        format_r 9, \d, \a, \b
+.endm
+
+.macro  addi d, a, b
+        format_lib 9, \d, \a, \b
+.endm
+
+.macro  sub d, a, b
+        format_r 0xa, \d, \a, \b
+.endm
+
+.macro  subi d, a, b
+        format_lib 0xa, \d, \a, \b
+.endm
+
+.macro  slt d, a, b
+        format_r 0xb, \d, \a, \b
+.endm
+
+.macro  slti d, a, b
+        format_lib 0xb, \d, \a, \b
 .endm
 
 .macro  lh d, a, b
-        format_ib 9, \d, \a, \b
+        format_ib 5, \d, \a, \b
 .endm
 
 .macro  lb d, a, b
-        format_ib 10, \d, \a, \b
+        format_ib 4, \d, \a, \b
 .endm
 
 .macro  lbu d, a, b
-        format_ib 11, \d, \a, \b
+        format_ib 8, \d, \a, \b
 .endm
 
 .macro  sh b, a, d
-        format_id 12, \d, \a, \b
+        format_id 7, \d, \a, \b
 .endm
 
 .macro  sb b, a, d
-        format_id 13, \d, \a, \b
+        format_id 6, \d, \a, \b
 .endm
 
 .macro  beq b, a, d
-        format_id 14, (\d-.), \a, \b
+        format_id 2, (\d-.), \a, \b
 .endm
 
 .macro  bne b, a, d
-        format_id 14, ((\d-.)+1), \a, \b
+        format_id 2, ((\d-.)+1), \a, \b
 .endm
 
 .macro  blt b, a, d
-        format_id 15, (\d-.), \a, \b
+        format_id 3, (\d-.), \a, \b
 .endm
 
 .macro  bge b, a, d
-        format_id 15, ((\d-.)+1), \a, \b
+        format_id 3, ((\d-.)+1), \a, \b
 .endm
 
 /***** RISC-V instructions not implemented in hardware *****/

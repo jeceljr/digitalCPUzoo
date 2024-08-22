@@ -33,29 +33,31 @@ on whether the previous instruction is par of a pair.
 | operation | mnemonic | pseudo code |
 |----------|----------|---------------|
 | 0 |  | @IM := @IR, @IR := mem[@PC := @PC + 2] |
-| 1 | AND | @rD := @rS1 & @rS2 |
-| 1 | ANDI | @rD := @rS1 & (@IM \| rS2) |
-| 2 | OR | @rD := @rS1 \| @rS2 |
-| 2 | ORI | @rD := @rS1 \| (@IM \| rS2) |
-| 3 | XOR | @rD := @rS1 ^ @rS2 |
-| 3 | XORI | @rD := @rS1 ^ (@IM \| rS2) |
-| 4 | JAL | @rD := @PC + 2. @IR := mem[@PC := @PC + (@IM \| rS2)] |
-| 5 | ADD | @rD := @rS1 + @rS2 |
-| 5 | ADDI | @rD := @rS1 + (@IM \| rS2) |
-| 6 | SUB | @rD := @rS1 - @rS2 |
-| 6 | SUBI | @rD := @rS1 - (@IM \| rS2) |
-| 7 | SLT | @rD := @rS1 < @rS2 |
-| 7 | SLTI | @rD := @rS1 < (@IM \| rS2) |
-| 8 | JALR | @rD := @PC + 2. @IR := mem[@PC := @rS1 + (@IM \| rS2)] |
-| 9 | LH | @rD := mem[@rS1 + (@IM \| rS2)] |
-| A | LB | @rD := SignExtend(mem[@rS1 + (@IM \| rS2)]) |
-| B | LBU | @rD := ZeroExtend(mem[@rS1 + (@IM \| rS2)]) |
-| C | SH | mem[@rS1 + rD] := @rS2 |
-| D | SB | mem[@rS1 + rD] := 8Bits(@rS2) |
-| E | BEQ | @RI := mem[@PC := @PC + (@rS1 = @rS2?rD:2)] |
-| E | BNE | @RI := mem[@PC := @PC + (@rS1 ~= @rS2?rD:2)] |
-| F | BLT | @RI := mem[@PC := @PC + (@rS1 \< @rS2?rD:2)] |
-| F | BGE | @RI := mem[@PC := @PC + (@rS1 \>= @rS2?rD:2)] |
+| 1 | JAL | @rD := @PC + 2. @IR := mem[@PC := @PC + (@IM \| rS2)] |
+| 1 | JALR | @rD := @PC + 2. @IR := mem[@PC := @rS1 + (@IM \| rS2)] |
+| 2 | BEQ | @RI := mem[@PC := @PC + (@rS1 = @rS2?rD:2)] |
+| 2 | BNE | @RI := mem[@PC := @PC + (@rS1 ~= @rS2?rD:2)] |
+| 3 | BLT | @RI := mem[@PC := @PC + (@rS1 \< @rS2?rD:2)] |
+| 3 | BGE | @RI := mem[@PC := @PC + (@rS1 \>= @rS2?rD:2)] |
+| 4 | LB | @rD := SignExtend(mem[@rS1 + (@IM \| rS2)]) |
+| 5 | LH | @rD := mem[@rS1 + (@IM \| rS2)] |
+| 6 | SB | mem[@rS1 + rD] := 8Bits(@rS2) |
+| 7 | SH | mem[@rS1 + rD] := @rS2 |
+| 8 | LBU | @rD := ZeroExtend(mem[@rS1 + (@IM \| rS2)]) |
+| 9 | ADD | @rD := @rS1 + @rS2 |
+| 9 | ADDI | @rD := @rS1 + (@IM \| rS2) |
+| A | SUB | @rD := @rS1 - @rS2 |
+| A | SUBI | @rD := @rS1 - (@IM \| rS2) |
+| B | SLT | @rD := @rS1 < @rS2 |
+| B | SLTI | @rD := @rS1 < (@IM \| rS2) |
+| C | SRS | @rD := (@rS1>>1) | (@rS2 & 0x8000) |
+| C | SRSI | @rD := (@rS1>>1) | (@IM & 0x8000) |
+| D | AND | @rD := @rS1 & @rS2 |
+| D | ANDI | @rD := @rS1 & (@IM \| rS2) |
+| E | OR | @rD := @rS1 \| @rS2 |
+| E | ORI | @rD := @rS1 \| (@IM \| rS2) |
+| F | XOR | @rD := @rS1 ^ @rS2 |
+| F | XORI | @rD := @rS1 ^ (@IM \| rS2) |
 
 Most instructions have two variations and the presence or not of the extension
 selects between them. In the case of **BEQ** and **BNE** it is the least
@@ -68,14 +70,16 @@ constants for **ADDI**). Missing are unsigned comparisons (**SLTIU**, **SLTU**,
 12 bits are generated differently.
 
 The hardware to implement shifts can be very large compared to the rest of the
-processor, so the shift operations
- (**SLLI**, **SRLI**, **SRAI**,
+processor, so the shift operations (**SLLI**, **SRLI**, **SRAI**,
 **SLL**, **SRL**, **SRA**) were also omitted. But the `SLLI x3,x4,3` can be
-implemented using the sequence 
-`ADD x3,x4,x4. ADD x3,x3,x3. ADD x3,x3,x3`.  Right shifts are a lot more complicated,
-but can also be implemented using macros.
+implemented using the sequence `ADD x3,x4,x4. ADD x3,x3,x3. ADD x3,x3,x3`.
+Right shifts are implemented using the **SRS** (shift right step) instruction
+that is not a RV32E one. So `SRAI x3,x4,3` can be implemented as the sequence
+`SRS x3,x4,x4. SRS x3,x3,x3. SRS x3,x3,x3` while `SRLI x3,x4,3` can become
+`SRS x3,x4,zero. SRS x3,x3,zero. SRS x3,x3,zero`. The **SRSI** instruction is
+present to simplify the hardware, but is not as useful.
 
-**ECALL** in **EBREAK** are the two remaining RV32E instructions missing from drv16.
+**ECALL** and **EBREAK** are the two remaining RV32E instructions missing from drv16.
 
 ## Implementation
 
