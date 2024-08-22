@@ -35,10 +35,10 @@ on whether the previous instruction is par of a pair.
 | 0 |  | @IM := @IR, @IR := mem[@PC := @PC + 2] |
 | 1 | JAL | @rD := @PC + 2. @IR := mem[@PC := @PC + (@IM \| rS2)] |
 | 1 | JALR | @rD := @PC + 2. @IR := mem[@PC := @rS1 + (@IM \| rS2)] |
-| 2 | BEQ | @RI := mem[@PC := @PC + (@rS1 = @rS2?rD:2)] |
-| 2 | BNE | @RI := mem[@PC := @PC + (@rS1 ~= @rS2?rD:2)] |
-| 3 | BLT | @RI := mem[@PC := @PC + (@rS1 \< @rS2?rD:2)] |
-| 3 | BGE | @RI := mem[@PC := @PC + (@rS1 \>= @rS2?rD:2)] |
+| 2 | BEQ | cond := @rS1 = @rS2. @RI := mem[@PC := @PC + (cond?rD:2)] |
+| 2 | BNE | cond := @rS1 ~= @rS2. @RI := mem[@PC := @PC + (cond?rD:2)] |
+| 3 | BLT | cond := @rS1 < @rS2. @RI := mem[@PC := @PC + (cond?rD:2)] |
+| 3 | BGE | cond := @rS1 \>= @rS2. @RI := mem[@PC := @PC + (cond?rD:2)] |
 | 4 | LB | @rD := SignExtend(mem[@rS1 + (@IM \| rS2)]) |
 | 5 | LH | @rD := mem[@rS1 + (@IM \| rS2)] |
 | 6 | SB | mem[@rS1 + rD] := 8Bits(@rS2) |
@@ -50,8 +50,8 @@ on whether the previous instruction is par of a pair.
 | A | SUBI | @rD := @rS1 - (@IM \| rS2) |
 | B | SLT | @rD := @rS1 < @rS2 |
 | B | SLTI | @rD := @rS1 < (@IM \| rS2) |
-| C | SRS | @rD := (@rS1>>1) | (@rS2 & 0x8000) |
-| C | SRSI | @rD := (@rS1>>1) | (@IM & 0x8000) |
+| C | SRS | @rD := (@rS1>>1) \| (@rS2 & 0x8000) |
+| C | SRSI | @rD := (@rS1>>1) \| (@IM & 0x8000) |
 | D | AND | @rD := @rS1 & @rS2 |
 | D | ANDI | @rD := @rS1 & (@IM \| rS2) |
 | E | OR | @rD := @rS1 \| @rS2 |
@@ -98,7 +98,25 @@ also increment the program counter.
 
 ![r0 handling](r0.svg)
 
-This simple circuit helps handle register zero.
+This simple circuit helps handle register zero. It allows any of the three instruction
+fields to be overridden by the PC and indicates if special handling (replace with 0 for
+the sources and don't write for the destination) is needed.
+
+Normally writing bytes to wider memory is implemented by having a per byte chip enable
+signal. For simulations in Digital it is easier to have a single, wide memory as the tool
+can then easily load an Intel Hex file before simulation starts. With memories that have
+separate Data In and Data Out pins, an option is to just write back the bytes that are
+not supposed to be changed.
+
+| word | A0 | rD[15:8] | rD[7:0] | dOut[15:8] | dOut[7:0] |
+|------|----|----------|---------|------------|-----------|
+| 0    | 0  | 8x(sign&rD[7] | dIn[7:0] | dIn[15:8] | rS2[7:0] |
+| 0    | 1  | 8x(sign&rD[7] | dIn[15:8] | rS2[7:0] | dIn[7:0] |
+| 1    | x  | dIn[15:8] | dIn[7:0] | rS2[15:8] | rS2[7:0] |
+
+The table indicates how the various 8 bit multiplexers are controlled by the signals *word* (IR[0]),
+*A0* and *sign* (~IR[3]). Only the multiplexer for dOut[15:8] needs more than two inputs and is best
+implemented as a sequence of two selectors of two inputs each.
 
 ![drv16](drv16.svg)
 
