@@ -115,7 +115,7 @@ not supposed to be changed.
 | 1    | x  | dIn[15:8] | dIn[7:0] | rS2[15:8] | rS2[7:0] |
 
 The table indicates how the various 8 bit multiplexers are controlled by the signals *word* (IR[0]),
-*A0* and *sign* (~IR[3]). Only the multiplexer for dOut[15:8] needs more than two inputs and is best
+*A0* and *sign* (/IR[3]). Only the multiplexer for dOut[15:8] needs more than two inputs and is best
 implemented as a sequence of two selectors of two inputs each.
 
 ![drv16](drv16.svg)
