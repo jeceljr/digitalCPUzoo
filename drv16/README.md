@@ -62,7 +62,8 @@ on whether the previous instruction is par of a pair.
 Most instructions have two variations and the presence or not of the extension
 selects between them. In the case of **BEQ** and **BNE** it is the least
 significant bit of **rD** (extended or not) that selects between them as the
-bit would otherwise be wasted since we can't branch or odd addresses.
+bit would otherwise be wasted since we can't branch or odd addresses. The same
+trick is used to select between **JAL** and **JALR**.
 
 drv16 has a **SUBI** instruction that RV32E lacks (since it can have negative
 constants for **ADDI**). Missing are unsigned comparisons (**SLTIU**, **SLTU**,
@@ -88,6 +89,16 @@ present to simplify the hardware, but is not as useful.
 The project *system.dig* includes the drv16 processor connected to an asynchronous RAM
 with 32K words of 16 bits each. Address 0xFFFE (word address 0x7FFF) is also mapped
 to the terminal.
+
+Two complications that RISC-V shares with drv16 relative to some simpler processors are
+the byte access to memory and the special treatment of register zero. This is further
+complicated in drv16 by storing the program counter in the register bank's address zero
+since that would have been otherwise unused. This also allows the adder in the ALU to
+also increment the program counter.
+
+![r0 handling](r0.svg)
+
+This simple circuit helps handle register zero.
 
 ![drv16](drv16.svg)
 

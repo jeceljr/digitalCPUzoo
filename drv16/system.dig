@@ -84,19 +84,24 @@
       <elementName>Clock</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>clk</string>
-        </entry>
-        <entry>
           <string>runRealTime</string>
           <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>clk</string>
         </entry>
       </elementAttributes>
       <pos x="880" y="320"/>
     </visualElement>
     <visualElement>
       <elementName>drv16.dig</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>cpu</string>
+        </entry>
+      </elementAttributes>
       <pos x="960" y="320"/>
     </visualElement>
     <visualElement>
