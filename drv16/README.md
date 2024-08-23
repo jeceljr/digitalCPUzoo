@@ -4,6 +4,32 @@ The drv16 processor is based on the RISC-V standard but with only 16 registers
 of 16 bits each. It implements fewer instructions than RV32E, but the ones it
 does implement use the same mneomonic and have the same functionality.
 
+In many cases drv16 will be used for helper functions in a project, like
+abstracting the interface to a keyboard or SD card. Any logic taken up by drv16
+is logic not available to the main project. Just being 16 instead of 32 bits
+should make it take half as much area as a RV32E processor and even less than
+that relative to a RV32I. Such applications need very little memory so the
+ability to address more than 64KB would be wasted.
+
+An additional motivation for reducing state is to make it easier for people
+to handle it. A 16 bit number like 0xC7F0 is more digestible than something
+like 0xC7F0AA35, which is important in an educational context.
+
+## Performance
+
+The priority is having a very small implementation, but performance is not too
+bad for a multi-cycle processor. All instructions execute in two clock cycles
+(*fetch* and *execute*) with an immediate extension word adding another cycle
+before the *fetch* for a total of three clock cycle(multiple extensions can be
+present resulting in more than three cycles, but only the last one is actually
+used. Memory regions with all zeros will execute a sequence of extensions at
+one clock per word).
+
+The clock frequency is limited by the critical path which makes this processor
+slower than a pipelined one, `clock cycle > IR delay + control unit delay +
+register bank delay + alu input select delay + alu delay + address mux delay +
+memory delay`.
+
 ## Instructions
 
 The binary encoding of the instructions is 16 bits but is not compatible with the
@@ -92,6 +118,8 @@ The project *system.dig* includes the drv16 processor connected to an asynchrono
 with 32K words of 16 bits each. Address 0xFFFE (word address 0x7FFF) is also mapped
 to the terminal.
 
+![drv16](drv16.svg)
+
 Two complications that RISC-V shares with drv16 relative to some simpler processors are
 the byte access to memory and the special treatment of register zero. This is further
 complicated in drv16 by storing the program counter in the register bank's address zero
@@ -122,10 +150,4 @@ The table indicates how the various 8 bit multiplexers are controlled by the sig
 *A0* and *sign* (/IR[3]). Only the multiplexer for dOut[15:8] needs more than two inputs and is best
 implemented as a sequence of two selectors of two inputs each.
 
-![drv16](drv16.svg)
 
-The processor, *drv16.dig*, currently implements a trivial test: it is always accessing the terminal
-address and the reset input (a button on the top level) is used to write the character
-'5' to the terminal. The goal was mainly to check that the memory and terminal work,
-including that *gcd.hex* is correctly loaded into the memory before the simulation with
-no endian problems.
