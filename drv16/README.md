@@ -4,6 +4,8 @@ The drv16 processor is based on the RISC-V standard but with only 16 registers
 of 16 bits each. It implements fewer instructions than RV32E, but the ones it
 does implement use the same mneomonic and have the same functionality.
 
+## Instructions
+
 The binary encoding of the instructions is 16 bits but is not compatible with the
 RISC-V C extension. The most significant difference is the instruction which adds
 12 bits to the 4 bit immediate value of the following instruction (it is treated
@@ -32,11 +34,11 @@ on whether the previous instruction is par of a pair.
 
 | operation | mnemonic | pseudo code |
 |----------|----------|---------------|
-| 0 |  | @IM := @IR, @IR := mem[@PC := @PC + 2] |
-| 1 | JAL | @rD := @PC + 2. @IR := mem[@PC := @PC + (@IM \| rS2)] |
-| 1 | JALR | @rD := @PC + 2. @IR := mem[@PC := @rS1 + (@IM \| rS2)] |
-| 2 | BEQ | cond := @rS1 = @rS2. @RI := mem[@PC := @PC + (cond?rD:2)] |
-| 2 | BNE | cond := @rS1 ~= @rS2. @RI := mem[@PC := @PC + (cond?rD:2)] |
+| 0 |  | @IM := @IR, @IR := mem[@PC], @PC := @PC + 2 |
+| 1 | JAL | @rD := @PC + 2. @IR := mem[@PC], @PC := @PC + (@IM \| rS2) |
+| 1 | JALR | @rD := @PC + 2. @IR := mem[@PC], @PC := @rS1 + (@IM \| rS2) |
+| 2 | BEQ | cond := @rS1 = @rS2. @RI := mem[@PC], @PC := @PC + (cond?rD:2) |
+| 2 | BNE | cond := @rS1 ~= @rS2. @RI := mem[@PC], @PC := @PC + (cond?rD:2) |
 | 3 | BLT | cond := @rS1 < @rS2. @RI := mem[@PC := @PC + (cond?rD:2)] |
 | 3 | BGE | cond := @rS1 \>= @rS2. @RI := mem[@PC := @PC + (cond?rD:2)] |
 | 4 | LB | @rD := SignExtend(mem[@rS1 + (@IM \| rS2)]) |
