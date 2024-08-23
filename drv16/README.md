@@ -104,6 +104,8 @@ This simple circuit helps handle register zero. It allows any of the three instr
 fields to be overridden by the PC and indicates if special handling (replace with 0 for
 the sources and don't write for the destination) is needed.
 
+![word to byte adaptation](bytes.svg)
+
 Normally writing bytes to wider memory is implemented by having a per byte chip enable
 signal. For simulations in Digital it is easier to have a single, wide memory as the tool
 can then easily load an Intel Hex file before simulation starts. With memories that have
