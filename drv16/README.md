@@ -177,3 +177,7 @@ fields to be overridden by the PC and indicates if special handling (replace wit
 the sources and don't write for the destination) is needed.
 
 ![control unit](controlUnit.svg)
+
+*IR* saves the instruction read from memory during the fetch cycle. *IM* saves the previous value of
+the top 12 bits for *IM* for prefix instructions or is cleared to 0 at the end of all other
+instructions.

@@ -163,7 +163,12 @@
     </visualElement>
     <visualElement>
       <elementName>alu.dig</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ALU</string>
+        </entry>
+      </elementAttributes>
       <pos x="1000" y="-180"/>
     </visualElement>
     <visualElement>

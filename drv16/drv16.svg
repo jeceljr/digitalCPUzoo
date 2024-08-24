@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Digital by H.Neemann -->
-<!-- created: Fri Aug 23 23:13:44 BRT 2024 -->
+<!-- created: Fri Aug 23 23:17:02 BRT 2024 -->
 
 <svg
    xmlns:svg="http://www.w3.org/2000/svg"
@@ -164,6 +164,7 @@
 <text text-anchor="end" x="1096.0" y="-114.0" fill="#808080" style="font-size:18px">R</text>
 <text text-anchor="end" x="1096.0" y="-94.0" fill="#808080" style="font-size:18px">NE</text>
 <text text-anchor="end" x="1096.0" y="-74.0" fill="#808080" style="font-size:18px">GE</text>
+<text text-anchor="middle" x="1054.0" y="-217.0" fill="#000000" style="font-size:24px">ALU</text>
 <circle cx="1100.0" cy="-120.0" r="2.0" stroke="#b20000" stroke-width="4.0" fill="#b20000" />
 <circle cx="1100.0" cy="-100.0" r="2.0" stroke="#b20000" stroke-width="4.0" fill="#b20000" />
 <circle cx="1100.0" cy="-80.0" r="2.0" stroke="#b20000" stroke-width="4.0" fill="#b20000" />
