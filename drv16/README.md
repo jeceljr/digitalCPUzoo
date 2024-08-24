@@ -126,6 +126,8 @@ complicated in drv16 by storing the program counter in the register bank's addre
 since that would have been otherwise unused. This also allows the adder in the ALU to
 also increment the program counter.
 
+### Datapath
+
 ![ALU](alu.svg)
 
 Looking at all instructions, we need to be able to add and substract a pair of 16 bit
@@ -143,12 +145,6 @@ is possible to have an immediate value as the second operand. The bottom bits of
 immediate can come from either field *rS2* or *rD* of the instruction (following the
 RISC-V philosophy of not using field *rD* for a source in store or branch instructions).
 The bottom bit of the immediate can be forced to 0 while its actual value is reported.
-
-![r0 handling](r0.svg)
-
-This simple circuit helps handle register zero. It allows any of the three instruction
-fields to be overridden by the PC and indicates if special handling (replace with 0 for
-the sources and don't write for the destination) is needed.
 
 ![word to byte adaptation](bytes.svg)
 
@@ -168,4 +164,14 @@ The table indicates how the various 8 bit multiplexers are controlled by the sig
 *A0* and *sign* (/IR[3]). Only the multiplexer for dOut[15:8] needs more than two inputs and is best
 implemented as a sequence of two selectors of two inputs each.
 
+### Control Unit
 
+The control unit uses the following inputs to do its job: *clock*, *reset*, *instruction*, *alt*,
+*NE* and *GE*. It generates: *wr*, *rd*, *sign*, *word*, *sub*, *logic*, *logSelect*, *topImm*, *even*,
+*const2*, *selImm*, *Azero*, *we*, *Rw*, *Ra*, *Rb*, *selRd* and *selAddr*.
+
+![r0 handling](r0.svg)
+
+This simple circuit helps handle register zero. It allows any of the three instruction
+fields to be overridden by the PC and indicates if special handling (replace with 0 for
+the sources and don't write for the destination) is needed.
