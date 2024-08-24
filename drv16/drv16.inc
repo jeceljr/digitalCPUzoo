@@ -108,7 +108,7 @@ absStart:
 .endm
 
 .macro jal  d, b
-        format_ib 1, \d, 0, (\b-.)
+        format_ib 1, \d, 0, ((\b-.)+2)
 .endm
 
 .macro  jalr d, a, b
@@ -160,19 +160,19 @@ absStart:
 .endm
 
 .macro  beq b, a, d
-        format_id 2, (\d-.), \a, \b
+        format_id 2, ((\d-.)+2), \a, \b
 .endm
 
 .macro  bne b, a, d
-        format_id 2, ((\d-.)+1), \a, \b
+        format_id 2, ((\d-.)+3), \a, \b
 .endm
 
 .macro  blt b, a, d
-        format_id 3, (\d-.), \a, \b
+        format_id 3, ((\d-.)+2), \a, \b
 .endm
 
 .macro  bge b, a, d
-        format_id 3, ((\d-.)+1), \a, \b
+        format_id 3, ((\d-.)+3), \a, \b
 .endm
 
 /***** RISC-V instructions not implemented in hardware *****/

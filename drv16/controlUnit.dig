@@ -3,6 +3,10 @@
   <version>2</version>
   <attributes>
     <entry>
+      <string>Description</string>
+      <string>generates control signals for datapath</string>
+    </entry>
+    <entry>
       <string>Label</string>
       <string>controlUnit</string>
     </entry>
@@ -11,10 +15,6 @@
       <romList>
         <roms/>
       </romList>
-    </entry>
-    <entry>
-      <string>Description</string>
-      <string>generates control signals for datapath</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -26,12 +26,12 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>clock</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>controls internal registers</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>clock</string>
         </entry>
       </elementAttributes>
       <pos x="260" y="340"/>
@@ -40,12 +40,12 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>reset</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>when high forces the PC to 0x0000</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>reset</string>
         </entry>
       </elementAttributes>
       <pos x="260" y="400"/>
@@ -54,16 +54,16 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>data from memory</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>dIn</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>16</int>
-        </entry>
-        <entry>
-          <string>Description</string>
-          <string>data from memory</string>
         </entry>
       </elementAttributes>
       <pos x="260" y="500"/>
@@ -72,12 +72,12 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>alt</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>immediate value indicates alternative instruction in lowest bit</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>alt</string>
         </entry>
       </elementAttributes>
       <pos x="260" y="600"/>
@@ -86,12 +86,12 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>NE</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>A ~= B</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>NE</string>
         </entry>
       </elementAttributes>
       <pos x="260" y="680"/>
@@ -100,12 +100,12 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>GE</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>A &gt;= B</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>GE</string>
         </entry>
       </elementAttributes>
       <pos x="260" y="740"/>
@@ -114,12 +114,12 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>wr</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>memory write cycle</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>wr</string>
         </entry>
       </elementAttributes>
       <pos x="1260" y="220"/>
@@ -128,12 +128,12 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>rd</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>memory read cycle</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>rd</string>
         </entry>
       </elementAttributes>
       <pos x="1260" y="280"/>
@@ -142,12 +142,12 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>sign</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>not LBU</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>sign</string>
         </entry>
       </elementAttributes>
       <pos x="1260" y="340"/>
@@ -156,12 +156,12 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>word</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>not SB, LB or LBU</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>word</string>
         </entry>
       </elementAttributes>
       <pos x="1260" y="400"/>
@@ -170,12 +170,12 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>sub</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>change addition to subtraction</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>sub</string>
         </entry>
       </elementAttributes>
       <pos x="1260" y="460"/>
@@ -184,12 +184,12 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>logic</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>select logic operation instead of addition</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>logic</string>
         </entry>
       </elementAttributes>
       <pos x="1260" y="520"/>
@@ -198,16 +198,16 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>selects between shift right, AND, OR, XOR</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>logSelect</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
-        </entry>
-        <entry>
-          <string>Description</string>
-          <string>selects between shift right, AND, OR, XOR</string>
         </entry>
       </elementAttributes>
       <pos x="1260" y="580"/>
@@ -216,16 +216,16 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>saved from prefix instruction</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>topImm</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>12</int>
-        </entry>
-        <entry>
-          <string>Description</string>
-          <string>saved from prefix instruction</string>
         </entry>
       </elementAttributes>
       <pos x="1260" y="640"/>
@@ -234,12 +234,12 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>even</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>forces bottom bit of immediate to 0</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>even</string>
         </entry>
       </elementAttributes>
       <pos x="1260" y="700"/>
@@ -248,12 +248,12 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>const2</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>changes constant from 0 to 2</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>const2</string>
         </entry>
       </elementAttributes>
       <pos x="1260" y="760"/>
@@ -262,12 +262,12 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>selImm</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>B is immediate</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>selImm</string>
         </entry>
       </elementAttributes>
       <pos x="1260" y="820"/>
@@ -276,12 +276,12 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>selConst</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>B is a constant</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>selConst</string>
         </entry>
       </elementAttributes>
       <pos x="1260" y="880"/>
@@ -290,12 +290,12 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>Azero</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>force A to 0</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Azero</string>
         </entry>
       </elementAttributes>
       <pos x="1260" y="940"/>
@@ -304,12 +304,12 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>we</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>updates register Rw</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>we</string>
         </entry>
       </elementAttributes>
       <pos x="1260" y="1000"/>
@@ -318,16 +318,16 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>register to be written</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Rw</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>4</int>
-        </entry>
-        <entry>
-          <string>Description</string>
-          <string>register to be written</string>
         </entry>
       </elementAttributes>
       <pos x="1260" y="1060"/>
@@ -336,16 +336,16 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>first register to read</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Ra</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>4</int>
-        </entry>
-        <entry>
-          <string>Description</string>
-          <string>first register to read</string>
         </entry>
       </elementAttributes>
       <pos x="1260" y="1120"/>
@@ -354,16 +354,16 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>second register to read</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Rb</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>4</int>
-        </entry>
-        <entry>
-          <string>Description</string>
-          <string>second register to read</string>
         </entry>
       </elementAttributes>
       <pos x="1260" y="1180"/>
@@ -372,12 +372,12 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>selRd</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>selects betweenALU result and memory for write back</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>selRd</string>
         </entry>
       </elementAttributes>
       <pos x="1260" y="1240"/>
@@ -386,12 +386,12 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>selAddr</string>
+          <string>Description</string>
+          <string>ignores ALU result and use GE?0x0000:0x0001</string>
         </entry>
         <entry>
-          <string>Description</string>
-          <string>selects between ALU result and Ra as the address to memory</string>
+          <string>Label</string>
+          <string>slt</string>
         </entry>
       </elementAttributes>
       <pos x="1260" y="1300"/>
