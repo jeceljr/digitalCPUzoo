@@ -47,10 +47,16 @@ Register x0 holds the current program counter (PC), but when the rD field is
 zero no register is changed and when rS1 or rS2 are zero the value 0 is used
 in place of whatever is in x0.
 
-The normal fetch cycle execute the equivalent to a `@RI := mem[@PC := @PC + 2]`
-instruction. Using a non latched memory (an option for BRAMs in some FPGAs and
+Using a non latched memory (an option for BRAMs in some FPGAs and
 how external SRAM chips work) all instructions can run in two clock cycles
-(fetch and execute).
+(fetch and execute). *PC* holds the address of the currently executing instruction
+during the execute phase, so the address presented during fetch is the result
+of adding 2 to *PC*. This has a side effect that the offset for **JAL** and the
+branches is from the current instruction and not the next one like in RISC-V.
+This is compensated for in the assembler to avoid complicating the hardware.
+Since we have 16 bit instead of 12 bit offsets, this is not a limitation. The
+offset for **JALR** does not need any changes since *PC* doesn't enter into
+its calculation.
 
 In the table below, **@rS2** indicates the 16 bit value in the register addressed
 by the rS2 field of the instruction while a plain **rS2** indicates a 4 bit
@@ -58,34 +64,34 @@ immediate value extended to 16 bits from the start of a 32 bit instruction pair.
 **rD** indicates a 4 bit immediate value that might be extended or not depending
 on whether the previous instruction is par of a pair.
 
-| operation | mnemonic | pseudo code |
-|----------|----------|---------------|
-| 0 |  | @IM := @IR, @IR := mem[@PC], @PC := @PC + 2 |
-| 1 | JAL | @rD := @PC + 2. @IR := mem[@PC], @PC := @PC + (@IM \| rS2) |
-| 1 | JALR | @rD := @PC + 2. @IR := mem[@PC], @PC := @rS1 + (@IM \| rS2) |
-| 2 | BEQ | cond := @rS1 = @rS2. @RI := mem[@PC], @PC := @PC + (cond?rD:2) |
-| 2 | BNE | cond := @rS1 ~= @rS2. @RI := mem[@PC], @PC := @PC + (cond?rD:2) |
-| 3 | BLT | cond := @rS1 < @rS2. @RI := mem[@PC := @PC + (cond?rD:2)] |
-| 3 | BGE | cond := @rS1 \>= @rS2. @RI := mem[@PC := @PC + (cond?rD:2)] |
-| 4 | LB | @rD := SignExtend(mem[@rS1 + (@IM \| rS2)]) |
-| 5 | LH | @rD := mem[@rS1 + (@IM \| rS2)] |
-| 6 | SB | mem[@rS1 + rD] := 8Bits(@rS2) |
-| 7 | SH | mem[@rS1 + rD] := @rS2 |
-| 8 | LBU | @rD := ZeroExtend(mem[@rS1 + (@IM \| rS2)]) |
-| 9 | ADD | @rD := @rS1 + @rS2 |
-| 9 | ADDI | @rD := @rS1 + (@IM \| rS2) |
-| A | SUB | @rD := @rS1 - @rS2 |
-| A | SUBI | @rD := @rS1 - (@IM \| rS2) |
-| B | SLT | @rD := @rS1 < @rS2 |
-| B | SLTI | @rD := @rS1 < (@IM \| rS2) |
-| C | SRS | @rD := (@rS1>>1) \| (@rS2 & 0x8000) |
-| C | SRSI | @rD := (@rS1>>1) \| (@IM & 0x8000) |
-| D | AND | @rD := @rS1 & @rS2 |
-| D | ANDI | @rD := @rS1 & (@IM \| rS2) |
-| E | OR | @rD := @rS1 \| @rS2 |
-| E | ORI | @rD := @rS1 \| (@IM \| rS2) |
-| F | XOR | @rD := @rS1 ^ @rS2 |
-| F | XORI | @rD := @rS1 ^ (@IM \| rS2) |
+| operation | mnemonic | execute | fetch |
+|-----------|----------|---------|-------|
+| 0 |  |  | @IM := @IR, @IR := mem[@PC := @PC + 2] |
+| 1 | JAL | @rD := @PC + 2 | @IR := mem[@PC := @PC + (@IM \| rS2)] |
+| 1 | JALR | @rD := @PC + 2 | @IR := mem[@PC := @rS1 + (@IM \| rS2)] |
+| 2 | BEQ | cond := @rS1 = @rS2 | @RI := mem[@PC := @PC + (cond?(@IM \| rD):2)] |
+| 2 | BNE | cond := @rS1 ~= @rS2 | @RI := mem[@PC := @PC + (cond?(@IM \| rD):2)] |
+| 3 | BLT | cond := @rS1 < @rS2 | @RI := mem[@PC := @PC + (cond?(@IM \| rD):2)]] |
+| 3 | BGE | cond := @rS1 \>= @rS2 | @RI := mem[@PC := @PC + (cond?(@IM \| rD):2)] |
+| 4 | LB | @rD := SignExtend(mem[@rS1 + (@IM \| rS2)]) | @IR := mem[@PC := @PC + 2] |
+| 5 | LH | @rD := mem[@rS1 + (@IM \| rS2)] | @IR := mem[@PC := @PC + 2] |
+| 6 | SB | mem[@rS1 + rD] := 8Bits(@rS2) | @IR := mem[@PC := @PC + 2] |
+| 7 | SH | mem[@rS1 + rD] := @rS2 | @IR := mem[@PC := @PC + 2] |
+| 8 | LBU | @rD := ZeroExtend(mem[@rS1 + (@IM \| rS2)]) | @IR := mem[@PC := @PC + 2] |
+| 9 | ADD | @rD := @rS1 + @rS2 | @IR := mem[@PC := @PC + 2] |
+| 9 | ADDI | @rD := @rS1 + (@IM \| rS2) | @IR := mem[@PC := @PC + 2] |
+| A | SUB | @rD := @rS1 - @rS2 | @IR := mem[@PC := @PC + 2] |
+| A | SUBI | @rD := @rS1 - (@IM \| rS2) | @IR := mem[@PC := @PC + 2] |
+| B | SLT | @rD := @rS1 < @rS2 | @IR := mem[@PC := @PC + 2] |
+| B | SLTI | @rD := @rS1 < (@IM \| rS2) | @IR := mem[@PC := @PC + 2] |
+| C | SRS | @rD := (@rS1>>1) \| (@rS2 & 0x8000) | @IR := mem[@PC := @PC + 2] |
+| C | SRSI | @rD := (@rS1>>1) \| (@IM & 0x8000) | @IR := mem[@PC := @PC + 2] |
+| D | AND | @rD := @rS1 & @rS2 | @IR := mem[@PC := @PC + 2] |
+| D | ANDI | @rD := @rS1 & (@IM \| rS2) | @IR := mem[@PC := @PC + 2] |
+| E | OR | @rD := @rS1 \| @rS2 | @IR := mem[@PC := @PC + 2] |
+| E | ORI | @rD := @rS1 \| (@IM \| rS2) | @IR := mem[@PC := @PC + 2] |
+| F | XOR | @rD := @rS1 ^ @rS2 | @IR := mem[@PC := @PC + 2] |
+| F | XORI | @rD := @rS1 ^ (@IM \| rS2) | @IR := mem[@PC := @PC + 2] |
 
 Most instructions have two variations and the presence or not of the extension
 selects between them. In the case of **BEQ** and **BNE** it is the least
