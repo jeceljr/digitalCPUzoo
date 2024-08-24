@@ -1,23 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Digital by H.Neemann -->
-<!-- created: Fri Aug 23 20:59:03 BRT 2024 -->
+<!-- created: Fri Aug 23 21:16:27 BRT 2024 -->
 
 <svg
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
    width="166.95mm"
-   height="96.0mm"
-   viewBox="172 -202 1113 640">
+   height="96.6mm"
+   viewBox="172 -206 1113 644">
 <g stroke-linecap="square">
 <path d="M 1080,160 L 1180,160" stroke="#0000b2" stroke-width="4.0" fill="none"/>
+<path d="M 280,160 L 380,160 L 380,-120 L 480,-120" stroke="#0000b2" stroke-width="4.0" fill="none"/>
 <path d="M 1000,320 L 1180,320" stroke="#0000b2" stroke-width="4.0" fill="none"/>
 <path d="M 280,320 L 840,320" stroke="#0000b2" stroke-width="4.0" fill="none"/>
 <path d="M 1160,260 L 1180,260" stroke="#0000b2" stroke-width="4.0" fill="none"/>
-<path d="M 1080,140 L 1100,140 L 1100,120 L 800,120 L 800,380 L 840,380" stroke="#0000b2" stroke-width="4.0" fill="none"/>
+<path d="M 1080,140 L 1100,140 L 1100,100 L 800,100 L 800,380 L 840,380" stroke="#0000b2" stroke-width="4.0" fill="none"/>
+<path d="M 1020,140 L 1060,140" stroke="#0000b2" stroke-width="4.0" fill="none"/>
+<path d="M 560,-180 L 600,-180 L 600,160 L 980,160" stroke="#0000b2" stroke-width="4.0" fill="none"/>
+<path d="M 400,-180 L 480,-180" stroke="#0000b2" stroke-width="4.0" fill="none"/>
+<path d="M 900,-120 L 940,-120 L 940,120" stroke="#0000b2" stroke-width="4.0" fill="none"/>
 <path d="M 280,220 L 1180,220" stroke="#0000b2" stroke-width="4.0" fill="none"/>
+<path d="M 560,-160 L 580,-160 L 580,400 L 840,400" stroke="#0000b2" stroke-width="4.0" fill="none"/>
+<path d="M 360,-200 L 320,-200 L 320,120 L 940,120 L 980,120" stroke="#0000b2" stroke-width="4.0" fill="none"/>
+<path d="M 1000,340 L 1040,340 L 1040,200 L 340,200 L 340,-160 L 360,-160" stroke="#0000b2" stroke-width="4.0" fill="none"/>
 <path d="M 1060,140 L 1070,140 L 1080,140" stroke="#000000" stroke-width="4.0" fill="none"/>
 <path d="M 1080,160 L 1070,160" stroke="#000000" stroke-width="4.0" fill="none"/>
 <g>
+<circle cx="940.0" cy="120.0" r="4.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
 </g>
 <g>
 <circle cx="1196.0" cy="160.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
@@ -133,6 +142,22 @@
 <circle cx="880.0" cy="-40.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
 <circle cx="860.0" cy="-180.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
 <circle cx="880.0" cy="-160.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<path d="M 981,116 L 1019,125 L 1019,155 L 981,164 Z" stroke="#000000" stroke-width="4.0" fill="none"/>
+<text text-anchor="start" x="983.0" y="135.5" fill="#808080" style="font-size:18px">0</text>
+<circle cx="1000.0" cy="160.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+<circle cx="980.0" cy="120.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+<circle cx="980.0" cy="160.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+<circle cx="1020.0" cy="140.0" r="2.0" stroke="#b20000" stroke-width="4.0" fill="#b20000" />
+</g>
+<g>
+<path d="M 361,-204 L 399,-195 L 399,-165 L 361,-156 Z" stroke="#000000" stroke-width="4.0" fill="none"/>
+<text text-anchor="start" x="363.0" y="-184.5" fill="#808080" style="font-size:18px">0</text>
+<circle cx="380.0" cy="-160.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+<circle cx="360.0" cy="-200.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+<circle cx="360.0" cy="-160.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+<circle cx="400.0" cy="-180.0" r="2.0" stroke="#b20000" stroke-width="4.0" fill="#b20000" />
 </g>
 </g>
 </svg>
