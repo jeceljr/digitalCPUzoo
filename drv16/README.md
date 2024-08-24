@@ -134,12 +134,21 @@ also increment the program counter.
 
 ### Datapath
 
+The main blocks of the datapath are the register bank, the ALU input adaptor, the ALU
+itself and the byte memory access adaptor. Two multiplexers allow the data written
+back to the destination register be the ALU result, dIn from memory or a boolean
+value indicating a signed Less Than result for a comparison.
+
+#### ALU
+
 ![ALU](alu.svg)
 
 Looking at all instructions, we need to be able to add and substract a pair of 16 bit
 number, do a bitwise *AND*, *OR* and *XOR* operations between them and also handle the
 odd shift to the right combining with a bit from the other operand. When subtracting
 we need to indicate the signed compatisons `A >= B` and `A != B`.
+
+#### ALU input adaptor
 
 ![ALU input adaptor](adapt.svg)
 
@@ -151,6 +160,8 @@ is possible to have an immediate value as the second operand. The bottom bits of
 immediate can come from either field *rS2* or *rD* of the instruction (following the
 RISC-V philosophy of not using field *rD* for a source in store or branch instructions).
 The bottom bit of the immediate can be forced to 0 while its actual value is reported.
+
+#### byte memory access adaptor
 
 ![word to byte adaptation](bytes.svg)
 
