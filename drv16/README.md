@@ -133,7 +133,7 @@ also increment the program counter.
 Looking at all instructions, we need to be able to add and substract a pair of 16 bit
 number, do a bitwise *AND*, *OR* and *XOR* operations between them and also handle the
 odd shift to the right combining with a bit from the other operand. When subtracting
-we need to indicate the signed compatisons `A >= B` and `A == B`.
+we need to indicate the signed compatisons `A >= B` and `A != B`.
 
 ![ALU input adaptor](adapt.svg)
 
@@ -166,12 +166,14 @@ implemented as a sequence of two selectors of two inputs each.
 
 ### Control Unit
 
-The control unit uses the following inputs to do its job: *clock*, *reset*, *instruction*, *alt*,
+The control unit uses the following inputs to do its job: *clock*, *reset*, *dIn*, *alt*,
 *NE* and *GE*. It generates: *wr*, *rd*, *sign*, *word*, *sub*, *logic*, *logSelect*, *topImm*, *even*,
-*const2*, *selImm*, *Azero*, *we*, *Rw*, *Ra*, *Rb*, *selRd* and *selAddr*.
+*const2*, *selImm*, *selConst*, *Azero*, *we*, *Rw*, *Ra*, *Rb*, *selRd* and *selAddr*.
 
 ![r0 handling](r0.svg)
 
 This simple circuit helps handle register zero. It allows any of the three instruction
 fields to be overridden by the PC and indicates if special handling (replace with 0 for
 the sources and don't write for the destination) is needed.
+
+![control unit](controlUnit.svg)

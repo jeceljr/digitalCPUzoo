@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Digital by H.Neemann -->
+<!-- created: Fri Aug 23 22:45:02 BRT 2024 -->
+
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   width="141.45mm"
+   height="167.1mm"
+   viewBox="472 203 943 1114">
+<g stroke-linecap="square">
+<g>
+</g>
+<g>
+<path d="M 549,225 L 579,225 L 579,255 L 549,255 Z" stroke="#000000" stroke-width="4.0" fill="none"/>
+<circle cx="564.0" cy="240.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="end" x="535.0" y="249.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">clock</tspan></text>
+<circle cx="580.0" cy="240.0" r="2.0" stroke="#b20000" stroke-width="4.0" fill="#b20000" />
+</g>
+<g>
+<path d="M 549,285 L 579,285 L 579,315 L 549,315 Z" stroke="#000000" stroke-width="4.0" fill="none"/>
+<circle cx="564.0" cy="300.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="end" x="535.0" y="309.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">reset</tspan></text>
+<circle cx="580.0" cy="300.0" r="2.0" stroke="#b20000" stroke-width="4.0" fill="#b20000" />
+</g>
+<g>
+<path d="M 549,385 L 579,385 L 579,415 L 549,415 Z" stroke="#000000" stroke-width="4.0" fill="none"/>
+<circle cx="564.0" cy="400.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="end" x="535.0" y="409.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">dIn</tspan></text>
+<circle cx="580.0" cy="400.0" r="2.0" stroke="#b20000" stroke-width="4.0" fill="#b20000" />
+</g>
+<g>
+<path d="M 549,485 L 579,485 L 579,515 L 549,515 Z" stroke="#000000" stroke-width="4.0" fill="none"/>
+<circle cx="564.0" cy="500.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="end" x="535.0" y="509.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">alt</tspan></text>
+<circle cx="580.0" cy="500.0" r="2.0" stroke="#b20000" stroke-width="4.0" fill="#b20000" />
+</g>
+<g>
+<path d="M 549,565 L 579,565 L 579,595 L 549,595 Z" stroke="#000000" stroke-width="4.0" fill="none"/>
+<circle cx="564.0" cy="580.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="end" x="535.0" y="589.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">NE</tspan></text>
+<circle cx="580.0" cy="580.0" r="2.0" stroke="#b20000" stroke-width="4.0" fill="#b20000" />
+</g>
+<g>
+<path d="M 549,625 L 579,625 L 579,655 L 549,655 Z" stroke="#000000" stroke-width="4.0" fill="none"/>
+<circle cx="564.0" cy="640.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="end" x="535.0" y="649.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">GE</tspan></text>
+<circle cx="580.0" cy="640.0" r="2.0" stroke="#b20000" stroke-width="4.0" fill="#b20000" />
+</g>
+<g>
+<circle cx="1276.0" cy="220.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1276.0" cy="220.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1305.0" y="229.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">wr</tspan></text>
+<circle cx="1260.0" cy="220.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<circle cx="1276.0" cy="280.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1276.0" cy="280.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1305.0" y="289.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">rd</tspan></text>
+<circle cx="1260.0" cy="280.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<circle cx="1276.0" cy="340.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1276.0" cy="340.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1305.0" y="349.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">sign</tspan></text>
+<circle cx="1260.0" cy="340.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<circle cx="1276.0" cy="400.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1276.0" cy="400.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1305.0" y="409.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">word</tspan></text>
+<circle cx="1260.0" cy="400.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<circle cx="1276.0" cy="460.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1276.0" cy="460.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1305.0" y="469.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">sub</tspan></text>
+<circle cx="1260.0" cy="460.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<circle cx="1276.0" cy="520.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1276.0" cy="520.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1305.0" y="529.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">logic</tspan></text>
+<circle cx="1260.0" cy="520.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<circle cx="1276.0" cy="580.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1276.0" cy="580.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1305.0" y="589.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">logSelect</tspan></text>
+<circle cx="1260.0" cy="580.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<circle cx="1276.0" cy="640.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1276.0" cy="640.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1305.0" y="649.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">topImm</tspan></text>
+<circle cx="1260.0" cy="640.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<circle cx="1276.0" cy="700.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1276.0" cy="700.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1305.0" y="709.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">even</tspan></text>
+<circle cx="1260.0" cy="700.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<circle cx="1276.0" cy="760.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1276.0" cy="760.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1305.0" y="769.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">const2</tspan></text>
+<circle cx="1260.0" cy="760.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<circle cx="1276.0" cy="820.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1276.0" cy="820.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1305.0" y="829.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">selImm</tspan></text>
+<circle cx="1260.0" cy="820.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<circle cx="1276.0" cy="880.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1276.0" cy="880.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1305.0" y="889.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">selConst</tspan></text>
+<circle cx="1260.0" cy="880.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<circle cx="1276.0" cy="940.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1276.0" cy="940.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1305.0" y="949.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">Azero</tspan></text>
+<circle cx="1260.0" cy="940.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<circle cx="1276.0" cy="1000.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1276.0" cy="1000.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1305.0" y="1009.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">we</tspan></text>
+<circle cx="1260.0" cy="1000.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<circle cx="1276.0" cy="1060.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1276.0" cy="1060.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1305.0" y="1069.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">Rw</tspan></text>
+<circle cx="1260.0" cy="1060.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<circle cx="1276.0" cy="1120.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1276.0" cy="1120.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1305.0" y="1129.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">Ra</tspan></text>
+<circle cx="1260.0" cy="1120.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<circle cx="1276.0" cy="1180.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1276.0" cy="1180.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1305.0" y="1189.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">Rb</tspan></text>
+<circle cx="1260.0" cy="1180.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<circle cx="1276.0" cy="1240.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1276.0" cy="1240.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1305.0" y="1249.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">selRd</tspan></text>
+<circle cx="1260.0" cy="1240.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+<g>
+<circle cx="1276.0" cy="1300.0" r="9.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<circle cx="1276.0" cy="1300.0" r="15.0" stroke="#000000" stroke-width="4.0" fill="none" />
+<text text-anchor="start" x="1305.0" y="1309.0" fill="#000000" style="font-size:24px"><tspan style="font-style:italic;">selAddr</tspan></text>
+<circle cx="1260.0" cy="1300.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+</g>
+</g>
+</svg>
