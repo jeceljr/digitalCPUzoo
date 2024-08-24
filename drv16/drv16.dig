@@ -152,6 +152,25 @@
       <elementAttributes/>
       <pos x="840" y="320"/>
     </visualElement>
+    <visualElement>
+      <elementName>RegisterFile</elementName>
+      <elementAttributes>
+        <entry>
+          <string>AddrBits</string>
+          <int>4</int>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="-180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>alu.dig</elementName>
+      <elementAttributes/>
+      <pos x="800" y="-180"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

@@ -126,6 +126,13 @@ complicated in drv16 by storing the program counter in the register bank's addre
 since that would have been otherwise unused. This also allows the adder in the ALU to
 also increment the program counter.
 
+![ALU](alu.svg)
+
+Looking at all instructions, we need to be able to add and substract a pair of 16 bit
+number, do a bitwise *AND*, *OR* and *XOR* operations between them and also handle the
+odd shift to the right combining with a bit from the other operand. When subtracting
+we need to indicate the signed compatisons `A >= B` and `A == B`.
+
 ![r0 handling](r0.svg)
 
 This simple circuit helps handle register zero. It allows any of the three instruction
