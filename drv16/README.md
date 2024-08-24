@@ -133,6 +133,17 @@ number, do a bitwise *AND*, *OR* and *XOR* operations between them and also hand
 odd shift to the right combining with a bit from the other operand. When subtracting
 we need to indicate the signed compatisons `A >= B` and `A == B`.
 
+![ALU input adaptor](adapt.svg)
+
+While the most common operations use the registers selected by fields *rS1* and *rS2*
+as operands, the exceptions mean we can't just connect the register outputs to the ALU.
+When the fields are 0 the data must be 0 instead of the PC which is actually stored
+there. For incrementing the PC we replace 0 with 2 as the constant. In addition, it
+is possible to have an immediate value as the second operand. The bottom bits of the
+immediate can come from either field *rS2* or *rD* of the instruction (following the
+RISC-V philosophy of not using field *rD* for a source in store or branch instructions).
+The bottom bit of the immediate can be forced to 0 while its actual value is reported.
+
 ![r0 handling](r0.svg)
 
 This simple circuit helps handle register zero. It allows any of the three instruction
