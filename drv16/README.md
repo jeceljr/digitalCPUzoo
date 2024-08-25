@@ -132,6 +132,22 @@ complicated in drv16 by storing the program counter in the register bank's addre
 since that would have been otherwise unused. This also allows the adder in the ALU to
 also increment the program counter.
 
+### FPGAs and ASICs
+
+Exporting the subcomponent of drv16 as Verilog (in addition to a circuit with only the
+register file) and using the Yosys tool to implement them for various FPGAs and
+integrated technologies we have (FPGA numbers are registers / LUTs / math / distributed
+memory blocks):
+
+| technology | registers | ALU |  ALU inputs | bytes | control | drv16 |
+|------------|-----------|-----|_------------|-------|---------|-------|
+| NANDs      | 5029      | 660 | 109         | 117   |         |       |
+| ICE40      | 256/373/0/0 | 0/99/16/0 | 0/38/0/0 | 0/40/0/0 | | |
+| Efinix     | 256/398/0/0 | 0/83/18/0 | 0/38/0/0 | 0/40/0/0 | | |
+| Gowin      | 0/0/0/8     | 0/145/17/0 | 0/53/0/0 | 0/62/0/0 | | |
+| Cyclone V  | 0/0/0/32    | 0/55/18/0 | 0/34/0/0 | 0/32/0/0 | | |
+| Xilinx 7   | 0/0/0/8     | 0/50/5/0  | 0/35/0/0 | 0/32/0/0 | | |
+
 ### Datapath
 
 The main blocks of the datapath are the register bank, the ALU input adaptor, the ALU
@@ -185,7 +201,7 @@ implemented as a sequence of two selectors of two inputs each.
 
 The control unit uses the following inputs to do its job: *clock*, *reset*, *dIn*, *alt*,
 *NE* and *GE*. It generates: *wr*, *rd*, *sign*, *word*, *sub*, *logic*, *logSelect*, *topImm*, *even*,
-*const2*, *selImm*, *selConst*, *Azero*, *we*, *Rw*, *Ra*, *Rb*, *selRd* and *selAddr*.
+*const2*, *selImm*, *selConst*, *Azero*, *we*, *Rw*, *Ra*, *Rb*, *selRd* and *slt*.
 
 ![r0 handling](r0.svg)
 
@@ -195,6 +211,85 @@ the sources and don't write for the destination) is needed.
 
 ![control unit](controlUnit.svg)
 
+#### fetch
+
 *IR* saves the instruction read from memory during the fetch cycle. *IM* saves the previous value of
 the top 12 bits for *IM* for prefix instructions or is cleared to 0 at the end of all other
 instructions.
+
+The single bit *fetch* flip-flop is the heart beat of the processor. Its normal output indicates
+a fetch cycle while its inverted output indicates an execute cycle. A fetch can follow an execute
+or another fetch where the data coming from memory will be a prefix instruction. If *reset* is
+active then the processor will be stuck fetching from memory location 0x0000. During *reset* the
+signals to execute `@IR := mem[@PC := 0]` are active (Azero = 1, const2 = 0, selConst = 1,
+sub = 0, selImm = 0), which is the opposite of what they are for regular fetches.
+
+When the instruction was **JAL**, **JALR** or a branch with `cond == true` then some signals are
+changed in the next fetch cycle.
+
+#### execute
+
+The "opcodes" selected for the different instructions is not arbitrary, but were designed to reduce
+the size of the decoder circuit. If we organize them into a 2D table and use gray order (0, 1, 3, 2)
+for IR[1:0] in the columns and the same order for IR[3:2] for the rows:
+
+| | xx00 | xx01 | xx11 | xx10 |
+|-|------|------|------|------|
+| 00xx | | JAL/JALR | BLT/BGE | BEQ/BNE |
+| 01xx | LB | LH | SH | SB |
+| 11xx | SRS | AND | XOR | OR |
+| 10xx | LBU | ADD | SLT | SUB |
+
+This order is known as a Karnough Map and helps define the minimum circuit needed for a give function.
+As an example, here is what each instruction needs to output in *word*:
+
+    XXXX
+    0110
+    XXXX
+    0XXX
+
+Only the load and store instructions care about this signal. This means that his result is acceptable:
+
+    0110
+    0110
+    0110
+    0110
+
+It has "1" everywhere it needs to and "0" in the places that they are needed. Just connecting *word* to
+IR[0] would solve this. It is important to check that *fetch* doesn't need something different. In this
+case there is no problem since the data fetched from memory is stored directly in *IR* without passing
+though the byte adaptation circuit.
+
+Another example is *sub*. It is needed not only for **SUB** but also for generating the correct value
+for **SLT** and the branch instructions. But we need addition for jumps and memory transfer, as well
+as for **ADD** itself:
+
+    X011
+    0000
+    XXXX
+    0011
+
+We never want subtractions in *fetch*, so `sub := EXECUTE & !IR[2] & IR[1]` will do the job, which is a three input
+NAND gate with one inverted input.
+
+## Software
+
+It is possible to use the GNU AS assembler, even if it is for a processor like the x86, to generate
+binaries for drv16. Macros and other definitions in *drv16.inc* allow any assembly program that
+includes it to use all the instructions defined above. One limitation is that symbols can't be used
+directly, so if a label `width` is defined somewhere its data must be read with `lh x4, zero, (width-absStart)`.
+File *drv16.inc* defines `absStart` as address 0. The macro for pseudo instruction **LA** does this
+internally.
+
+A second limitation is that while the hardware does not require a prefix for memory and control flow
+instructions that have immediate values of 15 or less, *drv16.inc* generates a useless 0x0000 prefix
+anyway. A dedicated assembler doing more than one pass would typically make programs around 25% smaller
+(which also eliminates clock cycles).
+
+A bash script, *../as2hex* will transform an assembly source file *.S* into an Intel Hex equivalent
+to the binary. Digital can load such files directly into a memory block before the start of a simulation.
+
+The program *gcd.S* calculates the greatest common denominator between two numbers that are built into
+the sources (currently 12 and 18). A message with the result and the two numbers is printed in the
+terminal window. The code to print strings and decimal number (always 3 digits with leading zeros)
+dwarfs the actual GCD part.

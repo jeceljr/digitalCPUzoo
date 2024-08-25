@@ -29,7 +29,7 @@ done:
 	jal ra, printDecimal
 stop:   j stop
 
-	.equ terminal, 0xFFFF
+	.equ terminal, 0xFFFE
 
 printString:
 	li t1, terminal

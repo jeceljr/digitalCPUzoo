@@ -63,7 +63,7 @@
       <elementAttributes>
         <entry>
           <string>Bits</string>
-          <int>16</int>
+          <int>8</int>
         </entry>
       </elementAttributes>
       <pos x="980" y="280"/>
@@ -73,7 +73,7 @@
       <elementAttributes>
         <entry>
           <string>Bits</string>
-          <int>16</int>
+          <int>8</int>
         </entry>
       </elementAttributes>
       <pos x="1040" y="400"/>
@@ -83,7 +83,7 @@
       <elementAttributes>
         <entry>
           <string>Bits</string>
-          <int>16</int>
+          <int>8</int>
         </entry>
       </elementAttributes>
       <pos x="980" y="380"/>
@@ -93,7 +93,7 @@
       <elementAttributes>
         <entry>
           <string>Bits</string>
-          <int>16</int>
+          <int>8</int>
         </entry>
       </elementAttributes>
       <pos x="700" y="280"/>
@@ -103,7 +103,7 @@
       <elementAttributes>
         <entry>
           <string>Bits</string>
-          <int>16</int>
+          <int>8</int>
         </entry>
       </elementAttributes>
       <pos x="700" y="380"/>
@@ -202,16 +202,16 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>bytes to word</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>toRD</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>16</int>
-        </entry>
-        <entry>
-          <string>Description</string>
-          <string>bytes to word</string>
         </entry>
       </elementAttributes>
       <pos x="1180" y="480"/>
@@ -220,12 +220,12 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>sign</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>indicates that the byte extension should be signed</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>sign</string>
         </entry>
       </elementAttributes>
       <pos x="280" y="440"/>
@@ -234,12 +234,12 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>word</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>word memory access (not byte)</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>word</string>
         </entry>
       </elementAttributes>
       <pos x="280" y="540"/>
@@ -248,12 +248,12 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>A0</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>selects between even and odd bytes</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>A0</string>
         </entry>
       </elementAttributes>
       <pos x="280" y="340"/>
@@ -262,16 +262,16 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>word data from register (top 8 bits will be ignored on byte access)</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>fromRS2</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>16</int>
-        </entry>
-        <entry>
-          <string>Description</string>
-          <string>word data from register (top 8 bits will be ignored on byte access)</string>
         </entry>
       </elementAttributes>
       <pos x="280" y="600"/>
