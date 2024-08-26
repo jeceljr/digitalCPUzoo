@@ -77,7 +77,7 @@ module adapt (
     .out( s3 )
   );
   assign alt_temp = s0[0];
-  assign s1[0] = (even & alt_temp);
+  assign s1[0] = (~ even & alt_temp);
   assign s1[3:1] = s0[3:1];
   assign s1[15:4] = topImm;
   Mux_2x1_NBits #(

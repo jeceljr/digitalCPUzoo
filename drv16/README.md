@@ -222,7 +222,9 @@ a fetch cycle while its inverted output indicates an execute cycle. A fetch can 
 or another fetch where the data coming from memory will be a prefix instruction. If *reset* is
 active then the processor will be stuck fetching from memory location 0x0000. During *reset* the
 signals to execute `@IR := mem[@PC := 0]` are active (Azero = 1, const2 = 0, selConst = 1,
-sub = 0, selImm = 0), which is the opposite of what they are for regular fetches.
+sub = 0, selImm = 0), while for normal fetches they would be Azero = 0, const2 = 1, selConst = 1,
+sub = 0, selImm = 0, logic = 0. With both inputs forced to zero during reset, the values of
+*logic* and *logSelect* don't make a difference.
 
 When the instruction was **JAL**, **JALR** or a branch with `cond == true` then some signals are
 changed in the next fetch cycle.
@@ -296,6 +298,14 @@ For the two multiplexers at the input of the register file:
 
 The complexity of this logic is a result of there not being a good place to include the **LBU** and
 **SLT** instructions.
+
+Branches are the only case when no register is written to as the result is saved in *cond* instead.
+IR0 selects between *GE* amd *NE* inputs and *alt* inverts the test. *alt* is just the lowest bit
+of the immediate value before it is optionally cleared by *even*. *we* is enabled except during the
+execution of branches while *immLow* is enabled during the fetch of the instruction after a branch.
+
+Fetches force rD to the *PC* while field rS1 is forced to the *PC* during the execution of a
+jump or for fetches except after a branch.
 
 ## Software
 
