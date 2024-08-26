@@ -287,7 +287,7 @@ some more signals can be derived in the same way:
     fetch:  0                 1         X        0
          =  E&!IR3&IR2&IR1    F|!IR1    !IR3     E&IR3&IR2
 
-![k-map for wr](kmap_wr.png) ![k-map for rd](kmap_rd.png) ![k-map for sign](kmap_sign.png) ![k-map for logic](kmap_logic)
+![k-map for wr](kmap_wr.png) ![k-map for rd](kmap_rd.png) ![k-map for sign](kmap_sign.png) ![k-map for logic](kmap_logic.png)
 
 *logSelect* is simply the low two bits of the instruction.
 
