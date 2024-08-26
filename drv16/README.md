@@ -140,7 +140,7 @@ integrated technologies we have (FPGA numbers are registers / LUTs / math / dist
 memory blocks):
 
 | technology | registers | ALU |  ALU inputs | bytes | control | drv16 |
-|------------|-----------|-----|_------------|-------|---------|-------|
+|------------|-----------|-----|-------------|-------|---------|-------|
 | NANDs      | 5029      | 660 | 109         | 117   |         |       |
 | ICE40      | 256/373/0/0 | 0/99/16/0 | 0/38/0/0 | 0/40/0/0 | | |
 | Efinix     | 256/398/0/0 | 0/83/18/0 | 0/38/0/0 | 0/40/0/0 | | |
