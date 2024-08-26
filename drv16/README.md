@@ -250,6 +250,8 @@ As an example, here is what each instruction needs to output in *word*:
     XXXX
     0XXX
 
+![k-map for word](kmap_word.png)
+
 Only the load and store instructions care about this signal. This means that this result is acceptable:
 
     0110
@@ -271,6 +273,8 @@ as for **ADD** itself:
     XXXX
     0011
 
+![k-map for sub](kmap_sub.png)
+
 We never want subtractions in *fetch*, so `sub := EXECUTE & !IR[2] & IR[1]` will do the job, which is a three input
 NAND gate with one inverted input. To make it shorter, this could be expressed as `E&!IR2&IR1`. The expressions for
 some more signals can be derived in the same way:
@@ -282,6 +286,8 @@ some more signals can be derived in the same way:
             0000              1XXX      0XXX     00X0
     fetch:  0                 1         X        0
          =  E&!IR3&IR2&IR1    F|!IR1    !IR3     E&IR3&IR2
+
+![k-map for wr](kmap_wr.png) ![k-map for rd](kmap_rd.png) ![k-map for sign](kmap_sign.png) ![k-map for logic](kmap_logic)
 
 *logSelect* is simply the low two bits of the instruction.
 
@@ -295,6 +301,8 @@ For the two multiplexers at the input of the register file:
     fetch:  0                    0
          =  E&!IR3&IR2|          E&!IR2&IR1&IR0
             E&!IR2&!IR1&!IR0 
+
+![k-map for selRD](kmap_selRD.png) ![k-map for slt](kmap_slt.png)
 
 The complexity of this logic is a result of there not being a good place to include the **LBU** and
 **SLT** instructions.
