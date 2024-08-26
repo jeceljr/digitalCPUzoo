@@ -201,7 +201,7 @@ implemented as a sequence of two selectors of two inputs each.
 
 The control unit uses the following inputs to do its job: *clock*, *reset*, *dIn*, *alt*,
 *NE* and *GE*. It generates: *wr*, *rd*, *sign*, *word*, *sub*, *logic*, *logSelect*, *topImm*, *even*,
-*const2*, *selImm*, *selConst*, *Azero*, *we*, *Rw*, *Ra*, *Rb*, *selRd* and *slt*.
+*const2*, *selImm*, *selConst*, *Azero*, *we*, *Rw*, *Ra*, *Rb*, *selRd*, *slt* and *immLow*.
 
 ![r0 handling](r0.svg)
 
@@ -270,8 +270,17 @@ as for **ADD** itself:
     0011
 
 We never want subtractions in *fetch*, so `sub := EXECUTE & !IR[2] & IR[1]` will do the job, which is a three input
-NAND gate with one inverted input.
+NAND gate with one inverted input. To make it shorter, this could be expressed as `E&!IR2&IR1`. The expressions for
+some more signals can be derived in the same way:
 
+    signal: wr              rd      sign   logic
+    K-map:  0000            XXXX    XXXX   0000
+            0011            1100    1XXX   0000
+            0000            XXXX    XXXX   X111
+            0000            1XXX    0XXX   0000
+    fetch:  0               1       X      0
+         =  E&!IR3&IR2&IR1  F|!IR1  !IR3   E&IR3&IR2
+    
 ## Software
 
 It is possible to use the GNU AS assembler, even if it is for a processor like the x86, to generate
