@@ -276,8 +276,8 @@ some more signals can be derived in the same way:
     signal: wr              rd      sign   logic
     K-map:  0000            XXXX    XXXX   0000
             0011            1100    1XXX   0000
-            0000            XXXX    XXXX   X111
-            0000            1XXX    0XXX   0000
+            0000            XXXX    XXXX   1111
+            0000            1XXX    0XXX   00X0
     fetch:  0               1       X      0
          =  E&!IR3&IR2&IR1  F|!IR1  !IR3   E&IR3&IR2
     
