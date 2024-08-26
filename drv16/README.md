@@ -273,15 +273,29 @@ We never want subtractions in *fetch*, so `sub := EXECUTE & !IR[2] & IR[1]` will
 NAND gate with one inverted input. To make it shorter, this could be expressed as `E&!IR2&IR1`. The expressions for
 some more signals can be derived in the same way:
 
-    signal: wr              rd      sign   logic
-    K-map:  0000            XXXX    XXXX   0000
-            0011            1100    1XXX   0000
-            0000            XXXX    XXXX   1111
-            0000            1XXX    0XXX   00X0
-    fetch:  0               1       X      0
-         =  E&!IR3&IR2&IR1  F|!IR1  !IR3   E&IR3&IR2
+    signal: wr                rd        sign     logic
+    K-map:  0000              XXXX      XXXX     0000
+            0011              1100      1XXX     0000
+            0000              XXXX      XXXX     1111
+            0000              1XXX      0XXX     00X0
+    fetch:  0                 1         X        0
+         =  E&!IR3&IR2&IR1    F|!IR1    !IR3     E&IR3&IR2
 
 *logSelect* is simply the low two bits of the instruction.
+
+For the two multiplexers at the input of the register file:
+
+    signal: selRD                slt
+    K-map:  X0XX                 X0XX
+            11XX                 00XX
+            0000                 0000
+            1000                 0010
+    fetch:  0                    0
+         =  E&!IR3&IR2|          E&!IR2&IR1&IR0
+            E&!IR2&!IR1&!IR0 
+
+The complexity of this logic is a result of there not being a good place to include the **LBU** and
+**SLT** instructions.
 
 ## Software
 
