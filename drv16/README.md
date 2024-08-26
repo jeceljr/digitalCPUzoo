@@ -248,7 +248,7 @@ As an example, here is what each instruction needs to output in *word*:
     XXXX
     0XXX
 
-Only the load and store instructions care about this signal. This means that his result is acceptable:
+Only the load and store instructions care about this signal. This means that this result is acceptable:
 
     0110
     0110
@@ -280,7 +280,9 @@ some more signals can be derived in the same way:
             0000            1XXX    0XXX   00X0
     fetch:  0               1       X      0
          =  E&!IR3&IR2&IR1  F|!IR1  !IR3   E&IR3&IR2
-    
+
+*logSelect* is simply the low two bits of the instruction.
+
 ## Software
 
 It is possible to use the GNU AS assembler, even if it is for a processor like the x86, to generate
