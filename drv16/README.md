@@ -141,12 +141,12 @@ memory blocks):
 
 | technology | registers | ALU |  ALU inputs | bytes | control | drv16 |
 |------------|-----------|-----|-------------|-------|---------|-------|
-| NANDs      | 5029      | 660 | 109         | 117   |         |       |
-| ICE40      | 256/373/0/0 | 0/99/16/0 | 0/38/0/0 | 0/40/0/0 | | |
-| Efinix     | 256/398/0/0 | 0/83/18/0 | 0/38/0/0 | 0/40/0/0 | | |
-| Gowin      | 0/0/0/8     | 0/145/17/0 | 0/53/0/0 | 0/62/0/0 | | |
-| Cyclone V  | 0/0/0/32    | 0/55/18/0 | 0/34/0/0 | 0/32/0/0 | | |
-| Xilinx 7   | 0/0/0/8     | 0/50/5/0  | 0/35/0/0 | 0/32/0/0 | | |
+| NANDs      | 5029      | 660 | 109         | 117   | 471     | 6547  |
+| ICE40      | 256/373/0/0 | 0/99/16/0 | 0/38/0/0 | 0/40/0/0 | 31/29/0/0 | 287/630/16/0 |
+| Efinix     | 256/398/0/0 | 0/83/18/0 | 0/38/0/0 | 0/40/0/0 | 31/28/0/0 | 287/589/18/0 |
+| Gowin      | 0/0/0/8     | 0/145/17/0 | 0/53/0/0 | 0/62/0/0 | 31/80/0/0 | 31/582/17/8 |
+| Cyclone V  | 0/0/0/32    | 0/55/18/0 | 0/34/0/0 | 0/32/0/0 | 31/25/0/0 | 31/180/18/32 |
+| Xilinx 7   | 0/0/0/8     | 0/50/5/0  | 0/35/0/0 | 0/32/0/0 | 31/23/0/0 | 31/199/5/8 |
 
 ### Datapath
 
@@ -221,13 +221,22 @@ The single bit *fetch* flip-flop is the heart beat of the processor. Its normal 
 a fetch cycle while its inverted output indicates an execute cycle. A fetch can follow an execute
 or another fetch where the data coming from memory will be a prefix instruction. If *reset* is
 active then the processor will be stuck fetching from memory location 0x0000. During *reset* the
-signals to execute `@IR := mem[@PC := 0]` are active (Azero = 1, const2 = 0, selConst = 1,
-sub = 0, selImm = 0), while for normal fetches they would be Azero = 0, const2 = 1, selConst = 1,
-sub = 0, selImm = 0, logic = 0. With both inputs forced to zero during reset, the values of
+signals to execute `@IR := mem[@PC := 0]` are active. With both inputs forced to zero during reset, the values of
 *logic* and *logSelect* don't make a difference.
 
 When the instruction was **JAL**, **JALR** or a branch with `cond == true` then some signals are
 changed in the next fetch cycle.
+
+|      | even | const2 | selImm | selConst | Azero | sub | logic | aPC |
+|------|------|--------|--------|----------|-------|-----|-------|-----|
+| reset | X   | 0      | 0      | 1        | 1     | 0   | X     | X   |
+| fetch | 1   | 1      | 0      | 1        | 0     | 0   | 0     | 1   |
+| fetch JAL | 1 | X    | 1      | 0        | 0     | 0   | 0     | 1   |
+| fetch JALR | 1 | X   | 1      | 0        | 0     | 0   | 0     | 0   |
+| fetch cond | 1 | X   | 1      | 0        | 0     | 0   | 0     | 1   |
+| execute | EJ | EJ      | ?      | EJ        | 0     | ?   | ?     | EJ   |
+
+*aPC* is short for "force A to PC".
 
 #### execute
 
