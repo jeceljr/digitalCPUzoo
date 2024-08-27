@@ -22,31 +22,6 @@ module DIG_Register_BUS #(
             state <= D;
    end
 endmodule
-module DIG_D_FF_Nbit
-#(
-    parameter Bits = 2,
-    parameter Default = 0
-)
-(
-   input [(Bits-1):0] D,
-   input C,
-   output [(Bits-1):0] Q,
-   output [(Bits-1):0] \~Q
-);
-    reg [(Bits-1):0] state;
-
-    assign Q = state;
-    assign \~Q = ~state;
-
-    always @ (posedge C) begin
-        state <= D;
-    end
-
-    initial begin
-        state = Default;
-    end
-endmodule
-
 module DIG_D_FF_1bit
 #(
     parameter Default = 0
@@ -183,29 +158,29 @@ module controlUnit (
   wire [3:0] Rb_temp;
   wire F;
   wire [15:0] s0;
-  wire [11:0] s1;
-  wire [3:0] s2;
-  wire [11:0] s3;
+  wire [3:0] s1;
+  wire [11:0] s2;
+  wire [3:0] s3;
   wire [3:0] s4;
-  wire [3:0] s5;
-  wire E;
-  wire s6;
-  wire zD;
+  wire s5;
+  wire [11:0] s6;
   wire s7;
+  wire E;
+  wire zD;
+  wire s8;
   wire zS1;
   wire IR1;
   wire IR2;
   wire IR3;
-  wire zS2;
   wire branch;
-  wire s8;
   wire s9;
+  wire s10;
   wire cond;
   wire EJ;
-  wire s10;
-  wire FJorBT;
   wire s11;
+  wire FJorBT;
   wire s12;
+  wire s13;
   // IR
   DIG_Register_BUS #(
     .Bits(16)
@@ -216,82 +191,89 @@ module controlUnit (
     .en( F ),
     .Q( s0 )
   );
-  // IM
-  DIG_D_FF_Nbit #(
-    .Bits(12),
-    .Default(0)
-  )
-  DIG_D_FF_Nbit_i1 (
-    .D( s1 ),
-    .C( clock ),
-    .Q( topImm )
-  );
   // fetch
   DIG_D_FF_1bit #(
     .Default(0)
   )
-  DIG_D_FF_1bit_i2 (
-    .D( s6 ),
+  DIG_D_FF_1bit_i1 (
+    .D( s7 ),
     .C( clock ),
     .Q( F ),
     .\~Q ( E )
   );
-  assign s6 = (E | reset | (~ dIn[0] & ~ dIn[1] & ~ dIn[2] & ~ dIn[3] & F));
-  Mux_2x1 Mux_2x1_i3 (
+  assign s7 = (E | reset | (~ dIn[0] & ~ dIn[1] & ~ dIn[2] & ~ dIn[3] & F));
+  Mux_2x1 Mux_2x1_i2 (
     .sel( word_temp ),
     .in_0( NE ),
     .in_1( GE ),
-    .out( s8 )
+    .out( s9 )
   );
-  assign s9 = (s8 ^ alt);
+  assign s10 = (s9 ^ alt);
   DIG_D_FF_1bit #(
     .Default(0)
   )
-  DIG_D_FF_1bit_i4 (
-    .D( s9 ),
+  DIG_D_FF_1bit_i3 (
+    .D( s10 ),
     .C( clock ),
     .Q( cond )
   );
-  assign s7 = ((F & ~ (s10 & alt)) | EJ);
+  assign s8 = ((F & ~ (s11 & alt)) | EJ);
   assign const2_temp = ((F & ~ reset) | EJ);
   // prefix
-  DIG_Register DIG_Register_i5 (
-    .D( s11 ),
+  DIG_Register DIG_Register_i4 (
+    .D( s12 ),
     .C( clock ),
     .en( F ),
-    .Q( s12 )
+    .Q( s13 )
   );
-  assign s2 = s0[3:0];
-  assign s3 = s0[15:4];
+  // IM
+  DIG_Register_BUS #(
+    .Bits(12)
+  )
+  DIG_Register_BUS_i5 (
+    .D( s6 ),
+    .C( clock ),
+    .en( F ),
+    .Q( topImm )
+  );
+  DIG_D_FF_1bit #(
+    .Default(0)
+  )
+  DIG_D_FF_1bit_i6 (
+    .D( E ),
+    .C( clock ),
+    .Q( s5 )
+  );
+  assign s1 = s0[3:0];
+  assign s2 = s0[15:4];
   Mux_2x1_NBits #(
     .Bits(12)
   )
-  Mux_2x1_NBits_i6 (
-    .sel( E ),
-    .in_0( s3 ),
+  Mux_2x1_NBits_i7 (
+    .sel( s5 ),
+    .in_0( s2 ),
     .in_1( 12'b0 ),
-    .out( s1 )
+    .out( s6 )
   );
-  assign Rb_temp = s3[3:0];
-  assign s4 = s3[7:4];
-  assign s5 = s3[11:8];
-  assign word_temp = s2[0];
-  assign IR1 = s2[1];
-  assign IR2 = s2[2];
-  assign IR3 = s2[3];
-  r0 r0_i7 (
-    .rin( s5 ),
+  assign Rb_temp = s2[3:0];
+  assign s3 = s2[7:4];
+  assign s4 = s2[11:8];
+  assign word_temp = s1[0];
+  assign IR1 = s1[1];
+  assign IR2 = s1[2];
+  assign IR3 = s1[3];
+  r0 r0_i8 (
+    .rin( s4 ),
     .pc( F ),
     .rout( Rw ),
     .z( zD )
   );
-  r0 r0_i8 (
-    .rin( s4 ),
-    .pc( s7 ),
+  r0 r0_i9 (
+    .rin( s3 ),
+    .pc( s8 ),
     .rout( Ra ),
     .z( zS1 )
   );
-  assign zS2 = (~ Rb_temp[0] & ~ Rb_temp[1] & ~ Rb_temp[2] & ~ Rb_temp[3]);
   assign sub = (E & ~ IR2 & IR1);
   assign wr = (E & ~ IR3 & IR2 & IR1);
   assign rd = (F | ~ IR1);
@@ -302,14 +284,14 @@ module controlUnit (
   assign slt = (E & ~ IR2 & IR1 & word_temp);
   assign selRd = ((E & ~ IR2 & ~ IR1 & ~ word_temp) | (E & ~ IR3 & IR2));
   assign branch = (~ IR3 & ~ IR2 & IR1);
-  assign s10 = (~ IR3 & ~ IR2 & ~ IR1 & word_temp);
-  assign s11 = (~ IR3 & ~ IR2 & ~ IR1 & ~ word_temp);
-  assign immLow = (F & branch);
+  assign immLow = (F & ~ IR3 & IR1);
+  assign s11 = (~ IR3 & ~ IR2 & ~ IR1 & word_temp);
+  assign s12 = (~ IR3 & ~ IR2 & ~ IR1 & ~ word_temp);
   assign we = ~ (E & branch);
-  assign EJ = (E & s10);
-  assign FJorBT = ((F & s10) | (F & branch & cond));
-  assign selConst = (EJ | (F & ~ FJorBT));
-  assign selImm = (FJorBT | (~ EJ & E & (s12 | ~ IR3)));
+  assign EJ = (E & s11);
+  assign FJorBT = ((F & s11) | (F & branch & cond));
+  assign selConst = (EJ | (F & ~ FJorBT) | (E & ~ Rb_temp[0] & ~ Rb_temp[1] & ~ Rb_temp[2] & ~ Rb_temp[3]));
+  assign selImm = (FJorBT | (~ EJ & E & (s13 | ~ IR3)));
   assign word = word_temp;
   assign even = const2_temp;
   assign const2 = const2_temp;

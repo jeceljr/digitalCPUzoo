@@ -75,8 +75,8 @@ on whether the previous instruction is par of a pair.
 | 3 | BGE | cond := @rS1 \>= @rS2 | @RI := mem[@PC := @PC + (cond?(@IM \| rD):2)] |
 | 4 | LB | @rD := SignExtend(mem[@rS1 + (@IM \| rS2)]) | @IR := mem[@PC := @PC + 2] |
 | 5 | LH | @rD := mem[@rS1 + (@IM \| rS2)] | @IR := mem[@PC := @PC + 2] |
-| 6 | SB | mem[@rS1 + rD] := 8Bits(@rS2) | @IR := mem[@PC := @PC + 2] |
-| 7 | SH | mem[@rS1 + rD] := @rS2 | @IR := mem[@PC := @PC + 2] |
+| 6 | SB | mem[@rS1 + (@IM \| rD)] := 8Bits(@rS2) | @IR := mem[@PC := @PC + 2] |
+| 7 | SH | mem[@rS1 + (@IM \| rD)] := @rS2 | @IR := mem[@PC := @PC + 2] |
 | 8 | LBU | @rD := ZeroExtend(mem[@rS1 + (@IM \| rS2)]) | @IR := mem[@PC := @PC + 2] |
 | 9 | ADD | @rD := @rS1 + @rS2 | @IR := mem[@PC := @PC + 2] |
 | 9 | ADDI | @rD := @rS1 + (@IM \| rS2) | @IR := mem[@PC := @PC + 2] |
@@ -213,9 +213,10 @@ the sources and don't write for the destination) is needed.
 
 #### fetch
 
-*IR* saves the instruction read from memory during the fetch cycle. *IM* saves the previous value of
-the top 12 bits for *IM* for prefix instructions or is cleared to 0 at the end of all other
-instructions.
+*IR* saves the instruction read from memory during the fetch cycle and *IM* saves the previous value of
+the top 12 bits for *IM* or is cleared to 0 if the previous cycle was an execute. This allows instructions
+that don't depend on the prefix to indicate an immediate to not require a prefix when that would just be
+0x0000 (but the current assembler doesn't take advantage of that).
 
 The single bit *fetch* flip-flop is the heart beat of the processor. Its normal output indicates
 a fetch cycle while its inverted output indicates an execute cycle. A fetch can follow an execute
@@ -238,6 +239,9 @@ changed in the next fetch cycle.
 
 *aPC* is short for "force A to PC".
 
+Signals *even* and *const2* can be implemented by the same circuit when we take the "don't cares" into
+account.
+
 #### execute
 
 The "opcodes" selected for the different instructions is not arbitrary, but were designed to reduce
@@ -253,11 +257,6 @@ for IR[1:0] in the columns and the same order for IR[3:2] for the rows:
 
 This order is known as a Karnough Map and helps define the minimum circuit needed for a give function.
 As an example, here is what each instruction needs to output in *word*:
-
-    XXXX
-    0110
-    XXXX
-    0XXX
 
 ![k-map for word](kmap_word.png)
 
@@ -277,39 +276,17 @@ Another example is *sub*. It is needed not only for **SUB** but also for generat
 for **SLT** and the branch instructions. But we need addition for jumps and memory transfer, as well
 as for **ADD** itself:
 
-    X011
-    0000
-    XXXX
-    0011
-
 ![k-map for sub](kmap_sub.png)
 
 We never want subtractions in *fetch*, so `sub := EXECUTE & !IR[2] & IR[1]` will do the job, which is a three input
 NAND gate with one inverted input. To make it shorter, this could be expressed as `E&!IR2&IR1`. The expressions for
 some more signals can be derived in the same way:
 
-    signal: wr                rd        sign     logic
-    K-map:  0000              XXXX      XXXX     0000
-            0011              1100      1XXX     0000
-            0000              XXXX      XXXX     1111
-            0000              1XXX      0XXX     00X0
-    fetch:  0                 1         X        0
-         =  E&!IR3&IR2&IR1    F|!IR1    !IR3     E&IR3&IR2
-
 ![k-map for wr](kmap_wr.png) ![k-map for rd](kmap_rd.png) ![k-map for sign](kmap_sign.png) ![k-map for logic](kmap_logic.png)
 
 *logSelect* is simply the low two bits of the instruction.
 
 For the two multiplexers at the input of the register file:
-
-    signal: selRD                slt
-    K-map:  X0XX                 X0XX
-            11XX                 00XX
-            0000                 0000
-            1000                 0010
-    fetch:  0                    0
-         =  E&!IR3&IR2|          E&!IR2&IR1&IR0
-            E&!IR2&!IR1&!IR0 
 
 ![k-map for selRD](kmap_selRD.png) ![k-map for slt](kmap_slt.png)
 
