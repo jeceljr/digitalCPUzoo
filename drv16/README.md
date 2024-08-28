@@ -322,3 +322,7 @@ The program *gcd.S* calculates the greatest common denominator between two numbe
 the sources (currently 12 and 18). A message with the result and the two numbers is printed in the
 terminal window. The code to print strings and decimal number (always 3 digits with leading zeros)
 dwarfs the actual GCD part.
+
+The program *testTerm* will eventually test all instructions and show the results in the terminal.
+Currently only the *LI* (actually *ADDI*), *SH* and *J* (actually *JAL*) are being tested to print
+a sequence of "5" characters to the terminal.

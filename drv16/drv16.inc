@@ -108,7 +108,7 @@ absStart:
 .endm
 
 .macro jal  d, b
-        format_ib 1, \d, 0, ((\b-.)+2)
+        format_ib 1, \d, 0, (\b-.)
 .endm
 
 .macro  jalr d, a, b
