@@ -118,13 +118,13 @@ present to simplify the hardware, but is not as useful.
 
 ## Implementation
 
-![top level](system.svg)
+![top level](generated/system.svg)
 
 The project *system.dig* includes the drv16 processor connected to an asynchronous RAM
 with 32K words of 16 bits each. Address 0xFFFE (word address 0x7FFF) is also mapped
 to the terminal.
 
-![drv16](drv16.svg)
+![drv16](generated/drv16.svg)
 
 Two complications that RISC-V shares with drv16 relative to some simpler processors are
 the byte access to memory and the special treatment of register zero. This is further
@@ -157,7 +157,7 @@ value indicating a signed Less Than result for a comparison.
 
 #### ALU
 
-![ALU](alu.svg)
+![ALU](generated/alu.svg)
 
 Looking at all instructions, we need to be able to add and substract a pair of 16 bit
 number, do a bitwise *AND*, *OR* and *XOR* operations between them and also handle the
@@ -166,7 +166,7 @@ we need to indicate the signed compatisons `A >= B` and `A != B`.
 
 #### ALU input adaptor
 
-![ALU input adaptor](adapt.svg)
+![ALU input adaptor](generated/adapt.svg)
 
 While the most common operations use the registers selected by fields *rS1* and *rS2*
 as operands, the exceptions mean we can't just connect the register outputs to the ALU.
@@ -179,7 +179,7 @@ The bottom bit of the immediate can be forced to 0 while its actual value is rep
 
 #### byte memory access adaptor
 
-![word to byte adaptation](bytes.svg)
+![word to byte adaptation](generated/bytes.svg)
 
 Normally writing bytes to wider memory is implemented by having a per byte chip enable
 signal. For simulations in Digital it is easier to have a single, wide memory as the tool
@@ -203,13 +203,13 @@ The control unit uses the following inputs to do its job: *clock*, *reset*, *dIn
 *NE* and *GE*. It generates: *wr*, *rd*, *sign*, *word*, *sub*, *logic*, *logSelect*, *topImm*, *even*,
 *const2*, *selImm*, *selConst*, *Azero*, *we*, *Rw*, *Ra*, *Rb*, *selRd*, *slt* and *immLow*.
 
-![r0 handling](r0.svg)
+![r0 handling](generated/r0.svg)
 
 This simple circuit helps handle register zero. It allows any of the three instruction
 fields to be overridden by the PC and indicates if special handling (replace with 0 for
 the sources and don't write for the destination) is needed.
 
-![control unit](controlUnit.svg)
+![control unit](generated/controlUnit.svg)
 
 #### fetch
 
@@ -258,7 +258,7 @@ for IR[1:0] in the columns and the same order for IR[3:2] for the rows:
 This order is known as a Karnough Map and helps define the minimum circuit needed for a give function.
 As an example, here is what each instruction needs to output in *word*:
 
-![k-map for word](kmap_word.png)
+![k-map for word](generated/kmap_word.png)
 
 Only the load and store instructions care about this signal. This means that this result is acceptable:
 
@@ -276,19 +276,19 @@ Another example is *sub*. It is needed not only for **SUB** but also for generat
 for **SLT** and the branch instructions. But we need addition for jumps and memory transfer, as well
 as for **ADD** itself:
 
-![k-map for sub](kmap_sub.png)
+![k-map for sub](generated/kmap_sub.png)
 
 We never want subtractions in *fetch*, so `sub := EXECUTE & !IR[2] & IR[1]` will do the job, which is a three input
 NAND gate with one inverted input. To make it shorter, this could be expressed as `E&!IR2&IR1`. The expressions for
 some more signals can be derived in the same way:
 
-![k-map for wr](kmap_wr.png) ![k-map for rd](kmap_rd.png) ![k-map for sign](kmap_sign.png) ![k-map for logic](kmap_logic.png)
+![k-map for wr](generated/kmap_wr.png) ![k-map for rd](generated/kmap_rd.png) ![k-map for sign](generated/kmap_sign.png) ![k-map for logic](generated/kmap_logic.png)
 
 *logSelect* is simply the low two bits of the instruction.
 
 For the two multiplexers at the input of the register file:
 
-![k-map for selRD](kmap_selRD.png) ![k-map for slt](kmap_slt.png)
+![k-map for selRD](generated/kmap_selRD.png) ![k-map for slt](generated/kmap_slt.png)
 
 The complexity of this logic is a result of there not being a good place to include the **LBU** and
 **SLT** instructions.
@@ -323,6 +323,6 @@ the sources (currently 12 and 18). A message with the result and the two numbers
 terminal window. The code to print strings and decimal number (always 3 digits with leading zeros)
 dwarfs the actual GCD part.
 
-The program *testTerm* will eventually test all instructions and show the results in the terminal.
+The program *testTerm.S* will eventually test all instructions and show the results in the terminal.
 Currently only the *LI* (actually *ADDI*), *SH* and *J* (actually *JAL*) are being tested to print
 a sequence of "5" characters to the terminal.

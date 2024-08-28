@@ -3,6 +3,14 @@
   <version>2</version>
   <attributes>
     <entry>
+      <string>Description</string>
+      <string>A simple system with a drv16 processor, 64KB of RAM, a terminal and keyboard</string>
+    </entry>
+    <entry>
+      <string>Label</string>
+      <string>system</string>
+    </entry>
+    <entry>
       <string>romContent</string>
       <romList>
         <roms/>
@@ -14,7 +22,7 @@
     </entry>
     <entry>
       <string>preloadProgramFile</string>
-      <file>/home/jecel/mario/digitalCPUzoo/drv16/testTerm.hex</file>
+      <file>/home/jecel/mario/digitalCPUzoo/drv16/generated/testTerm.hex</file>
     </entry>
   </attributes>
   <visualElements>
