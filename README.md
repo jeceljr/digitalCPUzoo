@@ -16,3 +16,6 @@ It addresses 256 bytes of memory compared to just 64 for the *MCPU*.
 
 *drv16* is a 16 bit processor that is compatible at the assembly language level with
 the RV32E standard.
+
+*retro8* is an 8 bit processor with 24 bit addresses and represents an attempt to
+define an 8 bit processor that is nicer than the 6809.
