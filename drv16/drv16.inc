@@ -159,19 +159,19 @@ absStart:
         format_id 6, \d, \a, \b
 .endm
 
-.macro  beq b, a, d
+.macro  beq a, b, d
         format_id 2, ((\d-.)+2), \a, \b
 .endm
 
-.macro  bne b, a, d
+.macro  bne a, b, d
         format_id 2, ((\d-.)+3), \a, \b
 .endm
 
-.macro  blt b, a, d
+.macro  blt a, b, d
         format_id 3, ((\d-.)+2), \a, \b
 .endm
 
-.macro  bge b, a, d
+.macro  bge a, b, d
         format_id 3, ((\d-.)+3), \a, \b
 .endm
 
