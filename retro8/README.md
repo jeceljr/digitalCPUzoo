@@ -21,7 +21,7 @@ This is one suggestion.
 
 The goal is a clean and usable 8 bit processor (where the "8" in the name comes from) that could have reasonably existed when microcomputers were built around such processor (where the "retro" comes from).
 
-A secondary goal is to clear up a misunderstanding: all popular 8 bit processor used 16 bit addresses so it is easy to think these two features go together. A pure 8 bit processor would also have 8 bit addresses and that would limit it to 256 bytes of memory. What some consider the first computer, [the Kenbak-1](https://en.wikipedia.org/wiki/Kenbak-1), is an example of this and the NCPU in this repository is another example. This can be educational, but not very practical. The solution is to have a hybrid architecture with some kind of address extension, like using a pair of registers for addresses. The first practical computer designed in Brazil, the ["Patinho Feio"](https://en.wikipedia.org/wiki/Patinho_Feio) (Ugly Duckling), was an 8 bit computer that used 12 bit addresses to handle 4KB of memory (it was later upgraded so indirect addressing could use 16 bits instead). A pure 16 bit architecture is limited to 64KB (or 128KB if it is word addressed) which is why the Intel 8086 had the segment scheme to extend that to 20 bits with a pair of 16 bit registers.
+A secondary goal is to clear up a misunderstanding: all popular 8 bit processors used 16 bit addresses so it is easy to think these two features go together. A pure 8 bit processor would also have 8 bit addresses and that would limit it to 256 bytes of memory. What some consider the first computer, [the Kenbak-1](https://en.wikipedia.org/wiki/Kenbak-1), is an example of this and the NCPU in this repository is another example. This can be educational, but not very practical. The solution is to have a hybrid architecture with some kind of address extension, like using a pair of registers for addresses. The first practical computer designed in Brazil, the ["Patinho Feio"](https://en.wikipedia.org/wiki/Patinho_Feio) (Ugly Duckling), was an 8 bit computer that used 12 bit addresses to handle 4KB of memory (it was later upgraded so indirect addressing could use 16 bits instead). A pure 16 bit architecture is limited to 64KB (or 128KB if it is word addressed) which is why the Intel 8086 had the segment scheme to extend that to 20 bits with a pair of 16 bit registers.
 
 Retro8 uses a group of three 8 bit registers to generate its addresses, so can have up to 16MB of memory.
 
@@ -62,7 +62,7 @@ alternative registers (only used by pushalt and popalt)
 |------------|--------|------|--------------|
 | A0-AF | oooo ssss oooo dddd | combine source with destination | add, sub, addc, subb, mov, xor, or, and, shl, asr, shr, rot, mul, muh, mus, rotc |
 | 00-7F | oooo dddd iiii iiii | combine immediate with destination | addi, subi, addci, subbi, movi, xori, ori, andi |
-| C0-EF | oooo ssdd           | 24 bit operations, transfer source to destination | movl (s=>d), (s=>*d) or (*s=>d) |
+| C0-EF | oooo ssdd           | 24 bit operations, transfer source to destination | movl (d<=s), (*d<=s) or (d<=*s) |
 | 80-9F | oooo oodd           | 24 bit operations, change destination | inc, dec, callr, jumpr, push, pop, pushalt, popalt |
 | B0-BF | oooo cccc iiii iiii | branch on condition | br??, call (coded as brnv which has cccc=1111) |
 | F0-FB | oooo oooo           | implied operands | cc, sc, cv, sv, cn, sn, cz, sz, di, ei, rti, brk |
@@ -137,7 +137,7 @@ offset to the address. Again, this might be the source, destination or both.
 FC, FD, FE, FF would be implied operand instructions that haven't been defined,
 so instead they modify the address to increment before, increment after,
 decrement before and decrement after, respectively. Since the inc and dec
-instructions are a single byte long, these prefixes are interesting if both
+instructions are a single byte long, these prefixes are only interesting if both
 source and destinations are addresses to be changed.
 
 ## PACKAGE/PINOUT

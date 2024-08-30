@@ -164,19 +164,6 @@ number, do a bitwise *AND*, *OR* and *XOR* operations between them and also hand
 odd shift to the right combining with a bit from the other operand. When subtracting
 we need to indicate the signed compatisons `A >= B` and `A != B`.
 
-#### ALU input adaptor
-
-![ALU input adaptor](generated/adapt.svg)
-
-While the most common operations use the registers selected by fields *rS1* and *rS2*
-as operands, the exceptions mean we can't just connect the register outputs to the ALU.
-When the fields are 0 the data must be 0 instead of the PC which is actually stored
-there. For incrementing the PC we replace 0 with 2 as the constant. In addition, it
-is possible to have an immediate value as the second operand. The bottom bits of the
-immediate can come from either field *rS2* or *rD* of the instruction (following the
-RISC-V philosophy of not using field *rD* for a source in store or branch instructions).
-The bottom bit of the immediate can be forced to 0 while its actual value is reported.
-
 #### byte memory access adaptor
 
 ![word to byte adaptation](generated/bytes.svg)
@@ -199,9 +186,11 @@ implemented as a sequence of two selectors of two inputs each.
 
 ### Control Unit
 
-The control unit uses the following inputs to do its job: *clock*, *reset*, *dIn*, *alt*,
-*NE* and *GE*. It generates: *wr*, *rd*, *sign*, *word*, *sub*, *logic*, *logSelect*, *topImm*, *even*,
-*const2*, *selImm*, *selConst*, *Azero*, *we*, *Rw*, *Ra*, *Rb*, *selRd*, *slt* and *immLow*.
+The control unit uses the following inputs to do its job: *clock*, *reset*, *dIn*,
+*NE* and *GE*. It generates: *wr*, *rd*, *sign*, *word*, *sub*, *logic*, *logSelect*,
+*Imm*, *selImm*, *Azero*, *we*, *Rw*, *Ra*, *Rb*, *selRd* and *slt*
+
+There are also some internal signals such as *alt*, *even*,*const2*, *selConst* and *immLow*.
 
 ![r0 handling](generated/r0.svg)
 
@@ -230,8 +219,8 @@ changed in the next fetch cycle.
 
 |      | even | const2 | selImm | selConst | Azero | sub | logic | aPC |
 |------|------|--------|--------|----------|-------|-----|-------|-----|
-| reset | X   | 0      | 0      | 1        | 1     | 0   | X     | X   |
-| fetch | 1   | 1      | 0      | 1        | 0     | 0   | 0     | 1   |
+| reset | X   | 0      | 1      | 1        | 1     | 0   | X     | X   |
+| fetch | 1   | 1      | 1      | 1        | 0     | 0   | 0     | 1   |
 | fetch JAL | 1 | X    | 1      | 0        | 0     | 0   | 0     | 1   |
 | fetch JALR | 1 | X   | 1      | 0        | 0     | 0   | 0     | 0   |
 | fetch cond | 1 | X   | 1      | 0        | 0     | 0   | 0     | 1   |
