@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<truthTable>
+  <variables>
+    <variable name="reset"/>
+    <variable name="cond"/>
+    <variable name="alt"/>
+    <variable name="JorB"/>
+    <variable name="IR0"/>
+  </variables>
+  <results>
+    <result>
+      <name>selImm</name>
+      <values class="BoolTable">11111111111111111111111111111111</values>
+    </result>
+    <result>
+      <name>selConst</name>
+      <values class="BoolTable">11011101110011001111111111111111</values>
+    </result>
+    <result>
+      <name>sub</name>
+      <values class="BoolTable">00000000000000000000000000000000</values>
+    </result>
+    <result>
+      <name>logic</name>
+      <values class="BoolTable">0000000000000000XXXXXXXXXXXXXXXX</values>
+    </result>
+    <result>
+      <name>aPC</name>
+      <values class="BoolTable">1111110111111101XXXXXXXXXXXXXXXX</values>
+    </result>
+  </results>
+</truthTable>

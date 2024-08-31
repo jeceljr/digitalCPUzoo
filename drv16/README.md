@@ -217,78 +217,92 @@ signals to execute `@IR := mem[@PC := 0]` are active. With both inputs forced to
 When the instruction was **JAL**, **JALR** or a branch with `cond == true` then some signals are
 changed in the next fetch cycle.
 
-|      | even | const2 | selImm | selConst | Azero | sub | logic | aPC |
-|------|------|--------|--------|----------|-------|-----|-------|-----|
-| reset | X   | 0      | 1      | 1        | 1     | 0   | X     | X   |
-| fetch | 1   | 1      | 1      | 1        | 0     | 0   | 0     | 1   |
-| fetch JAL | 1 | X    | 1      | 0        | 0     | 0   | 0     | 1   |
-| fetch JALR | 1 | X   | 1      | 0        | 0     | 0   | 0     | 0   |
-| fetch cond | 1 | X   | 1      | 0        | 0     | 0   | 0     | 1   |
-| execute | EJ | EJ      | ?      | EJ        | 0     | ?   | ?     | EJ   |
+        inputs:
+    reset         100000
+    cond          XXXX01
+    alt           XX01XX
+    JorB          X01111
+    IR0           XX0011
+        outputs:
+    even          X11111
+    const2        01XX1X
+    selImm        111111
+    selConst      110010
+    Azero         100000
+    sub           000000
+    logic         X00000
+    aPC           X11011
 
 *aPC* is short for "force A to PC".
 
+More signals for fetch are always:
+
+    lowImm        0
+    rd            1
+    wr            0
+    we            1
+    sign          X
+    word          X
+    selRd         0
+    slt           0
+
 Signals *even* and *const2* can be implemented by the same circuit when we take the "don't cares" into
-account.
+account. In fact, given the following table we can just have `even := !reset`. And `Azero := reset`.
+
+We can use the Digital function to generate a circuit from this table. An "X" in an input means that there
+are actually two columns - one with this value as "0" and another with this value as "1". With 5 inputs
+the truth table will have 32 entries. An "X" in an output means that either a "0" or a "1" are acceptable
+and Digital can generate a smaller circuit by selecting one or the other.
+
+![PLA for fetch cycles](generated/fetchPLA.svg)
+
+These blocks are names "PLA" (Programmable Logic Array) in this project because that would be a normal
+way of implementing such circuits in early integrated circuits. A PLA implements a "sum of products"
+combinational logic (ORs that have as inputs ANDs connected to some of their inputs or their inverses)
+in a very compact layout. If a tool doesn't have a PLA layout generator then standard cells will
+produce the same result but with a larger area. In FPGAs these circuits can be implemented with just
+one or a few LUTs (LookUp Tables) for each output.
 
 #### execute
 
-The "opcodes" selected for the different instructions is not arbitrary, but were designed to reduce
-the size of the decoder circuit. If we organize them into a 2D table and use gray order (0, 1, 3, 2)
-for IR[1:0] in the columns and the same order for IR[3:2] for the rows:
+        inputs:
+    IR3           000000111111111
+    IR2           001111000000011
+    IR1           0100110001111XX
+    IR0           1X01010110011XX
+    imm           XXXXXXX01010101
+        outputs:
+    even          1XXXXXXXXXXXXXX
+    const2        1XXXXXXXXXXXXXX
+    selImm        101111101010101
+    selConst      1X00000X0X0X0X0
+    Azero         000000000000000
+    sub           0100000001111XX
+    logic         000000000000011
+    aPC           1X00XX000000000
+        more outputs:
+    lowImm        0X00110X0X0X0X0
+    rd            001111100000000
+    wr            000011000000000
+    we            101100111111111
+    sign          XX1XXX0XXXXXXXX
+    word          XX01010XXXXXXXX
+    selRd         0X11XX100000000
+    slt           0XXXXXX00001100
 
-| | xx00 | xx01 | xx11 | xx10 |
-|-|------|------|------|------|
-| 00xx | | JAL/JALR | BLT/BGE | BEQ/BNE |
-| 01xx | LB | LH | SH | SB |
-| 11xx | SRS | AND | XOR | OR |
-| 10xx | LBU | ADD | SLT | SUB |
 
-This order is known as a Karnough Map and helps define the minimum circuit needed for a give function.
-As an example, here is what each instruction needs to output in *word*:
-
-![k-map for word](generated/kmap_word.png)
-
-Only the load and store instructions care about this signal. This means that this result is acceptable:
-
-    0110
-    0110
-    0110
-    0110
-
-It has "1" everywhere it needs to and "0" in the places that they are needed. Just connecting *word* to
-IR[0] would solve this. It is important to check that *fetch* doesn't need something different. In this
-case there is no problem since the data fetched from memory is stored directly in *IR* without passing
-though the byte adaptation circuit.
-
-Another example is *sub*. It is needed not only for **SUB** but also for generating the correct value
-for **SLT** and the branch instructions. But we need addition for jumps and memory transfer, as well
-as for **ADD** itself:
-
-![k-map for sub](generated/kmap_sub.png)
-
-We never want subtractions in *fetch*, so `sub := EXECUTE & !IR[2] & IR[1]` will do the job, which is a three input
-NAND gate with one inverted input. To make it shorter, this could be expressed as `E&!IR2&IR1`. The expressions for
-some more signals can be derived in the same way:
-
-![k-map for wr](generated/kmap_wr.png) ![k-map for rd](generated/kmap_rd.png) ![k-map for sign](generated/kmap_sign.png) ![k-map for logic](generated/kmap_logic.png)
-
-*logSelect* is simply the low two bits of the instruction.
-
-For the two multiplexers at the input of the register file:
-
-![k-map for selRD](generated/kmap_selRD.png) ![k-map for slt](generated/kmap_slt.png)
-
-The complexity of this logic is a result of there not being a good place to include the **LBU** and
-**SLT** instructions.
 
 Branches are the only case when no register is written to as the result is saved in *cond* instead.
 IR0 selects between *GE* amd *NE* inputs and *alt* inverts the test. *alt* is just the lowest bit
-of the immediate value before it is optionally cleared by *even*. *we* is enabled except during the
-execution of branches while *immLow* is enabled during the fetch of the instruction after a branch.
+of the immediate value before it is optionally cleared by *even*.
 
-Fetches force rD to the *PC* while field rS1 is forced to the *PC* during the execution of a
-jump or for fetches except after a branch.
+![PLA for execution cycles](generated/execPLA.svg)
+
+When field rD is 0 then the result should not be saved to the register ('we := 0`), unless it is (perhaps also)
+being forced to the PC, which happens during any fetch.
+
+When field rS1 is 0 then input A of the ALU must be forced to zero (`Azero := 1`) unless it is being forced
+to be the PC. Combined with what was said about about reset, we have `Azero := reset | (zS1&aPC)`.
 
 ## Software
 

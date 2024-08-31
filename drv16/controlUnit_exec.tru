@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<truthTable>
+  <variables>
+    <variable name="IR3"/>
+    <variable name="IR2"/>
+    <variable name="IR1"/>
+    <variable name="IR0"/>
+    <variable name="imm"/>
+  </variables>
+  <results>
+    <result>
+      <name>selImm</name>
+      <values class="BoolTable">XX110000111111111101010101010101</values>
+    </result>
+    <result>
+      <name>selConst</name>
+      <values class="BoolTable">XX11XXXX0000000000X0X0X0X0X0X0X0</values>
+    </result>
+    <result>
+      <name>sub</name>
+      <values class="BoolTable">XX0011110000000000001111XXXXXXXX</values>
+    </result>
+    <result>
+      <name>logic</name>
+      <values class="BoolTable">XX000000000000000000000011111111</values>
+    </result>
+    <result>
+      <name>aPC</name>
+      <values class="BoolTable">XX11XXXX0000XXXX0000000000000000</values>
+    </result>
+    <result>
+      <name>lowImm</name>
+      <values class="BoolTable">XX00XXXX0000111100X0X0X0X0X0X0XX</values>
+    </result>
+    <result>
+      <name>rd</name>
+      <values class="BoolTable">XX000000111111111100000000000000</values>
+    </result>
+    <result>
+      <name>wr</name>
+      <values class="BoolTable">XX000000000011110000000000000000</values>
+    </result>
+    <result>
+      <name>we</name>
+      <values class="BoolTable">XX110000111100001111111111111111</values>
+    </result>
+    <result>
+      <name>sign</name>
+      <values class="BoolTable">XXXXXXXX11XXXXXX00XXXXXXXXXXXXXX</values>
+    </result>
+    <result>
+      <name>word</name>
+      <values class="BoolTable">XXXXXXXX0011001100XXXXXXXXXXXXXX</values>
+    </result>
+    <result>
+      <name>selRd</name>
+      <values class="BoolTable">XX00XXXX1111XXXX1100000000000000</values>
+    </result>
+    <result>
+      <name>slt</name>
+      <values class="BoolTable">XX00XXXXXXXXXXXXXX00001100000000</values>
+    </result>
+  </results>
+</truthTable>
