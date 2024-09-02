@@ -150,10 +150,14 @@ memory blocks):
 
 ### Datapath
 
-The main blocks of the datapath are the register bank, the ALU input adaptor, the ALU
-itself and the byte memory access adaptor. Two multiplexers allow the data written
+The main blocks of the datapath are the register bank and the ALU.
+Two multiplexers allow the data written
 back to the destination register be the ALU result, dIn from memory or a boolean
-value indicating a signed Less Than result for a comparison.
+value indicating a signed Less Than result for a comparison. Another multiplexor
+allows the A input of the ALU to either come from the registers or be the constant
+0. In the same way, another multiplexor allows the B input of the ALU to either
+com from the registers or the immediate value (which can be forced to the constant
+0 or the constant 2 inside the control unit).
 
 #### ALU
 
@@ -164,25 +168,16 @@ number, do a bitwise *AND*, *OR* and *XOR* operations between them and also hand
 odd shift to the right combining with a bit from the other operand. When subtracting
 we need to indicate the signed compatisons `A >= B` and `A != B`.
 
-#### byte memory access adaptor
+#### byte memory access
 
-![word to byte adaptation](generated/bytes.svg)
+Writing bytes to wider memory is implemented by having a per byte chip enable
+signal. In this case there are two *write* signals. Both are active on writes
+to words and one is active on other writes depending on the lowest bit of the
+address (which is not sent to the memory).
 
-Normally writing bytes to wider memory is implemented by having a per byte chip enable
-signal. For simulations in Digital it is easier to have a single, wide memory as the tool
-can then easily load an Intel Hex file before simulation starts. With memories that have
-separate Data In and Data Out pins, an option is to just write back the bytes that are
-not supposed to be changed.
-
-| word | A0 | rD[15:8] | rD[7:0] | dOut[15:8] | dOut[7:0] |
-|------|----|----------|---------|------------|-----------|
-| 0    | 0  | 8x(sign&rD[7] | dIn[7:0] | dIn[15:8] | rS2[7:0] |
-| 0    | 1  | 8x(sign&rD[7] | dIn[15:8] | rS2[7:0] | dIn[7:0] |
-| 1    | x  | dIn[15:8] | dIn[7:0] | rS2[15:8] | rS2[7:0] |
-
-The table indicates how the various 8 bit multiplexers are controlled by the signals *word* (IR[0]),
-*A0* and *sign* (/IR[3]). Only the multiplexer for dOut[15:8] needs more than two inputs and is best
-implemented as a sequence of two selectors of two inputs each.
+On byte reads, A0 selects which 8 bits appear in the bottom byte while the
+top byte is either all zeros or copies of the top bit of the bottom bytes
+depending on *sign*.
 
 ### Control Unit
 
@@ -303,6 +298,10 @@ being forced to the PC, which happens during any fetch.
 
 When field rS1 is 0 then input A of the ALU must be forced to zero (`Azero := 1`) unless it is being forced
 to be the PC. Combined with what was said about about reset, we have `Azero := reset | (zS1&aPC)`.
+
+When field rS2 is 0 then input B of the ALU must be forced to zero. This field is never forced to be the
+PC. Activating the *selImm* and *selConst* signals but not *even* (a combination also used by *reset*)
+will do the job.
 
 ## Software
 
