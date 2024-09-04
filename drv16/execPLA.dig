@@ -3,6 +3,10 @@
   <version>2</version>
   <attributes>
     <entry>
+      <string>Description</string>
+      <string>generates control signals for execution cycles (created by Digital from truth table)</string>
+    </entry>
+    <entry>
       <string>Label</string>
       <string>exec PLA</string>
     </entry>
@@ -11,10 +15,6 @@
       <romList>
         <roms/>
       </romList>
-    </entry>
-    <entry>
-      <string>Description</string>
-      <string>generates control signals for execution cycles (created by Digital from truth table)</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -258,6 +258,10 @@
         <entry>
           <string>wideShape</string>
           <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Inputs</string>
+          <int>3</int>
         </entry>
       </elementAttributes>
       <pos x="20" y="800"/>
@@ -623,12 +627,12 @@
       <p2 x="160" y="160"/>
     </wire>
     <wire>
-      <p1 x="-220" y="800"/>
-      <p2 x="20" y="800"/>
-    </wire>
-    <wire>
       <p1 x="120" y="800"/>
       <p2 x="140" y="800"/>
+    </wire>
+    <wire>
+      <p1 x="-140" y="800"/>
+      <p2 x="20" y="800"/>
     </wire>
     <wire>
       <p1 x="100" y="420"/>
@@ -669,6 +673,10 @@
     <wire>
       <p1 x="100" y="820"/>
       <p2 x="120" y="820"/>
+    </wire>
+    <wire>
+      <p1 x="-220" y="820"/>
+      <p2 x="20" y="820"/>
     </wire>
     <wire>
       <p1 x="-200" y="440"/>
@@ -967,7 +975,7 @@
       <p2 x="-220" y="1040"/>
     </wire>
     <wire>
-      <p1 x="-220" y="800"/>
+      <p1 x="-220" y="820"/>
       <p2 x="-220" y="900"/>
     </wire>
     <wire>
@@ -976,7 +984,7 @@
     </wire>
     <wire>
       <p1 x="-220" y="480"/>
-      <p2 x="-220" y="800"/>
+      <p2 x="-220" y="820"/>
     </wire>
     <wire>
       <p1 x="-220" y="1200"/>
@@ -996,7 +1004,7 @@
     </wire>
     <wire>
       <p1 x="-140" y="740"/>
-      <p2 x="-140" y="960"/>
+      <p2 x="-140" y="800"/>
     </wire>
     <wire>
       <p1 x="-140" y="960"/>
@@ -1009,6 +1017,10 @@
     <wire>
       <p1 x="-140" y="80"/>
       <p2 x="-140" y="740"/>
+    </wire>
+    <wire>
+      <p1 x="-140" y="800"/>
+      <p2 x="-140" y="960"/>
     </wire>
     <wire>
       <p1 x="-140" y="20"/>

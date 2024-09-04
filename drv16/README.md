@@ -227,12 +227,12 @@ changed in the next fetch cycle.
     sub           000000
     logic         X00000
     aPC           X11011
+    lowImm        0X0011
 
 *aPC* is short for "force A to PC".
 
 More signals for fetch are always:
 
-    lowImm        0
     rd            1
     wr            0
     we            1
@@ -249,9 +249,7 @@ are actually two columns - one with this value as "0" and another with this valu
 the truth table will have 32 entries. An "X" in an output means that either a "0" or a "1" are acceptable
 and Digital can generate a smaller circuit by selecting one or the other.
 
-![PLA for fetch cycles](generated/fetchPLA.svg)
-
-These blocks are names "PLA" (Programmable Logic Array) in this project because that would be a normal
+The block is named "PLA" (Programmable Logic Array) in this project because that would be a normal
 way of implementing such circuits in early integrated circuits. A PLA implements a "sum of products"
 combinational logic (ORs that have as inputs ANDs connected to some of their inputs or their inverses)
 in a very compact layout. If a tool doesn't have a PLA layout generator then standard cells will
@@ -277,7 +275,7 @@ one or a few LUTs (LookUp Tables) for each output.
     aPC           1X00XX000000000
         more outputs:
     lowImm        0X00110X0X0X0X0
-    rd            001111100000000
+    rd            001100100000000
     wr            000011000000000
     we            101100111111111
     sign          XX1XXX0XXXXXXXX
@@ -297,10 +295,11 @@ When field rD is 0 then the result should not be saved to the register ('we := 0
 being forced to the PC, which happens during any fetch.
 
 When field rS1 is 0 then input A of the ALU must be forced to zero (`Azero := 1`) unless it is being forced
-to be the PC. Combined with what was said about about reset, we have `Azero := reset | (zS1&aPC)`.
+to be the PC. Combined with what was said about about reset, we have `Azero := reset | (zS1&!aPC)`.
 
-When field rS2 is 0 then input B of the ALU must be forced to zero. This field is never forced to be the
-PC. Activating the *selImm* and *selConst* signals but not *even* (a combination also used by *reset*)
+When field rS2 is 0 and is not an immediate then input B of the ALU must be forced to zero.
+This field is never forced to be the PC.
+Activating the *selImm* and *selConst* signals but not *even* (a combination also used by *reset*)
 will do the job.
 
 ## Software
