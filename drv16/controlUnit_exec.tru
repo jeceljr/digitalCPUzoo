@@ -26,7 +26,7 @@
     </result>
     <result>
       <name>aPC</name>
-      <values class="BoolTable">XX11XXXX0000XXXX0000000000000000</values>
+      <values class="BoolTable">001100000000XXXX0000000000000000</values>
     </result>
     <result>
       <name>lowImm</name>

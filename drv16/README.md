@@ -217,7 +217,7 @@ changed in the next fetch cycle.
     cond          XXXX01
     alt           XX01XX
     JorB          X01111
-    IR0           XX0011
+    IR1           XX0011
         outputs:
     even          X11111
     const2        01XX1X
@@ -265,14 +265,14 @@ one or a few LUTs (LookUp Tables) for each output.
     IR0           1X01010110011XX
     imm           XXXXXXX01010101
         outputs:
-    even          1XXXXXXXXXXXXXX
+    even          1X00000X0X0X0X0
     const2        1XXXXXXXXXXXXXX
     selImm        101111101010101
     selConst      1X00000X0X0X0X0
     Azero         000000000000000
     sub           0100000001111XX
     logic         000000000000011
-    aPC           1X00XX000000000
+    aPC           100000000000000
         more outputs:
     lowImm        0X00110X0X0X0X0
     rd            001100100000000
