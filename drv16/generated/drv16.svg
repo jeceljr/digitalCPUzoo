@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Digital by H.Neemann -->
-<!-- created: Mon Sep 02 19:38:49 BRT 2024 -->
+<!-- created: Wed Sep 04 18:43:08 BRT 2024 -->
 
 <svg
    xmlns:svg="http://www.w3.org/2000/svg"
@@ -85,6 +85,7 @@
 <path d="M 300,-220 L 280,-220 L 280,-240 L 1000,-240 L 1000,-120" stroke="#0000b2" stroke-width="4.0" fill="none"/>
 <path d="M 280,-100 L 280,20" stroke="#0000b2" stroke-width="4.0" fill="none"/>
 <path d="M 1100,-300 L 1020,-300 L -160,-300 L -160,-180 L -120,-180" stroke="#0000b2" stroke-width="4.0" fill="none"/>
+<path d="M 420,420 L 420,460" stroke="#0000b2" stroke-width="4.0" fill="none"/>
 <path d="M 620,-200 L 620,-180" stroke="#0000b2" stroke-width="4.0" fill="none"/>
 <path d="M 240,-60 L 240,-20" stroke="#0000b2" stroke-width="4.0" fill="none"/>
 <path d="M -120,-160 L -180,-160 L -180,-320 L 260,-320 L 1040,-320 L 1040,-240 L 1100,-240" stroke="#0000b2" stroke-width="4.0" fill="none"/>
@@ -132,6 +133,7 @@
 <circle cx="580.0" cy="-160.0" r="4.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
 <circle cx="460.0" cy="-160.0" r="4.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
 <circle cx="0.0" cy="480.0" r="4.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
+<circle cx="420.0" cy="420.0" r="4.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
 <circle cx="820.0" cy="360.0" r="4.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
 <circle cx="1020.0" cy="-300.0" r="4.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
 <circle cx="1040.0" cy="-240.0" r="4.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
@@ -530,6 +532,11 @@
 <circle cx="920.0" cy="560.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
 <circle cx="940.0" cy="600.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
 <circle cx="1020.0" cy="580.0" r="2.0" stroke="#b20000" stroke-width="4.0" fill="#b20000" />
+</g>
+<g>
+<text text-anchor="start" x="422.0" y="456.0" fill="#000000" style="font-size:24px">dInBytes</text>
+<text text-anchor="start" x="422.0" y="482.0" fill="#000000" style="font-size:24px">?</text>
+<circle cx="420.0" cy="460.0" r="2.0" stroke="#0000b2" stroke-width="4.0" fill="#0000b2" />
 </g>
 </g>
 </svg>

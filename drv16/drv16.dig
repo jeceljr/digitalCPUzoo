@@ -563,6 +563,16 @@
       </elementAttributes>
       <pos x="940" y="560"/>
     </visualElement>
+    <visualElement>
+      <elementName>Probe</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>dInBytes</string>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="460"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -1296,6 +1306,10 @@
     <wire>
       <p1 x="420" y="120"/>
       <p2 x="420" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="420"/>
+      <p2 x="420" y="460"/>
     </wire>
     <wire>
       <p1 x="100" y="280"/>

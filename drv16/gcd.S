@@ -1,6 +1,8 @@
 .include "drv16.inc"
 
 start:
+	addi a0,zero, (txtH-absStart)
+	jal ra, printString
 	la t0, a
 	lh x1, t0, 0
 	la t0, b
@@ -32,13 +34,12 @@ stop:   j stop
 	.equ terminal, 0xFFFE
 
 printString:
-	li t1, terminal
 chars:
 	lb t0, a0, 0
 	bne t0, zero, moreChars
 	ret
 moreChars:
-	sb 0, t1, t0
+	sh t0, zero, terminal
 	addi a0, a0, 1
 	j chars
 
@@ -52,7 +53,7 @@ moreChars:
 	j 1b
 2:
 	addi a1, a1, 0x30  /* convert digit to ascii */
-	sb 0, t1, a1	
+	sh a1, zero, terminal	
 	.endm
 
 printDecimal:
@@ -66,3 +67,4 @@ a:	.word 12
 b:	.word 18
 txt1:	.asciz " is the greatest common denominator of "	
 txt2:	.asciz " and "
+txtH:	.asciz "ABC***CDEF "
