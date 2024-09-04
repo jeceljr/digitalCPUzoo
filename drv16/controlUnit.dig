@@ -1678,12 +1678,6 @@
           <string>wideShape</string>
           <boolean>true</boolean>
         </entry>
-        <entry>
-          <string>inverterConfig</string>
-          <inverterConfig>
-            <string>In_2</string>
-          </inverterConfig>
-        </entry>
       </elementAttributes>
       <pos x="1240" y="680"/>
     </visualElement>
@@ -1724,6 +1718,20 @@
         </entry>
       </elementAttributes>
       <pos x="740" y="1400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>F</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1200" y="720"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -2360,8 +2368,8 @@
       <p2 x="660" y="720"/>
     </wire>
     <wire>
-      <p1 x="1060" y="720"/>
-      <p2 x="1220" y="720"/>
+      <p1 x="1200" y="720"/>
+      <p2 x="1240" y="720"/>
     </wire>
     <wire>
       <p1 x="1180" y="2000"/>
@@ -2786,10 +2794,6 @@
     <wire>
       <p1 x="1060" y="980"/>
       <p2 x="1060" y="1000"/>
-    </wire>
-    <wire>
-      <p1 x="1060" y="720"/>
-      <p2 x="1060" y="900"/>
     </wire>
     <wire>
       <p1 x="1060" y="900"/>
