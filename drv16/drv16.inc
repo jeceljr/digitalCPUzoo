@@ -113,7 +113,7 @@ absStart:
 .endm
 
 .macro  jalr d, a, b
-        format_ib 1, \d, \a, (\b-1)
+        format_ib 1, \d, \a, (\b+1)
 .endm
 
 .macro  add d, a, b

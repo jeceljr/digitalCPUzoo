@@ -1,8 +1,6 @@
 .include "drv16.inc"
 
 start:
-	addi a0,zero, (txtH-absStart)
-	jal ra, printString
 	la t0, a
 	lh x1, t0, 0
 	la t0, b
@@ -57,7 +55,6 @@ moreChars:
 	.endm
 
 printDecimal:
-	li t1, terminal
 	printDigit 100
 	printDigit 10
 	printDigit 1
@@ -67,4 +64,3 @@ a:	.word 12
 b:	.word 18
 txt1:	.asciz " is the greatest common denominator of "	
 txt2:	.asciz " and "
-txtH:	.asciz "ABC***CDEF "
