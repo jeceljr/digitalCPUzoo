@@ -93,35 +93,3 @@ In *ncpu_terminal.svg* we have the datapath for the processor on the right,
 a 256 byte RAM and an interface to a text terminal in the top middle
 (writing to address 0xFF saves to memory as well as sending the character
 to the terminal) and the control unit on the left.
-
-## FCPU16
-
-256 bytes of memory is not much to do anything interesting though my first
-computer in 1980, the [MEK6800D2](https://en.wikipedia.org/wiki/MEK6800D2)
-only had that much RAM. Its 6800 processor could address 64KB and the
-machine did have a debugger in a 1KB ROM but in any case such small memory
-is limiting. A solution would be to expand the FCPU to 16 bits. If we use
-word addresses to avoid the complications of bytes then this would raise the
-limit to 128KB.
-
-Only the instruction fetch would have to be slightly modified. The rest of
-the system would just have all components defined as 8 bits wide changed to
-16 bits so the schematic would remain the same. The instructions would
-remain the same but immediate values would be 16 rather than 8 bits. With
-24 bit immemdiate instructions unaligned 16 bit values would have to be
-handled half of the time. It is possible greatly simplify the fetch hardware
-at the cost of complicating the assembler a bit if we define that the
-immediate values are always in the words following the instruction:
-
-    0C       ldi r0,0x1234
-      12     add r1,r0
-    1234
-    D7       bcs extrabit
-
-So the immediate value for the *ldi* instruction comes after the *add*
-instruction which is packed in the same word. When the *ldi* instruction
-is being executed the *add* has already been read into *IR* and *P* is
-already pointing to the immediate value. After it executes *P* will be
-pointing to the *bcs* instruction but it would be loaded yet and *add*
-will execute instead. Having both instructions in the same word be
-immediate causes no additional complications.
