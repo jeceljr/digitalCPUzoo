@@ -12,7 +12,7 @@
         </entry>
         <entry>
           <string>Bits</string>
-          <int>16</int>
+          <int>4</int>
         </entry>
       </elementAttributes>
       <pos x="1100" y="340"/>
@@ -65,7 +65,7 @@
         </entry>
         <entry>
           <string>Bits</string>
-          <int>16</int>
+          <int>4</int>
         </entry>
       </elementAttributes>
       <pos x="940" y="560"/>
@@ -79,7 +79,7 @@
         </entry>
         <entry>
           <string>Bits</string>
-          <int>16</int>
+          <int>4</int>
         </entry>
       </elementAttributes>
       <pos x="1300" y="560"/>
@@ -89,7 +89,7 @@
       <elementAttributes>
         <entry>
           <string>Bits</string>
-          <int>16</int>
+          <int>4</int>
         </entry>
       </elementAttributes>
       <pos x="1060" y="560"/>
@@ -107,7 +107,7 @@
     <visualElement>
       <elementName>ncpu16.dig</elementName>
       <elementAttributes/>
-      <pos x="540" y="420"/>
+      <pos x="620" y="360"/>
     </visualElement>
   </visualElements>
   <wires>
