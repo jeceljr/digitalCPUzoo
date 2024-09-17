@@ -2,7 +2,7 @@
 
 One interesting feature of the Data General Nova was that the instructions were defined such that individual bits directly controlled part of the datapath. This was not the case for the 8 bit *NCPU* where the complexity of the control unit far exceeded that of the datapath.
 
-With 16 bit instructions it is possible to simplify the design of the control unit.
+With 16 bit instructions it is possible to simplify the design of the control unit. A key goal for NCPU16 is to illustrate the complexity of computing by having the whole processor as a single schematic using only logic gates, registers, multiplexors and an adder as sub-blocks. The hardware complexity can be reduced by having fewer instructions (only one, in the case of SBN, Subtract and Branch if Negative, or ByteByteJump) but that makes programming significantly more complex. A reasonably number of instructions can reduce the total complexity of the system.
 
 ## Instruction set
 
