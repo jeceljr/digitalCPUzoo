@@ -96,7 +96,7 @@ on whether the previous instruction is par of a pair.
 Most instructions have two variations and the presence or not of the extension
 selects between them. In the case of **BEQ** and **BNE** it is the least
 significant bit of **rD** (extended or not) that selects between them as the
-bit would otherwise be wasted since we can't branch or odd addresses. The same
+bit would otherwise be wasted since we can't branch to odd addresses. The same
 trick is used to select between **JAL** and **JALR**.
 
 drv16 has a **SUBI** instruction that RV32E lacks (since it can have negative
