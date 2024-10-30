@@ -48,3 +48,19 @@ per instruction:
 |--------|---|---|---|---|---|---|
 | Address| PC | IR | PC | IR | PC | IR |
 | DataOut| ...I | ...D | ...I | ...D | ...I | ...D |
+
+![MCPU16](mcpu16_term.svg)
+
+The right part is the external system with 32KB (16K words of 16 bits each) of
+regular RAM with a terminal mapped at address 0x3FFF for writes and a keyboard
+at the same address for reads. The top of the left side of the figure is the
+datapath while the bottom is the control unit. Due to the differences in the
+timing of the external memory the program counter and address registers have
+exchanged places. The control unit is slightly simpler in this scheme.
+
+The design was trivially expanded to have 16 bit data and 14 bit addresses, though
+that added a few complications to *mcpu16.inc* due to the mixing of byte and word
+addresses.
+
+The program *testTerminal.S* writes "Hello world!" to the terminal and requires
+self modifying code to step through the string.
