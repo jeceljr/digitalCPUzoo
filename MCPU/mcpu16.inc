@@ -32,6 +32,14 @@ absStart:
 0:	.word (\a-absStart)/2
 1: 
 	.endm
+	
+	.macro LDInd a
+	LDA \a
+	ADD adInst
+        STA 0f
+        CLR
+0:      .word 0  /* will be replaced */
+	.endm
 
 	.macro NOT
 	NOR zero
@@ -74,6 +82,7 @@ absStart:
 zero:	.word 0
 one:	.word 1
 minusOne: .word 0xFFFF
+adInst:	.word 0x4000
 
 start:
 .list

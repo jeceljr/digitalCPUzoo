@@ -6,16 +6,26 @@ new_game:
 	LDP scText
 	STA cp
 	CALL printString
+	LDA rnd
+	NOR nibbleMask
+	ADD ascZero
+	OUT
+	LDP keysText
+	STA cp
+	CALL printString
+getChar:LDA rnd
+	ADD one
+	STA rnd
+	IN
+	STA char
+	ADD minusOne
+	JCC getChar
 	JMP new_game
 
 printString:
 	.word 0
 ploop:
-        LDA cp
-        ADD adInst
-        STA 0f
-        CLR
-0:      .word 0  /* will be replaced */
+        LDInd cp
         STA char
         ADD minusOne
         JCC printString    /* return - zero terminated string */
@@ -30,4 +40,11 @@ clrScreen: .word 0xC
 char:	.word 0x44
 cp:	.word 0
 scText: .string16 "Score: "
-adInst:	.word 0x4000
+keysText: .word 0x0A, 0x0D, 0x0A, 0x0D
+	.string16 "q=new game, wasd or ijkl=move"
+rnd:	.word 0xA539
+nibbleMask: .word 0xFFF0
+ascZero:.word 0x30
+score:	.word 0
+delta:	.word 0
+tiles:  .word 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0
