@@ -14,7 +14,7 @@
     </entry>
     <entry>
       <string>preloadProgramFile</string>
-      <file>/home/jecel/mario/digitalCPUzoo/MCPU/testTerminal.hex</file>
+      <file>/home/jecel/mygit/digitalCPUzoo/MCPU/term2048.hex</file>
     </entry>
   </attributes>
   <visualElements>
@@ -26,12 +26,12 @@
           <int>14</int>
         </entry>
         <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-        <entry>
           <string>isProgramMemory</string>
           <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
         </entry>
       </elementAttributes>
       <pos x="1260" y="280"/>
@@ -115,16 +115,16 @@
       <elementName>Clock</elementName>
       <elementAttributes>
         <entry>
+          <string>runRealTime</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>relogio</string>
         </entry>
         <entry>
           <string>Frequency</string>
           <int>5</int>
-        </entry>
-        <entry>
-          <string>runRealTime</string>
-          <boolean>true</boolean>
         </entry>
       </elementAttributes>
       <pos x="1100" y="460"/>

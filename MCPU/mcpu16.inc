@@ -25,6 +25,13 @@ absStart:
 	NOR minusOne
 	ADD \a
 	.endm
+	
+	.macro LDP a
+	LDA 0f
+	JMP 1f
+0:	.word (\a-absStart)/2
+1: 
+	.endm
 
 	.macro NOT
 	NOR zero
@@ -48,6 +55,7 @@ absStart:
 
 	.macro CALL a
 	LDA 0f
+	STA \a
 	JMP \a+2
 0:	JCC .+2
 	.endm

@@ -64,3 +64,5 @@ addresses.
 
 The program *testTerminal.S* writes "Hello world!" to the terminal and requires
 self modifying code to step through the string.
+
+The program *term2048.S* is a text version of the puzzle game 2048.
