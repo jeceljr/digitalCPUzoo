@@ -17,6 +17,20 @@
 	JCC \dest
 	.endm
 
+	.macro newLine
+	LDA ascLF
+	OUT
+	/*LDA ascCR
+	OUT*/
+	.endm
+
+	.macro showCell x, y
+	CLR
+	.word 0x4000 | (((tiles-absStart)/2)+4*\y+\x)
+	STA num
+	CALL printCell
+	.endm
+
 new_game:
 	CLR
 	STA score
@@ -29,6 +43,68 @@ showScreen:
 	LDA score
 	STA num
 	CALL printDecimal
+	LDA delta
+	ADD minusOne
+	JCC noDelta
+	LDP delText
+	STA cp
+	CALL printString
+	LDA delta
+	STA num
+	CALL printDecimal
+	LDA ascRPar
+	OUT
+noDelta:newLine
+	newLine
+	LDP lineText
+	STA cp
+	CALL printString
+	newLine
+	LDA ascVert
+	OUT
+	showCell 0, 0
+	showCell 1, 0
+	showCell 2, 0
+	showCell 3, 0
+	newLine
+	LDP lineText
+	STA cp
+	CALL printString
+	newLine
+	LDA ascVert
+	OUT
+	showCell 0, 1
+	showCell 1, 1
+	showCell 2, 1
+	showCell 3, 1
+	newLine
+	LDP lineText
+	STA cp
+	CALL printString
+	newLine
+	LDA ascVert
+	OUT
+	showCell 0, 2
+	showCell 1, 2
+	showCell 2, 2
+	showCell 3, 2
+	newLine
+	LDP lineText
+	STA cp
+	CALL printString
+	newLine
+	LDA ascVert
+	OUT
+	showCell 0, 3
+	showCell 1, 3
+	showCell 2, 3
+	showCell 3, 3
+	newLine
+	LDP lineText
+	STA cp
+	CALL printString
+	newLine
+	newLine
 	LDP keysText
 	STA cp
 	CALL printString
@@ -60,14 +136,14 @@ moveDown:LDA score
 	STA score
 	JMP showScreen
 
-moveLeft:LDA score
+moveLeft:LDA delta
 	ADD one
-	STA score
+	STA delta
 	JMP showScreen
 
-moveRight:LDA score
+moveRight:LDA delta
 	ADD minusOne
-	STA score
+	STA delta
 	JMP showScreen
 
 
@@ -111,9 +187,14 @@ ploop:
 	LDA count  /* should be between 0 and 9 */
 	ADD ascZero
 	OUT
-	JMP 3f
+	JMP 6f
 2:	.word 0-\n
-3:
+3:	LDA trim
+	ADD minusOne
+	JCC 6f
+	LDA ascSpace
+	OUT
+6:
 	.endm
 
 printDecimal:
@@ -123,6 +204,8 @@ printDecimal:
 	JCC printZero
 	LDA one
 	STA leadZ
+	CLR
+	STA trim
 	printDigit 10000
 	printDigit  1000
 	printDigit   100
@@ -133,19 +216,39 @@ printZero:
 	LDA ascZero
 	OUT
 	JMP printDecimal
+
+printCell:
+	.word 0
+	LDA one
+	STA leadZ
+	STA trim
+	printDigit 10000
+	printDigit  1000
+	printDigit   100
+	printDigit    10
+	printDigit     1
+	LDP cellText
+	STA cp
+	CALL printString
+	JMP printCell
 	
 char:	.word 0
 cp:	.word 0
 num:	.word 1
 count:	.word 0
 leadZ:	.word 0
+trim:	.word 1
 scText: .string16 "Score: "
-keysText: .word 0x0A, 0x0D, 0x0A, 0x0D
-	.string16 "q=new game, wasd or ijkl=move"
+delText:.string16 " (+"
+keysText:.string16 "q=new game, wasd or ijkl=move"
 rnd:	.word 0xA539
 nibbleMask: .word 0xFFF0
 signMask: .word 0x8000
-clrScreen: .word 0xC
+ascCR:	.word 0x0D
+ascLF:	.word 0x0A
+clrScreen:.word 0x0C
+ascSpace:.word 0x20
+ascRPar:.word 0x29
 ascZero:.word 0x30
 ascQ:	.word 0x71
 ascW:	.word 0x77
@@ -156,6 +259,9 @@ ascS:	.word 0x73
 ascK:	.word 0x6B
 ascD:	.word 0x64
 ascL:	.word 0x6C
+ascVert:.word 0x7C
 score:	.word 0
 delta:	.word 0
-tiles:  .word 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0
+tiles:  .word 0,1024,0,4, 0,0,2,0, 16,0,0,0, 0,0,8,0
+lineText:.string16 "-----------------------------"
+cellText:.string16 " |"
