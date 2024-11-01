@@ -18,7 +18,6 @@ loop:
 
 halt:	JMP halt
 
-adInst:	.word 0x4000
 text:	.string16 "Hello world!"
 cp:	.word (text-absStart)/2
 char:	.word 0
