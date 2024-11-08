@@ -65,4 +65,6 @@ addresses.
 The program *testTerminal.S* writes "Hello world!" to the terminal and requires
 self modifying code to step through the string.
 
-The program *term2048.S* is a text version of the puzzle game 2048.
+The program *term2048.S* is a text version of the puzzle game 2048. It also tests
+the i/o circuit that combines keyboard, terminal and a counter. For every screen
+it draws it shows how many clock cycle it took to do so.

@@ -71,6 +71,7 @@ new_game:
 	stCell 3, 3
 	CALL fillRNDcell
 showScreen:
+	STARTCOUNT
 	CLR
 	STA num
 	zCell 0, 0
@@ -171,6 +172,7 @@ noDelta:newLine
 	LDP keysText
 	STA cp
 	CALL printString
+	COUNT
 getChar:LDA rnd
 	ADD one
 	STA rnd

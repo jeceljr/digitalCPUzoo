@@ -77,6 +77,14 @@ absStart:
 	.word 0x7FFF
 	.endm
 
+	.macro STARTCOUNT
+	.word 0x7FFE
+	.endm
+	
+	.macro COUNT
+	.word 0xBFFE
+	.endm
+	
 	JMP start
 
 zero:	.word 0
