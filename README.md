@@ -28,3 +28,5 @@ to the Data General Nova. The goal is to reduce the complexity of the control un
 
 *retro8* is an 8 bit processor with 24 bit addresses and represents an attempt to
 define an 8 bit processor that is nicer than the 6809.
+
+*T2H* is a Havard 16 bit processor with instructions based on the Inmos Transputer
