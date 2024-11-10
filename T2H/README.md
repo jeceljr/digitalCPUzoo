@@ -40,7 +40,7 @@ allowing a compact encoding of any sized data.
 | 8x      | adc x     | A <- A+x, O <- 0 |
 | 9x      | call x    | mem[W] <- IP, IP <- IP+x, O <- 0 |
 | Ax      | cj x      | O <- 0, A == 0 ? IP <- IP+x : A <- B, B <- C, C <- ? |
-| Bx      | ajw x     | O <= 0, W <- W+x |
+| Bx      | ajw x     | O <- 0, W <- W+x |
 | Cx      | eqc x     | A <- A==x, O <- 0 |
 | Dx      | stl x     | m[W+x] <- A, A <- B, B <- C, C <- ?, O <- 0 |
 | Ex      | stnl x    | m[A+x] <- B, A <- C, B <- ?, C <- ?, O <- 0 |

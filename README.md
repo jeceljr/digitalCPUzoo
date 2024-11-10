@@ -30,3 +30,20 @@ to the Data General Nova. The goal is to reduce the complexity of the control un
 define an 8 bit processor that is nicer than the 6809.
 
 *T2H* is a Havard 16 bit processor with instructions based on the Inmos Transputer
+
+## Benchmarks
+
+The benchmark programs are *sieve.S* (calculates the first 1899 prime numbers using
+the "sieve of Erasthotenes" method), *term2048.S* (a terminal version of the 2048
+puzzle game), sine.S and mandelbrot.S.
+
+|            | drv16   | MCPU16 | NCPU16 | T2H    | baby8   |
+|------------|---------|--------|--------|--------|---------|
+| NANDs      |         |        |        |        |         |
+| Gowin      |         |        |        |        |         |
+| sieve lines| 129     |        |        |        |         |
+| sieve bytes| 279     |        |        |        |         |
+| sieve clocks| 456486 |        |        |        |         |
+| 2048 lines |         | 567    |        |        |         |
+| 2048 bytes |         | 3865   |        |        |         |
+| 2048 clocks|         | 14250  |        |        |         |

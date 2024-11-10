@@ -22,7 +22,7 @@
     </entry>
     <entry>
       <string>preloadProgramFile</string>
-      <file>/home/jecel/mygit/digitalCPUzoo/drv16/generated/gcd.hex</file>
+      <file>/home/jecel/mygit/digitalCPUzoo/drv16/generated/sieve.hex</file>
     </entry>
   </attributes>
   <visualElements>
@@ -61,7 +61,7 @@
         </entry>
         <entry>
           <string>Frequency</string>
-          <int>10</int>
+          <int>2147483647</int>
         </entry>
       </elementAttributes>
       <pos x="820" y="320"/>
@@ -198,6 +198,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>number of clocks for benchmark</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>cnt</string>
         </entry>
@@ -206,8 +210,8 @@
           <int>32</int>
         </entry>
         <entry>
-          <string>Description</string>
-          <string>number of clocks for benchmark</string>
+          <string>intFormat</string>
+          <intFormat>dec</intFormat>
         </entry>
       </elementAttributes>
       <pos x="1640" y="540"/>
