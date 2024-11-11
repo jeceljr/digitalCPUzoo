@@ -33,17 +33,28 @@ define an 8 bit processor that is nicer than the 6809.
 
 ## Benchmarks
 
-The benchmark programs are *sieve.S* (calculates the first 1899 prime numbers using
-the "sieve of Erasthotenes" method), *term2048.S* (a terminal version of the 2048
-puzzle game), sine.S and mandelbrot.S.
+The benchmark programs are:
+
+- *sieve.S*:calculates the first 1899 prime numbers using the "sieve of Erasthotenes" method
+- *term2048.S*: a terminal version of the 2048 puzzle game
+- sine.S: a simple sine wave using only shifts
+- mandelbrot.S: a text version of the famous fractal
+
 
 |            | drv16   | MCPU16 | NCPU16 | T2H    | baby8   | SERV   | Glacial  |  PicoRV32 | Vexriscv |
 |------------|--------:|-------:|-------:|-------:|--------:|-------:|---------:|----------:|---------:|
 | NANDs      |         |        |        |        |         |        |          |           |          |
 | Gowin      |         |        |        |        |         |        |          |           |          |
+| Gowin clock|         |        |        |        |         |        |          |           |          |
 | sieve lines| 129     |        |        |        |         |        |          |           |          |
 | sieve bytes| 279     |        |        |        |         |        |          |           |          |
 | sieve clocks| 456486 |        |        |        |         |        |          |           |          |
-| 2048 lines |         | 567    |        |        |         |        |          |           |          |
-| 2048 bytes |         | 3865   |        |        |         |        |          |           |          |
-| 2048 clocks|         | 14250  |        |        |         |        |          |           |          |
+| 2048 puzzle lines |         | 567    |        |        |         |        |          |           |          |
+| 2048 puzzle bytes |         | 3865   |        |        |         |        |          |           |          |
+| 2048 puzzle clocks|         | 14250  |        |        |         |        |          |           |          |
+| sine lines |         |        |        |        |         |        |          |           |          |
+| sine bytes |         |        |        |        |         |        |          |           |          |
+| sine cllocks|        |        |        |        |         |        |          |           |          |
+| mandelbrot lines |         |        |        |        |         |        |          |           |          |
+| mandelbrot bytes |         |        |        |        |         |        |          |           |          |
+| mandelbrot cllocks|        |        |        |        |         |        |          |           |          |
