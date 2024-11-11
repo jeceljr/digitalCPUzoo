@@ -22,7 +22,7 @@
     </entry>
     <entry>
       <string>preloadProgramFile</string>
-      <file>/home/jecel/mygit/digitalCPUzoo/drv16/generated/sieve.hex</file>
+      <file>/home/jecel/mygit/digitalCPUzoo/drv16/generated/sine.hex</file>
     </entry>
   </attributes>
   <visualElements>
@@ -61,7 +61,7 @@
         </entry>
         <entry>
           <string>Frequency</string>
-          <int>2147483647</int>
+          <int>20</int>
         </entry>
       </elementAttributes>
       <pos x="820" y="320"/>

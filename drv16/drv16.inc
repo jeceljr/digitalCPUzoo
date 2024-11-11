@@ -193,7 +193,44 @@ absStart:
         addi \a, \a, (\b-2)
 .endm
 
-/* slli, srli, srai, sll, srl, sra */
+/* slli, srli, srai */
+.macro slli a, b, c
+.if \c
+	add \a, \b, \b
+	slli2 \a, "(\c-1)"
+.endif
+.endm
+.macro slli2 a, c
+.if \c
+	add \a, \a, \a
+	slli2 \a, "(\c-1)"
+.endif
+.endm
+.macro srli a, b, c
+.if \c
+	srs \a, \b, zero
+	srli2 \a, "(\c-1)"
+.endif
+.endm
+.macro srli2 a, c
+.if \c
+	srs \a, \a, zero
+	srli2 \a, "(\c-1)"
+.endif
+.endm
+.macro srai a, b, c
+.if \c
+	srs \a, \b, \b
+	srai2 \a, "(\c-1)"
+.endif
+.endm
+.macro srai2 a, c
+.if \c
+	srs \a, \a, \a
+	srai2 \a, "(\c-1)"
+.endif
+.endm
+/* sll, srl, sra */
 
 /* ecall, ebreak */
 

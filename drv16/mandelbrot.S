@@ -1,0 +1,30 @@
+	.include "drv16.inc"
+	
+/******* this is the famous Mandelbrot fractal with an ASCII output
+         adapted to Microsoft BASIC from the versions available on
+         Rossetta by gmh in 2015 and translated here to drv16
+         assembly language by Jecel Assumpcao Jr in November 2024
+
+         for reference, the original Basic program:
+         
+10 X1=59:Y1=21
+20 I1=-1:I2=1:R1=-2:R2=1
+30 S1=(R2-R1)/X1:S2=(I2-I1)/Y1
+40 FOR Y=0 TO Y1
+50 I3=I1+S2*Y
+60 FOR X=0 TO X1
+70 R3=R1+S1*X:Z1=R3:Z2=I3
+80 FOR N=0 TO 30
+90 A=Z1*Z1:B=Z2*Z2
+100 IF A+B>4 THEN GOTO 130
+110 Z2=2*Z1*Z2+I3:Z1=A-B+R3
+120 NEXT N
+130 IF N=31 THEN PRINT " "; ELSE PRINT CHR$(62-N);
+140 NEXT X
+150 PRINT
+160 NEXT Y
+170 END
+***********************************************************************/
+
+        .equ terminal, 0xFFFE
+	.equ counter, 0xFFFC
