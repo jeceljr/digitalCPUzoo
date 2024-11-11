@@ -35,7 +35,7 @@ define an 8 bit processor that is nicer than the 6809.
 
 The benchmark programs are:
 
-- *sieve.S*:calculates the first 1899 prime numbers using the "sieve of Erasthotenes" method
+- *sieve.S*: calculates the first 1899 prime numbers using the "sieve of Erastothenes" method
 - *term2048.S*: a terminal version of the 2048 puzzle game
 - sine.S: a simple sine wave using only shifts
 - mandelbrot.S: a text version of the famous fractal
@@ -43,9 +43,10 @@ The benchmark programs are:
 
 |            | drv16   | MCPU16 | NCPU16 | T2H    | baby8   | SERV   | Glacial  |  PicoRV32 | Vexriscv |
 |------------|--------:|-------:|-------:|-------:|--------:|-------:|---------:|----------:|---------:|
-| NANDs      |         |        |        |        |         |        |          |           |          |
-| Gowin      |         |        |        |        |         |        |          |           |          |
-| Gowin clock|         |        |        |        |         |        |          |           |          |
+| Gowin LUTs | 282     | 69     |        |        |         | 264    | 249      |           |          |
+| Gowin FFs  | 33      | 48     |        |        |         | 182    | 84       |           |          |
+| Gowin Fmax | 95MHz   | 313MHz |        |        |         | 127MHz | 176MHz   |           |          |
+| Gowin power| 140mW (19) | 138mW (17) |        |        |         | 183mW (62) | 135mW (14) |           |          |
 | sieve lines| 129     |        |        |        |         |        |          |           |          |
 | sieve bytes| 279     |        |        |        |         |        |          |           |          |
 | sieve clocks| 456486 |        |        |        |         |        |          |           |          |
