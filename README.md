@@ -41,21 +41,21 @@ The benchmark programs are:
 - mandelbrot.S: a text version of the famous fractal
 
 
-|            | drv16   | MCPU16 | NCPU16 | T2H    | baby8   | SERV   | Glacial  |  PicoRV32 | Vexriscv |
-|------------|--------:|-------:|-------:|-------:|--------:|-------:|---------:|----------:|---------:|
-| Gowin LUTs | 282     | 69     |        |        |         | 264    | 249      |           |          |
-| Gowin FFs  | 33      | 48     |        |        |         | 182    | 84       |           |          |
-| Gowin Fmax | 95MHz   | 313MHz |        |        |         | 127MHz | 176MHz   |           |          |
-| Gowin power| 140mW (19) | 138mW (17) |        |        |         | 183mW (62) | 135mW (14) |           |          |
-| sieve lines| 129     |        |        |        |         |        |          |           |          |
-| sieve bytes| 279     |        |        |        |         |        |          |           |          |
-| sieve clocks| 456486 |        |        |        |         |        |          |           |          |
-| 2048 puzzle lines |         | 567    |        |        |         |        |          |           |          |
-| 2048 puzzle bytes |         | 3865   |        |        |         |        |          |           |          |
-| 2048 puzzle clocks|         | 14250  |        |        |         |        |          |           |          |
-| sine lines | 62      |        |        |        |         |        |          |           |          |
-| sine bytes | 163     |        |        |        |         |        |          |           |          |
-| sine clocks| 23118   |        |        |        |         |        |          |           |          |
-| mandelbrot lines |         |        |        |        |         |        |          |           |          |
-| mandelbrot bytes |         |        |        |        |         |        |          |           |          |
-| mandelbrot clocks|        |        |        |        |         |        |          |           |          |
+|            | drv16   | MCPU16 | NCPU16 | T2H    | baby8   | SERV   | Glacial  |  Darkriscv  | PicoRV32 | Vexriscv |
+|------------|--------:|-------:|-------:|-------:|--------:|-------:|---------:|------------:|---------:|---------:|
+| Gowin LUTs | 282     | 69     |        |        |         | 264    | 249      | 1431        |          |          |
+| Gowin FFs  | 33      | 48     |        |        |         | 182    | 84       | 176         |          |          |
+| Gowin Fmax | 95MHz   | 313MHz |        |        |         | 127MHz | 176MHz   | 76MHz       |          |          |
+| Gowin power| 140mW (19) | 138mW (17) |        |        |         | 183mW (62) | 135mW (14) | 178mW (57) |          |         |
+| sieve lines| 129     |        |        |        |         |        |          |             |          |          |
+| sieve bytes| 279     |        |        |        |         |        |          |             |          |          |
+| sieve clocks| 456486 |        |        |        |         |        |          |             |          |          |
+| 2048 puzzle lines |         | 567    |        |        |         |        |          |           |          |           |
+| 2048 puzzle bytes |         | 3865   |        |        |         |        |          |           |          |           |
+| 2048 puzzle clocks|         | 14250  |        |        |         |        |          |           |          |           |
+| sine lines | 62      |        |        |        |         |        |          |           |          |              |
+| sine bytes | 163     |        |        |        |         |        |          |           |          |              |
+| sine clocks| 23118   |        |        |        |         |        |          |           |          |              |
+| mandelbrot lines |         |        |        |        |         |        |          |           |          |            |
+| mandelbrot bytes |         |        |        |        |         |        |          |           |          |            |
+| mandelbrot clocks|        |        |        |        |         |        |          |           |          |            |
