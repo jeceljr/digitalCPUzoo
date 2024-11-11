@@ -59,3 +59,6 @@ The benchmark programs are:
 | mandelbrot lines |         |        |        |        |         |        |          |           |          |            |
 | mandelbrot bytes |         |        |        |        |         |        |          |           |          |            |
 | mandelbrot clocks|        |        |        |        |         |        |          |           |          |            |
+
+The "gowin power" numbers are the total power in mW and in parenthesis the dynamic power (the
+static power is always 121mW independent of the project).

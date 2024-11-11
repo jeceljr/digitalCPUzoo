@@ -29,7 +29,7 @@
         .equ terminal, 0xFFFE
 	.equ counter, 0xFFFC
 	.equ I3, x4
-	.equ R2, x5
+	.equ R3, x5
 	.equ X, x6
 	.equ Y, x7
 	.equ Z1, x8
@@ -37,7 +37,9 @@
 	.equ A, x10
 	.equ B, x11
 	.equ N, x12
-	
+
+	li x1, 0x0C
+	sh x1, zero, terminal	
 L10:	.equ X1, 49
 	.equ Y1, 17  /* 50x18 terminal instead of 60x22 */
 L20:	.equ I1, 0xFF00   /* -1 em fixed point 8.8 */
@@ -62,9 +64,24 @@ L70:	addi R3, R3, S1   /* S1*X */
 L80:	li N, 0
 fsn:	li x1, 30
 	blt x1, N, fen
-L90:
-L100:
-L110:	
+L90:	mv x13, Z1
+	mv x14, Z1
+	jal ra, mult
+	mv A, x13
+	mv x13, Z2
+	mv x14, Z2
+	jal ra, mult
+	mv B, x13
+L100:	add x2, A, B
+	subi x2, x2, 4
+	bge x2, zero, L130
+L110:	mv x13, Z1
+	mv x14, Z2
+	jal ra, mult
+	add Z2, x13, x13
+	add Z2, Z2, I3
+	sub Z1, A, B
+	add Z1, Z1, R3
 L120:	addi N, N, 1
 	j fsn
 fen:
@@ -79,7 +96,7 @@ blank:	li x1, 0x20
 L140:	addi X, X, 1
 	j fsx
 fex:
-L150:	li x1, 0x0D
+L150:	li x1, 0x0A
 	sh x1, zero, terminal
 L160:	addi Y, Y, 1
 	j fsy
@@ -87,5 +104,37 @@ fey:
 L170:	sh x1, zero, counter
 halt:	j halt
 
-mult:	/* x13, x14 are 8.8 fixed point inputs, the product is left in x13, x15 is return address */
-	jr x15
+	.macro mloop
+	li x2, 16
+	li x15, 0
+0:	andi x3, x13, 1
+	beq x3, zero, 1f
+	add x15, x15, x14
+1:	srli x13, x13, 1
+	andi x3, x15, 1
+	beq x3, zero, 2f
+	addi x13, x13, 0x8000
+2:	srli x15, x15, 1
+	subi x2, x2, 1
+	bne x2, zero, 0b
+	srli x13, x13, 8
+	slli x15, x15, 8
+	or x13, x13, x15   /* 32 bit result --> 8.8 fixed point */
+	.endm
+
+mult:	/* x13, x14 are 8.8 fixed point inputs, the product is left in x13 */
+	andi x15, x13, 0x8000
+	beq x15, zero, Apos
+	sub x13, zero, x13
+	andi x15, x14, 0x8000
+	beq x15, zero, nmult
+	sub x14, zero, x14
+	j pmult
+Apos:	andi x15, x14, 0x8000
+	beq x15, zero, pmult
+	sub x14, zero, x14
+nmult:	mloop
+	sub x13, zero, x13
+	ret
+pmult:	mloop
+	ret

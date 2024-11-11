@@ -22,7 +22,7 @@
     </entry>
     <entry>
       <string>preloadProgramFile</string>
-      <file>/home/jecel/mygit/digitalCPUzoo/drv16/generated/sine.hex</file>
+      <file>/home/jecel/mygit/digitalCPUzoo/drv16/generated/mandelbrot.hex</file>
     </entry>
   </attributes>
   <visualElements>
@@ -61,7 +61,7 @@
         </entry>
         <entry>
           <string>Frequency</string>
-          <int>20</int>
+          <int>2147483647</int>
         </entry>
       </elementAttributes>
       <pos x="820" y="320"/>
