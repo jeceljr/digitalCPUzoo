@@ -53,9 +53,9 @@ The benchmark programs are:
 | 2048 puzzle lines |         | 567    |        |        |         |        |          |           |          |           |
 | 2048 puzzle bytes |         | 3865   |        |        |         |        |          |           |          |           |
 | 2048 puzzle clocks|         | 14250  |        |        |         |        |          |           |          |           |
-| sine lines | 62      | 128    |        |        |         |        |          |           |          |              |
-| sine bytes | 163     | 2269   |        |        |         |        |          |           |          |              |
-| sine clocks| 23118   |        |        |        |         |        |          |           |          |              |
+| sine lines | 62      | 129    |        |        |         |        |          |           |          |              |
+| sine bytes | 163     | 2403   |        |        |         |        |          |           |          |              |
+| sine clocks| 23118   | 130831 |        |        |         |        |          |           |          |              |
 | mandelbrot lines | 143     |        |        |        |         |        |          |           |          |            |
 | mandelbrot bytes | 391     |        |        |        |         |        |          |           |          |            |
 | mandelbrot clocks| 13726887|        |        |        |         |        |          |           |          |            |

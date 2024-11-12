@@ -54,12 +54,6 @@ loop:	COUNT
 	STARTCOUNT
 	LDA k1f
 	STA SIN  /* 1.0 */
-	STA pbv
-	CALL printBinary
-	LDA ascSpace
-	OUT
-	srai pbv, SIN, 3
-	CALL printBinary
 	LDA zero
 	STA COS
 	LDA k50
@@ -116,35 +110,6 @@ printStar:
 	ADD minusOne
 	JCC loop
 	JMP printSine
-
-printBinary:
-	.word 0
-	LDA k16
-	STA pbc
-pbloop:	LDA pbc
-	ADD minusOne
-	JCC printBinary
-	LDA pbv
-	NOR signMask
-	ADD minusOne
-	JCC pb1
-	LDA ascZero
-	OUT
-	JMP pbNext
-pb1:	LDA ascOne
-	OUT
-pbNext:	LDA pbc
-	ADD minusOne
-	STA pbc
-	LDA pbv
-	ADD pbv
-	STA pbv
-	JMP pbloop
-pbv:	.word 0
-pbc:	.word 0
-k16:	.word 16
-ascZero:.word 0x30
-ascOne:	.word 0x31
 	
 SIN:	.word 0
 COS:	.word 0
