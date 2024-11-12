@@ -39,8 +39,8 @@
 	.equ N, x12
 
 	li x1, 0x0C
-	sh x1, zero, terminal	
-L10:	.equ X1, 49
+	sh x1, zero, terminal
+L10:	.equ X1, 48
 	.equ Y1, 17  /* 50x18 terminal instead of 60x22 */
 L20:	.equ I1, 0xFF00   /* -1 em fixed point 8.8 */
 	.equ I2, 0x0100   /* +1 */
@@ -50,11 +50,13 @@ L30:	.equ S1, 0x0010   /* (R2-R1)/X1 = (1--2)/49 = 3/49 */
 	.equ S2, 0x001E   /* (I2-I1)/Y1 = (1--1)/17 = 2/17 */
 	lh x1, zero, counter
 L40:	li I3, I1
+	subi I3, I3, S2   /* Y ==-1 here */
 	li Y, 0
 fsy:	li x1, Y1
 	blt x1, Y, fey
 L50:	addi I3, I3, S2  /* S2*Y */
 L60:	li R3, R1
+	subi R3, R3, S1   /* X == -1 here */
 	li X, 0
 fsx:	li x1, X1
 	blt x1, X, fex
@@ -73,8 +75,9 @@ L90:	mv x13, Z1
 	jal ra, mult
 	mv B, x13
 L100:	add x2, A, B
-	subi x2, x2, 4
-	bge x2, zero, L130
+	subi x2, x2, 0x0400  /* +4.0 */
+	andi x2, x2, 0x8000
+	beq zero, x2, L130
 L110:	mv x13, Z1
 	mv x14, Z2
 	jal ra, mult
@@ -138,3 +141,53 @@ nmult:	mloop
 	ret
 pmult:	mloop
 	ret
+	
+	
+/*********** borrowed from sieve.S to test multiplication **********/	
+printDecimal:
+	beq a0, zero, p0
+	andi x13, a0, 0x8000
+	beq x13, zero, pos
+	sub a0, zero, a0
+	li x13, 0x2D
+	sh x13, zero, terminal
+pos:
+	mv x14, ra
+	li x13, 1
+	li a1, 25600
+	jal ra, printDigit
+	li a1, 2560
+	jal ra, printDigit
+	li a1, 256
+	jal ra, printDigit
+	li x15, 0x2E
+	sh x15, zero, terminal
+	li a1, 26
+	jal ra, printDigit
+	li a1, 2
+	jal ra, printDigit
+	mv ra, x14
+	ret
+p0:	li a0, 0x30
+	sh a0, zero, terminal
+	ret
+
+printDigit:
+	li x15, 0
+cnt:	blt a0, a1, outDigit
+	sub a0, a0, a1
+	addi x15, x15, 1
+	j cnt
+outDigit:
+	beq x15, zero, zDigit
+	addi x15, x15, 0x30
+	sh x15, zero, terminal
+	li x13, 0
+	ret
+zDigit:
+	bne x13, zero, eDigit
+	li x15, 0x30
+	sh x15, zero, terminal
+eDigit:
+	ret
+
