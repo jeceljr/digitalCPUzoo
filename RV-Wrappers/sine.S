@@ -17,30 +17,32 @@
 
         .equ terminal, 0xFFFFFFFC
 	.equ counter, 0xFFFFFFF8
-
+/****
 	.equ SIN, x3
 	.equ COS, x4
 	.equ S2, x5
 	.equ C2, x6
 	.equ count, x7
 	.equ steps, x8
+*****/
 	
 loop:	la x15, counter
-	sh steps, 0(x15)
-	lh steps, 0(x15)
-	li SIN, 0x2000   /* 1.0 */
-	li COS, 0
-	li steps, 50
+	sh x8, 0(x15)
+	lh x8, 0(x15)
+	li x3, 0x2000   /* 1.0 */
+	li x4, 0
+	li x8, 50
 printSine:
-	addi count, SIN, 0x2000   /* SIN+1.0 -> 0 to 2 */
-	srai x9, count, (13-3)  /* x8 asInt */
-	srai x10, count, (13-4) /* x16 asInt */
-	add count, x9, x10      /* x24  -> 0 to 48 */
-blnks:	beq count, zero, printStar
+	li x7, 0x2000
+	add x7, x3, x7   /* SIN+1.0 -> 0 to 2 */
+	srai x9, x7, (13-3)  /* x8 asInt */
+	srai x10, x7, (13-4) /* x16 asInt */
+	add x7, x9, x10      /* x24  -> 0 to 48 */
+blnks:	beq x7, zero, printStar
 	li x9, 0x20
 	la x15, terminal
 	sh x9, 0(x15)
-	subi count, count, 1
+	addi x7, x7, -1
 	j blnks
 printStar:
 	li x9, 0x2A
@@ -49,16 +51,16 @@ printStar:
 	li x9, 0x0D
 	sh x9, 0(x15)
 	/* advance 7.125 degrees */
-	srai C2, SIN, 3
-	sub C2, COS, C2
-	srai x9, C2, 7
-	sub C2, C2, x9
-	srai S2, COS, 3
-	add S2, SIN, S2
-	srai x9, S2, 7
-	sub S2, S2, x9
-	mv COS, C2
-	mv SIN, S2
-	subi steps, steps, 1
-	beq steps, zero, loop
+	srai x6, x3, 3
+	sub x6, x4, x6
+	srai x9, x6, 7
+	sub x6, x6, x9
+	srai x5, x4, 3
+	add x5, x3, x5
+	srai x9, x5, 7
+	sub x5, x5, x9
+	mv x4, x6
+	mv x3, x5
+	addi x8, x8, -1
+	beq x8, zero, loop
 	j printSine

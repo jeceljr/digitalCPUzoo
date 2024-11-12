@@ -1,0 +1,5 @@
+#!/bin/bash
+bname=`basename $1 .S`
+riscv32-unknown-linux-gnu-as -a -o $bname.o $1
+objcopy -S -O ihex $bname.o $bname.hex 
+rm $bname.o
