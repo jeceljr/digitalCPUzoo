@@ -31,6 +31,20 @@ define an 8 bit processor that is nicer than the 6809.
 
 *T2H* is a Havard 16 bit processor with instructions based on the Inmos Transputer
 
+## RISC-V Wrappers
+
+In the addition to the processor designs created in Digital, several third party
+RISC-V processors written in Verilog have been included as Digital components in
+order to run the same benchmarks.
+
+They are:
+
+- [SERV by Olof Kindgren](https://github.com/olofk/serv): a serial implementation trades off performance for small size by doing operations one bit at a time
+- [Glacialby Eric Smith](https://github.com/brouhaha/glacial): this 8 bit implementation uses microcode to execute 32 bit RISC-V instruction
+- [Darkriscv by Marcelo Samsoniuk](https://github.com/darklife/darkriscv): designed in a single night it is a very typical small RISC-V
+- [PicoRV32 by Claire Xenia Wolf](https://github.com/YosysHQ/picorv32): created to fit into small FPGAs this is a popular option for embedded systems
+- [Vexriscv by Papon Charles](https://github.com/SpinalHDL/VexRiscv): the SpinalHDL implementation offers many options, one of which is the exported Verilog used here
+
 ## Benchmarks
 
 The benchmark programs are:
