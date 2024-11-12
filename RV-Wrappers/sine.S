@@ -1,5 +1,3 @@
-	.include "drv16.inc"
-	
 /**************
 	(C) 2024 Jecel Assumpção Jr
 	
@@ -13,11 +11,12 @@
 	reset COS and SIN after 50 steps
 	
 	the terminal is 50 characters wide
-	numbers are fixed point 3.13 two's complement (-4.9999 to 3.99999)
+	numbers are fixed point 19.13 two's complement to match
+	the results of the 16 bit processors
 **************/
 
-        .equ terminal, 0xFFFE
-	.equ counter, 0xFFFC
+        .equ terminal, 0xFFFFFFFC
+	.equ counter, 0xFFFFFFF8
 
 	.equ SIN, x3
 	.equ COS, x4
@@ -26,8 +25,9 @@
 	.equ count, x7
 	.equ steps, x8
 	
-loop:	sh steps, zero, counter
-	lh steps, zero, counter
+loop:	la x15, counter
+	sh steps, 0(x15)
+	lh steps, 0(x15)
 	li SIN, 0x2000   /* 1.0 */
 	li COS, 0
 	li steps, 50
@@ -38,14 +38,16 @@ printSine:
 	add count, x9, x10      /* x24  -> 0 to 48 */
 blnks:	beq count, zero, printStar
 	li x9, 0x20
-	sh x9, zero, terminal
+	la x15, terminal
+	sh x9, 0(x15)
 	subi count, count, 1
 	j blnks
 printStar:
 	li x9, 0x2A
-	sh x9, zero, terminal
+	la x15, terminal
+	sh x9, 0(x15)
 	li x9, 0x0D
-	sh x9, zero, terminal
+	sh x9, 0(x15)
 	/* advance 7.125 degrees */
 	srai C2, SIN, 3
 	sub C2, COS, C2
