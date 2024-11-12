@@ -14,7 +14,7 @@
     </entry>
     <entry>
       <string>preloadProgramFile</string>
-      <file>/home/jecel/mygit/digitalCPUzoo/MCPU/term2048.hex</file>
+      <file>/home/jecel/mygit/digitalCPUzoo/MCPU/sine.hex</file>
     </entry>
   </attributes>
   <visualElements>
@@ -602,16 +602,16 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>clock cycles for benchmark</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>cnt</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>32</int>
-        </entry>
-        <entry>
-          <string>Description</string>
-          <string>clock cycles for benchmark</string>
         </entry>
         <entry>
           <string>intFormat</string>
