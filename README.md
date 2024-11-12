@@ -56,8 +56,8 @@ The benchmark programs are:
 | sine lines | 62      |        |        |        |         |        |          |           |          |              |
 | sine bytes | 163     |        |        |        |         |        |          |           |          |              |
 | sine clocks| 23118   |        |        |        |         |        |          |           |          |              |
-| mandelbrot lines |         |        |        |        |         |        |          |           |          |            |
-| mandelbrot bytes |         |        |        |        |         |        |          |           |          |            |
+| mandelbrot lines | 143     |        |        |        |         |        |          |           |          |            |
+| mandelbrot bytes | 391     |        |        |        |         |        |          |           |          |            |
 | mandelbrot clocks| 13726887|        |        |        |         |        |          |           |          |            |
 
 The "gowin power" numbers are the total power in mW and in parenthesis the dynamic power (the
