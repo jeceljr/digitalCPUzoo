@@ -103,10 +103,6 @@
           <string>Frequency</string>
           <int>200</int>
         </entry>
-        <entry>
-          <string>runRealTime</string>
-          <boolean>true</boolean>
-        </entry>
       </elementAttributes>
       <pos x="580" y="340"/>
     </visualElement>

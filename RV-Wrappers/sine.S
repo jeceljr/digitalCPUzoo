@@ -17,14 +17,8 @@
 
         .equ terminal, 0xFFFFFFFC
 	.equ counter, 0xFFFFFFF8
-/****
-	.equ SIN, x3
-	.equ COS, x4
-	.equ S2, x5
-	.equ C2, x6
-	.equ count, x7
-	.equ steps, x8
-*****/
+	
+/* registers: SIN (x3), COS (x4), S2 (x5), C2 (x6), count (x7), steps (x8) */
 	
 loop:	la x15, counter
 	sh x8, 0(x15)
