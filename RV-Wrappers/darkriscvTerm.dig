@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>2</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>ExternalFile</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>darkriscv</string>
+        </entry>
+        <entry>
+          <string>applicationType</string>
+          <appType>IVERILOG</appType>
+        </entry>
+        <entry>
+          <string>externalInputs</string>
+          <string>RES, CLK, HLT,  IDATA:32, DATAI:32</string>
+        </entry>
+        <entry>
+          <string>Width</string>
+          <int>10</int>
+        </entry>
+        <entry>
+          <string>externalOutputs</string>
+          <string>IADDR:32, DATAO:32. DADDR:32, BE:4, WR, RD, IDLE, DEBUG:4</string>
+        </entry>
+        <entry>
+          <string>CodeFile</string>
+          <file>/home/jecel/mygit/digitalCPUzoo/RV-Wrappers/src/darkriscv/darkriscv.v</file>
+        </entry>
+      </elementAttributes>
+      <pos x="720" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>termcnt.dig</elementName>
+      <elementAttributes/>
+      <pos x="1100" y="460"/>
+    </visualElement>
+  </visualElements>
+  <wires/>
+  <measurementOrdering/>
+</circuit>

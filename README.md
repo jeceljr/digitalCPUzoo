@@ -64,15 +64,29 @@ The benchmark programs are:
 | sieve lines| 129     |        |        |        |         |        |          |             |          |          |
 | sieve bytes| 279     |        |        |        |         |        |          |             |          |          |
 | sieve clocks| 456486 |        |        |        |         |        |          |             |          |          |
+| sieve ps   | 208     |        |        |        |         |        |          |             |          |          |
 | 2048 puzzle lines |         | 567    |        |        |         |        |          |           |          |           |
 | 2048 puzzle bytes |         | 3865   |        |        |         |        |          |           |          |           |
 | 2048 puzzle clocks|         | 14250  |        |        |         |        |          |           |          |           |
+| 2048 puzzle ps    |         | 21965  |        |        |         |        |          |           |          |           |
 | sine lines | 62      | 129    |        |        |         | 66     |          |           |          |              |
 | sine bytes | 163     | 2403   |        |        |         | 140    |          |           |          |              |
 | sine clocks| 23118   | 130831 |        |        |         |        |          |           |          |              |
+| sine ps    | 4109    | 2392   |        |        |         |        |          |           |          |              |
 | mandelbrot lines | 143     |        |        |        |         |        |          |           |          |            |
 | mandelbrot bytes | 391     |        |        |        |         |        |          |           |          |            |
 | mandelbrot clocks| 13726887|        |        |        |         |        |          |           |          |            |
+| mandelbrot ps    | 7       |        |        |        |         |        |          |           |          |            |
 
 The "gowin power" numbers are the total power in mW and in parenthesis the dynamic power (the
 static power is always 121mW independent of the project).
+
+Note that "lines" and "bytes" are exactly the same for all RISC-V processors so these numbers are only shown in the SERV column.
+
+The "ps" lines as "per second" which is simply Fmax divided by the number of clock cycles taken up by each benchmark
+and this represents absolute performance which can be directly compared between the different processors. In the
+case of the sine benchmark this would be the frequency that would be heard if the output were sent to a speaker. In the
+case of the mandelbrot benchmark this would be the frames per second that would be output in the case of an animation. This number
+could be divided bu the number of LUTs to calculate the relativer perforamance per FPGA area or the power could be
+divided by this number to obtain the energy (in Joules) used by each processor to generate the resule (another relative
+measurement that might be interesting for estimating battery life).
