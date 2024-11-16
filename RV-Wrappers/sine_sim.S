@@ -33,17 +33,26 @@ printSine:
 	srai x10, x7, 9 #(13-4) #/* x16 asInt */
 	add x7, x9, x10      #/* x24  -> 0 to 48 */
 blnks:	beq x7, zero, printStar
-	li x9, 0x20
-	li x15, 0xFFFFFFFC
-	sh x9, 0(x15)
+	# li x9, 0x20
+	# li x15, 0xFFFFFFFC
+	# sh x9, 0(x15)
+	li a0, 0x20
+	li a7, 11
+	ecall
 	addi x7, x7, -1
 	j blnks
 printStar:
-	li x9, 0x2A
-	li x15, 0xFFFFFFFC
-	sh x9, 0(x15)
-	li x9, 0x0D
-	sh x9, 0(x15)
+	# li x9, 0x2A
+	# li x15, 0xFFFFFFFC
+	# sh x9, 0(x15)
+	li a0, 0x2A
+	li a7, 11
+	ecall
+	# li x9, 0x0D
+	# sh x9, 0(x15)
+	li a0, 0x0A
+	li a7, 11
+	ecall
 	#/* advance 7.125 degrees */
 	srai x6, x3, 3
 	sub x6, x4, x6
