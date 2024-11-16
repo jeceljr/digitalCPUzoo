@@ -1,6 +1,6 @@
 # RISC-V Wrappers
 
-It is possible to define a compoenent in a Digital simulation that either contains
+It is possible to define a component in a Digital simulation that either contains
 VHDL or Verilog code inside it or references an external file with such code.
 
 In theory it is possible to just reference the top level HDL source and have that
@@ -19,7 +19,7 @@ a serial implementation trades off performance for small size by doing operation
 
 ## [Glacial by Eric Smith](https://github.com/brouhaha/glacial)
 
-this 8 bit implementation uses microcode to execute 32 bit RISC-V instruction
+this 8 bit implementation uses microcode to execute 32 bit RISC-V instructions
 
 ![Glacial system with terminal](glacialTerm.svg)
 
