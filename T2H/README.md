@@ -27,24 +27,24 @@ codes will combine its four bit data with the data of the following instruction
 allowing a compact encoding of any sized data.
 
 
-| op code | assembler | operation |
-|---------|-----------|-----------|
-| 0x      | j x       | IP <- IP+x, O <- 0 |
-| 1x      | ldlp x    | A <- W+x, B <- A, C <- B, O <- 0 |
-| 2x      |           | O <- O<<4 + x    |
-| 3x      | ldnl x    | A <- mem[A+x], O <- 0 |
-| 4x      | ldc x     | A <- x, B <- A, C <- B, O <- 0 |
-| 5x      | ldnlp x   | A <- A+x, O <- 0 |
-| 6x      |           | O <- 0xFFF0 + x |
-| 7x      | ldl x     | A <- m[W+x], B <- A, C <- B, O <- 0 |
-| 8x      | adc x     | A <- A+x, O <- 0 |
-| 9x      | call x    | mem[W] <- IP, IP <- IP+x, O <- 0 |
-| Ax      | cj x      | O <- 0, A == 0 ? IP <- IP+x : A <- B, B <- C, C <- ? |
-| Bx      | ajw x     | O <- 0, W <- W+x |
-| Cx      | eqc x     | A <- A==x, O <- 0 |
-| Dx      | stl x     | m[W+x] <- A, A <- B, B <- C, C <- ?, O <- 0 |
-| Ex      | stnl x    | m[A+x] <- B, A <- C, B <- ?, C <- ?, O <- 0 |
-| Fx      |           | operate - indirect instructions |
+| op code | assembler | A | B | C | IP | W | O | Addr | dOut |
+|---------|-----------|---|---|---|----|---|---|------|------|
+| 0x      | j x       |   |   |   |IP+x|   | 0 |      |      |
+| 1x      | ldlp x    |W+x| A | B |IP+1|   | 0 |      |      |
+| 2x      |           |   |   |   |IP+1|   |O<<4 + x |  |    |
+| 3x      | ldnl x    |dIn|   |   |IP+1|   | 0 | A+x  |      |
+| 4x      | ldc x     | x | A | B |IP+1|   | 0 |      |      |
+| 5x      | ldnlp x   |A+x|   |   |IP+1|   | 0 |      |      |
+| 6x      |           |   |   |   |IP+1|   | 0xFFF0 + x |  | |
+| 7x      | ldl x     |dIn| A | B |IP+1|   | 0 | W+x  |      |
+| 8x      | adc x     |A+x|   |   |IP+1|   | 0 |      |      |
+| 9x      | call x    |   |   |   |IP+x|   | 0 | W    | IP   |
+| Ax      | cj x (A==0)|  |   |   |IP+x|   | 0 |      |      |
+| Ax      | cj x (A!=0)| B| C | ? |IP+1|   | 0 |      |      |
+| Bx      | ajw x     |   |   |   |IP+1|W+x| 0 |      |      |
+| Cx      | eqc x     |A==x|  |   |IP+1|   | 0 |      |      |
+| Dx      | stl x     | B | C | ? |IP+1|   | 0 | W+x  | A    |
+| Ex      | stnl x    | C | ? | ? |IP+1|   | 0 | A+x  | B    |
 
 The assembly names and opcode of the direct instructions are the same as the
 Transputer, but two instructions have a slightly different operation. *call*
@@ -61,25 +61,25 @@ and can be arbitrarily complex, T2H only uses the first 16 opcodes and limits
 itself to one clock instructions.
 
 
-| op code | assembler | operation |
-|---------|-----------|-----------|     
-| F0      | rev       | A <- B, B <- A          |
-| F1      | shl       | A <- A<<1          |
-| F2      | shr       | A <- A>>1          |
-| F3      | xor       | A <- A^B, B <- C, C <- ?          |
-| F4      |           |           |
-| F5      | add       | A <- A+B, B <- C, C <- ?          |
-| F6      | gcall     | A <- IP, IP <- A     |
-| F7      | and       | A <- A&B, B <- C, C <- ?          |
-| F8      |           |           |
-| F9      | gt        | A <- B>A, B <- C, C <- ?          |
-| FA      |           |           |
-| FB      | or        | A <- A\|B, B <- C, C <- ?          |
-| FC      | sub       | A <- B-A, B<- C, C <- ?          |
-| FD      |           |           |
-| FE      | gajw      | W <- A, A <- W          |
-| FF      | ret       | IP <- mem[W]          |
+| op code | assembler | A | B | C | IP | W | O | Addr | dOut |
+|---------|-----------|---|---|---|----|---|---|------|------|
+| F0      | rev       | B | A |   |IP+1|   | 0 |      |      |
+| F1      | shl       |A<<1|  |   |IP+1|   | 0 |      |      |
+| F2      | shr       |A>>1|  |   |IP+1|   | 0 |      |      |
+| F3      | xor       |A^B| C | ? |IP+1|   | 0 |      |      |
+| F4      |           |   |   |   |    |   |   |      |      |
+| F5      | add       |A+B| C | ? |IP+1|   | 0 |      |      |
+| F6      | gcall     |IP |   |   | A  |   | 0 |      |      |
+| F7      | and       |A&B| C | ? |IP+1|   | 0 |      |      |
+| F8      |           |   |   |   |    |   |   |      |      |
+| F9      | gt        |B>A| C | ? |IP+1|   | 0 |      |      |
+| FA      |           |   |   |   |    |   |   |      |      |
+| FB      | or        |A\|B| C| ? |IP+1|   | 0 |      |      |
+| FC      | sub       |B-A| C | ? |IP+1|   | 0 |      |      |
+| FD      |           |   |   |   |    |   |   |      |      |
+| FE      | gajw      | W |   |   |IP+1| A | 0 |      |      |
+| FF      | ret       |   |   |   |dIn |   | 0 | W    |      |
 
-The *shl* and *shr* instructions shift by a singlee bit instead of
+The *shl* and *shr* instructions shift by a single bit instead of
 by the number of bits indicated in *B* like the Transputer, so a loop
 is required in the general case.
