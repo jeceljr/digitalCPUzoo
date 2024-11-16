@@ -78,6 +78,14 @@
           <string>Label</string>
           <string>clock</string>
         </entry>
+        <entry>
+          <string>Frequency</string>
+          <int>200</int>
+        </entry>
+        <entry>
+          <string>runRealTime</string>
+          <boolean>true</boolean>
+        </entry>
       </elementAttributes>
       <pos x="520" y="380"/>
     </visualElement>

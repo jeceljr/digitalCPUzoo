@@ -20,9 +20,8 @@
 	
 /* registers: SIN (x3), COS (x4), S2 (x5), C2 (x6), count (x7), steps (x8) */
 	
-loop:	la x15, counter
-	sh x8, 0(x15)
-	lh x8, 0(x15)
+loop:	sh x8, counter(zero)
+	lh x8, counter(zero)
 	li x3, 0x2000   /* 1.0 */
 	li x4, 0
 	li x8, 50
@@ -34,16 +33,14 @@ printSine:
 	add x7, x9, x10      /* x24  -> 0 to 48 */
 blnks:	beq x7, zero, printStar
 	li x9, 0x20
-	la x15, terminal
-	sh x9, 0(x15)
+	sh x9, terminal(zero)
 	addi x7, x7, -1
 	j blnks
 printStar:
 	li x9, 0x2A
-	la x15, terminal
-	sh x9, 0(x15)
+	sh x9, terminal(zero)
 	li x9, 0x0D
-	sh x9, 0(x15)
+	sh x9, terminal(zero)
 	/* advance 7.125 degrees */
 	srai x6, x3, 3
 	sub x6, x4, x6
