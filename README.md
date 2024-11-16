@@ -62,15 +62,15 @@ The benchmark programs are:
 | Gowin Fmax | 95MHz   | 313MHz |        |        |         | 127MHz | 176MHz   | 76MHz       |          |          |
 | Gowin power| 140mW (19) | 138mW (17) |        |        |         | 183mW (62) | 135mW (14) | 178mW (57) |          |         |
 | sieve lines| 129     |        |        |        |         |        |          |             |          |          |
-| sieve bytes| 279     |        |        |        |         |        |          |             |          |          |
+| sieve bytes| 280     |        |        |        |         |        |          |             |          |          |
 | sieve clocks| 456486 |        |        |        |         |        |          |             |          |          |
 | sieve ps   | 208     |        |        |        |         |        |          |             |          |          |
-| sine lines | 62      | 129    |        |        |         | 66     |          |           |          |              |
-| sine bytes | 163     | 2403   |        |        |         | 140    |          |           |          |              |
-| sine clocks| 23118   | 130831 |        |        |         |        |          |           |          |              |
-| sine ps    | 4109    | 2392   |        |        |         |        |          |           |          |              |
+| sine lines | 62      | 129    |        |        |         |        |          | 57        |          |              |
+| sine bytes | 164     | 2403   |        |        |         |        |          | 128       |          |              |
+| sine clocks| 23118   | 130831 |        |        |         |        |          | 9360      |          |              |
+| sine ps    | 4109    | 2392   |        |        |         |        |          | 8120      |          |              |
 | mandelbrot lines | 143     |        |        |        |         |        |          |           |          |            |
-| mandelbrot bytes | 391     |        |        |        |         |        |          |           |          |            |
+| mandelbrot bytes | 392     |        |        |        |         |        |          |           |          |            |
 | mandelbrot clocks| 13726887|        |        |        |         |        |          |           |          |            |
 | mandelbrot ps    | 7       |        |        |        |         |        |          |           |          |            |
 
