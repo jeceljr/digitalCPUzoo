@@ -103,10 +103,6 @@
           <string>Frequency</string>
           <int>100</int>
         </entry>
-        <entry>
-          <string>runRealTime</string>
-          <boolean>true</boolean>
-        </entry>
       </elementAttributes>
       <pos x="580" y="340"/>
     </visualElement>
@@ -230,12 +226,12 @@
       <elementName>RAMDualPort</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>m0</string>
-        </entry>
-        <entry>
           <string>AddrBits</string>
           <int>16</int>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>m0</string>
         </entry>
         <entry>
           <string>Bits</string>
