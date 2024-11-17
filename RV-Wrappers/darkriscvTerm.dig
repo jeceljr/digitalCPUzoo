@@ -59,7 +59,7 @@
         </entry>
         <entry>
           <string>lastDataFile</string>
-          <file>/home/jecel/mygit/digitalCPUzoo/RV-Wrappers/sine.hex</file>
+          <file>/home/jecel/mygit/digitalCPUzoo/RV-Wrappers/mandelbrot.hex</file>
         </entry>
         <entry>
           <string>autoReload</string>
