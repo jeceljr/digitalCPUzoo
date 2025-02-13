@@ -22,15 +22,15 @@ The memory instructions have this format:
 
 | 15 14 | 13 12 11 | 10 09 08 | 07 | 06 05 04 03 02 01 00 |
 |-------|----------|----------|----|----------------------|
-| 0 0   | rA       | rB       | 1  | offset               |
 | mem   | rA       | rB       | R  | offset               |
 
-The two bits of *mem* are 0 0 for the *LEA* instruction. The effective address is the value in the *rB* register added to the signed extension of the 7 bit offset (so -64 to +63). The calculated effective address is simply saved to *rA* in the case of *LEA*.
+The effective address is the value in the *rB* register added to the signed extension of the 7 bit offset (so -64 to +63). The calculated effective address is simply saved to *rA* in the case of *LEA* and directly used to address memory for the other instructions.
 
-Other values of *mem* change the timing of memory instructions:
+The *R* indicates that the instruction reads from memory, otherwise it is a write.
 
 | IR15 IR14 | IR07 | assembly            |  cycle 1                | cycle 2            |
 |-----------|------|---------------------|-------------------------|--------------------|
+| 0 0       | 1    | LEA rA,rB,offset    | @rA := @rB + offset     |                    |
 | 0 1       | 0    | STA rA,rB,offset    | mem[@rB+offset] := @rA  |                    |
 | 0 1       | 1    | LDA rA,rB,offset    | @rA := mem[@rB+offset]  |                    |
 | 1 0       | 0    | _STA rA,rB,offset   | @rB := @rB + offset     | mem[@rB] := @rA    |
