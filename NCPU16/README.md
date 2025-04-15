@@ -47,16 +47,16 @@ To do a subroutine call with a traditional RISC style (saving the address to som
 
 And to go back to the previous routine:
 
-            LEA r7,r5,0
+           LEA r7,r5,0
 
 The problem with this scheme is that it only allows one level of subroutine call. A solution is to save the return address to a stack, for example with *r6* pointing to the next empty word and growing downwards the subroutine could start as:
 
-         subAddr:
-             STA_ r5,r6,-1
+       subAddr:
+           STA_ r5,r6,-1
 
 and the code to return could feth the value directly from the stack:
 
-            _LDA r7,r6,1
+           _LDA r7,r6,1
 
 ## Implementation
 

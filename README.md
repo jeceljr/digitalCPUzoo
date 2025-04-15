@@ -21,6 +21,10 @@ It addresses 256 bytes of memory compared to just 64 for the *MCPU*.
 *drv16* is a 16 bit processor that is compatible at the assembly language level with
 the RV32E standard.
 
+*drv16b* is a byte wide implementation of drv16 with a reorganized binary for the
+instructions. The goal is to reduce the FPGA resources required at the cost of a
+lower performance.
+
 ## Proposed
 
 *NCPU16* is a 16 bit processor in the spirit of the 8 bit *NCPU* but even more similar
