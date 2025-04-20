@@ -11,7 +11,8 @@ should make it take half as much area as a RV32E processor and even less than
 that relative to a RV32I. Such applications need very little memory so the
 ability to address more than 64KB would be wasted. The use of an 8 bit datapath
 further reduces the needed FPGA resources and eliminates the byte adapter
-circuit present in the drv16.
+circuit present in the drv16 (this has the interesting side effect of allowing
+non aligned word access).
 
 An additional motivation for reducing state is to make it easier for people
 to handle it. A 16 bit number like 0xC7F0 is more digestible than something
@@ -52,9 +53,11 @@ immediate value is in the 16 bits following the instruction.
 
 Group 3 uses the same encoding but in the rS2 field.
 
-- 1) BEQ, BNE, BLT, BGE
-- 2) SB, SH
-- 3) LB, LH, LBU, JAL
+1) BEQ, BNE, BLT, BGE
+
+2) SB, SH
+
+3) LB, LH, LBU, JAL
 
 Missing relative to RV32E are unsigned comparisons (**SLTIU**, **SLTU**,
 **BLTU**, **BGEU**). Also missing are  **LUI** and **AUI** since constants larger than
