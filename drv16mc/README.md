@@ -1,18 +1,15 @@
-# drv16b processor
+# drv16mc processor
 
-The drv16b processor is based on the RISC-V standard but with only 16 registers
+The drv16mc processor is based on the RISC-V standard but with only 16 registers
 of 16 bits each. It implements fewer instructions than RV32E, but the ones it
 does implement use the same mneomonic and have the same functionality.
 
-In many cases drv16b will be used for helper functions in a project, like
+In many cases drv16mc will be used for helper functions in a project, like
 abstracting the interface to a keyboard or SD card. Any logic taken up by drv16b
 is logic not available to the main project. Just being 16 instead of 32 bits
 should make it take half as much area as a RV32E processor and even less than
 that relative to a RV32I. Such applications need very little memory so the
-ability to address more than 64KB would be wasted. The use of an 8 bit datapath
-further reduces the needed FPGA resources and eliminates the byte adapter
-circuit present in the drv16 (this has the interesting side effect of allowing
-non aligned word access).
+ability to address more than 64KB would be wasted.
 
 An additional motivation for reducing state is to make it easier for people
 to handle it. A 16 bit number like 0xC7F0 is more digestible than something
@@ -38,26 +35,32 @@ The operation field indicates the instruction or group of instructions:
 |      | xx00 | xx01 | xx10 | xx11 |
 |------|------|------|------|------|
 | 00xx | ADD  | SUB  | SLT  | SRS  |
-| 01xx | AND  | OR   | XOR  | 1    |
-| 10xx | ADDI | 3    | SLTI | JALR |
-| 11xx | ANDI | ORI  | XORI | 2     |
+| 01xx | AND  | OR   | XOR  | JAL  |
+| 10xx | ADDI | 1    | SLTI | 2    |
+| 11xx | ANDI | ORI  | XORI | 3    |
 
 For the immediate instructions, rS2 is replaced with a number from 1 to 15. Since
 register x0 can be used as rS2 with the normal instructions for an immediate value
 of 0, this encoding for an immediate instruction indicates that the actual immediate
 value is in the 16 bits following the instruction.
 
-For groups 1 and 2 the bottom two bits of rD select the actual instructions while the
+For the **JAL** instruction the rS1 and rS2 fields represent a signed 9 bit value
+where the bottom bit is always 0 (jumps are always to even addresses). That allows
+jumps and calls up to 254 bytes ahead or 256 bytes behind the current location. To
+reach other locations in the code the address can be loaded into a register followed
+by a JALR.
+
+For groups 2 and 3 the bottom two bits of rD select the actual instructions while the
 top two bits are the immediate values 0, 1 or 2. If these bits are 3 then the actual
 immediate value is in the 16 bits following the instruction.
 
 Group 3 uses the same encoding but in the rS2 field.
 
-1) BEQ, BNE, BLT, BGE
+1) LB, LH, LBU, JALR
 
-2) SB, SH
+2) BEQ, BNE, BLT, BGE
 
-3) LB, LH, LBU, JAL
+3) SB, SH
 
 Missing relative to RV32E are unsigned comparisons (**SLTIU**, **SLTU**,
 **BLTU**, **BGEU**). Also missing are  **LUI** and **AUI** since constants larger than
