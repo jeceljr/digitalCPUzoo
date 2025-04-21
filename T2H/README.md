@@ -73,13 +73,17 @@ itself to one clock instructions.
 | F7      | and       |A&B| C | ? |IP+1|   | 0 |      |      |
 | F8      |           |   |   |   |    |   |   |      |      |
 | F9      | gt        |B>A| C | ? |IP+1|   | 0 |      |      |
-| FA      |           |   |   |   |    |   |   |      |      |
+| FA      | dup       | A | A | B |IP+1|   | 0 |      |      |
 | FB      | or        |A\|B| C| ? |IP+1|   | 0 |      |      |
 | FC      | sub       |B-A| C | ? |IP+1|   | 0 |      |      |
-| FD      |           |   |   |   |    |   |   |      |      |
+| FD      | swb       |AL,AH| |   |IP+1|   | 0 |      |      |
 | FE      | gajw      | W |   |   |IP+1| A | 0 |      |      |
 | FF      | ret       |   |   |   |dIn |   | 0 | W    |      |
 
 The *shl* and *shr* instructions shift by a single bit instead of
 by the number of bits indicated in *B* like the Transputer, so a loop
 is required in the general case.
+
+The *swb* (swap bytes) is not a Transputer instruction and used to compensate
+for the lack of the word length independent features. It helps deal with byte
+data stored in the 16 bit word addressed data memory.

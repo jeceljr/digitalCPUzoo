@@ -61,10 +61,10 @@ The benchmark programs are:
 
 |            | drv16   | MCPU16 | NCPU16 | T2H    | baby8   | SERV   | Glacial  |  Darkriscv  | PicoRV32 | Vexriscv |
 |------------|--------:|-------:|-------:|-------:|--------:|-------:|---------:|------------:|---------:|---------:|
-| Gowin LUTs | 282     | 69     |        |        |         | 264    | 249      | 1431        |          |          |
-| Gowin FFs  | 33      | 48     |        |        |         | 182    | 84       | 176         |          |          |
-| Gowin Fmax | 95MHz   | 313MHz |        |        |         | 127MHz | 176MHz   | 76MHz       |          |          |
-| Gowin power| 140mW (19) | 138mW (17) |        |        |         | 183mW (62) | 135mW (14) | 178mW (57) |          |         |
+| Gowin LUTs | 282     | 69     |        |        |         | 264    | 249      | 1461        |          |          |
+| Gowin FFs  | 33      | 48     |        |        |         | 182    | 84       | 179         |          |          |
+| Gowin Fmax | 95MHz   | 313MHz |        |        |         | 127MHz | 176MHz   | 70MHz       |          |          |
+| Gowin power| 140mW (19) | 138mW (17) |        |        |         | 183mW (62) | 134mW (14) | 210mW (89) |          |         |
 | sieve lines| 129     |        |        |        |         |        |          |             |          |          |
 | sieve bytes| 280     |        |        |        |         |        |          |             |          |          |
 | sieve clocks| 456486 |        |        |        |         |        |          |             |          |          |
@@ -73,10 +73,10 @@ The benchmark programs are:
 | sine bytes | 164     | 2403   |        |        |         |        |          | 128       |          |              |
 | sine clocks| 23118   | 130831 |        |        |         |        |          | 9360      |          |              |
 | sine ps    | 4109    | 2392   |        |        |         |        |          | 8120      |          |              |
-| mandelbrot lines | 143     |        |        |        |         |        |          |           |          |            |
-| mandelbrot bytes | 392     |        |        |        |         |        |          |           |          |            |
-| mandelbrot clocks| 13726887|        |        |        |         |        |          |           |          |            |
-| mandelbrot ps    | 7       |        |        |        |         |        |          |           |          |            |
+| mandelbrot lines | 143     |        |        |        |         |        |          | 130       |          |            |
+| mandelbrot bytes | 392     |        |        |        |         |        |          | 364       |          |            |
+| mandelbrot clocks| 13726887|        |        |        |         |        |          | 5467134   |          |            |
+| mandelbrot ps    | 6.9     |        |        |        |         |        |          | 12.8      |          |            |
 
 The "gowin power" numbers are the total power in mW and in parenthesis the dynamic power (the
 static power is always 121mW independent of the project).

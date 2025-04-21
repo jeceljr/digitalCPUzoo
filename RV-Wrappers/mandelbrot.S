@@ -27,7 +27,7 @@
         .equ terminal, 0xFFFFFFFC
 	.equ counter, 0xFFFFFFF8
 
-/* registers: I3 (x4), R3 (x5), X (x6), Y (x7), Z1 (x8), Z2 (x9), A (x10), B (x11), N (x12)  */
+/* registers: I3 (x4), R3 (x5), X (x6), Y (x7), Z1 (x8), Z2 (x9), A (x20), B (x11), N (x12)  */
 
 	li x22, 0x0C
 	sh x22, terminal(zero)
@@ -52,52 +52,30 @@ L60:	li x5, R1
 	li x6, 0
 fsx:	li x22, X1
 	blt x22, x6, fex
-L70:	mv a0, x5
-	jal ra, printHex
-	addi x5, x5, S1   /* S1*X */	
+L70:	addi x5, x5, S1   /* S1*X */	
 	mv x8, x5
 	mv x9, x4
-	mv a0, x5
-	jal ra, printHex
-	mv a0, x4
-	jal ra, printHex
 L80:	li x12, 0
 fsn:	li x22, 30
 	blt x22, x12, fen
 L90:	mv x13, x8
 	mv x14, x8
 	jal ra, mult
-	mv x10, x13
+	mv x20, x13
 	mv x13, x9
 	mv x14, x9
 	jal ra, mult
 	mv x11, x13
-L100:	add x21, x10, x11
-	mv a0, x10
-	jal ra, printHex
-	mv a0, x11
-	jal ra, printHex
-	mv a0, x21
-	jal ra, printHex
+L100:	add x21, x20, x11
 	addi x21, x21, -0x0400  /* +4.0 */
-	mv a0, x21
-	jal ra, printHex
 	and x21, x21, x31
-	li a0, 0x48
-	sh a0, terminal(zero)
-	mv a0, x21
-	jal ra, printHex
-	mv a0, x8
-	jal ra, printHex
-	mv a0, x9
-	jal ra, printHex
 	beq zero, x21, L130
 L110:	mv x13, x8
 	mv x14, x9
 	jal ra, mult
 	add x9, x13, x13
 	add x9, x9, x4
-	sub x8, x10, x11
+	sub x8, x20, x11
 	add x8, x8, x5
 L120:	addi x12, x12, 1
 	j fsn
@@ -149,22 +127,4 @@ nmult:	mloop
 	sub x13, zero, x13
 	ret
 pmult:	mloop
-	ret
-
-printHex:
-	li x28, 28
-	li x30, 0x3A
-pDigits:
-	srl x29, a0, x28
-	andi x29, x29, 0x0F
-	addi x29, x29, 0x30
-	blt x29, x30, pChar
-	addi x29, x29, 7  /* 0x41-0x3A */
-pChar:	sh x29, terminal(zero)
-	beq x28, zero, pEnd
-	addi x28, x28, -4
-	j pDigits
-pEnd:
-	li x29, 0x0D
-	sh x29, terminal(zero)
 	ret
