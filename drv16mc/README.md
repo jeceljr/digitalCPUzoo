@@ -5,7 +5,7 @@ of 16 bits each. It implements fewer instructions than RV32E, but the ones it
 does implement use the same mneomonic and have the same functionality.
 
 In many cases drv16mc will be used for helper functions in a project, like
-abstracting the interface to a keyboard or SD card. Any logic taken up by drv16b
+abstracting the interface to a keyboard or SD card. Any logic taken up by drv16mc
 is logic not available to the main project. Just being 16 instead of 32 bits
 should make it take half as much area as a RV32E processor and even less than
 that relative to a RV32I. Such applications need very little memory so the
@@ -54,7 +54,7 @@ For groups 2 and 3 the bottom two bits of rD select the actual instructions whil
 top two bits are the immediate values 0, 1 or 2. If these bits are 3 then the actual
 immediate value is in the 16 bits following the instruction.
 
-Group 3 uses the same encoding but in the rS2 field.
+Group 1 uses the same encoding but in the rS2 field.
 
 1) LB, LH, LBU, JALR
 
@@ -75,6 +75,6 @@ that is not a RV32E one. So `SRAI x3,x4,3` can be implemented as the sequence
 `SRS x3,x4,x4. SRS x3,x3,x3. SRS x3,x3,x3` while `SRLI x3,x4,3` can become
 `SRS x3,x4,zero. SRS x3,x3,zero. SRS x3,x3,zero`.
 
-**ECALL** and **EBREAK** are the two remaining RV32E instructions missing from drv16b.
+**ECALL** and **EBREAK** are the two remaining RV32E instructions missing from drv16mc.
 
 
