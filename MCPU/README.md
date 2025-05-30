@@ -68,3 +68,11 @@ self modifying code to step through the string.
 The program *term2048.S* is a text version of the puzzle game 2048. It also tests
 the i/o circuit that combines keyboard, terminal and a counter. For every screen
 it draws it shows how many clock cycle it took to do so.
+
+![MCPU16mc](mcpu16mc.svg)
+
+An even simpler version of the 16 bit design uses a single cycle for each
+instruction. It needs a separate memory for the instructions and for the data,
+though a dual port RAM typically available in FPGAs can be used (having a
+single dual port memory allows a single hex file to hold both the program
+and any constant data).

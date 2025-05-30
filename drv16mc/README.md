@@ -18,17 +18,17 @@ like 0xC7F0AA35, which is important in an educational context.
 ## Instructions
 
 The binary encoding of the instructions is 16 bits but is not compatible with the
-RISC-V C extension.
-
-All other instructions have the format:
+RISC-V C extension:
 
 | 15 14 13 12 | 11 10 09 08 | 07 06 05 04 | 03 02 01 00 |
 |-------------|-------------|-------------|-------------|
 | rD | rS1 | rS2 | operation |
 
-Register x0 holds the current program counter (PC), but when the rD field is
+When the rD field is
 zero no register is changed and when rS1 or rS2 are zero the value 0 is used
-in place of whatever is in x0.
+in place of whatever is in x0. So normally x0 can't be accessed, but it is
+used to store the calculated address in LOAD and STORE instructions with 16 bit
+offsets (the only ones to take two clock cycles).
 
 The operation field indicates the instruction or group of instructions:
 
