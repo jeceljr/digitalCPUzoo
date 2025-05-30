@@ -3,6 +3,14 @@
   <version>2</version>
   <attributes>
     <entry>
+      <string>Description</string>
+      <string>single cycle version of a 16 bit MCPU. It has 4 instructions:
+- NOR
+- ADD
+- STA
+- JCC</string>
+    </entry>
+    <entry>
       <string>Label</string>
       <string>MCPU16</string>
     </entry>
@@ -11,14 +19,6 @@
       <romList>
         <roms/>
       </romList>
-    </entry>
-    <entry>
-      <string>Description</string>
-      <string>single cycle version of a 16 bit MCPU. It has 4 instructions:
-- NOR
-- ADD
-- STA
-- JCC</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -38,16 +38,16 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>selects the instruction</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>PC</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>14</int>
-        </entry>
-        <entry>
-          <string>Description</string>
-          <string>selects the instruction</string>
         </entry>
       </elementAttributes>
       <pos x="860" y="200"/>
@@ -56,16 +56,16 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Data from instruction memory</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Instr</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>16</int>
-        </entry>
-        <entry>
-          <string>Description</string>
-          <string>Data from instruction memory</string>
         </entry>
       </elementAttributes>
       <pos x="220" y="340"/>
@@ -141,16 +141,16 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>select word from data memory</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Addr</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>14</int>
-        </entry>
-        <entry>
-          <string>Description</string>
-          <string>select word from data memory</string>
         </entry>
       </elementAttributes>
       <pos x="860" y="340"/>
@@ -159,16 +159,16 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>word from data memory</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Din</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>16</int>
-        </entry>
-        <entry>
-          <string>Description</string>
-          <string>word from data memory</string>
         </entry>
       </elementAttributes>
       <pos x="220" y="560"/>
@@ -177,16 +177,16 @@
       <elementName>Clock</elementName>
       <elementAttributes>
         <entry>
+          <string>runRealTime</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>clock</string>
         </entry>
         <entry>
           <string>Frequency</string>
           <int>2147483647</int>
-        </entry>
-        <entry>
-          <string>runRealTime</string>
-          <boolean>true</boolean>
         </entry>
       </elementAttributes>
       <pos x="220" y="260"/>
@@ -253,12 +253,12 @@
       <elementName>Multiplexer</elementName>
       <elementAttributes>
         <entry>
-          <string>flipSelPos</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
           <string>Bits</string>
           <int>16</int>
+        </entry>
+        <entry>
+          <string>flipSelPos</string>
+          <boolean>true</boolean>
         </entry>
       </elementAttributes>
       <pos x="440" y="600"/>
@@ -291,16 +291,16 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>data for the data memory</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Dout</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>16</int>
-        </entry>
-        <entry>
-          <string>Description</string>
-          <string>data for the data memory</string>
         </entry>
       </elementAttributes>
       <pos x="860" y="660"/>
@@ -324,12 +324,12 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>wr</string>
-        </entry>
-        <entry>
           <string>Description</string>
           <string>write to data memory</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>wr</string>
         </entry>
       </elementAttributes>
       <pos x="860" y="460"/>
@@ -357,12 +357,12 @@
           <int>14</int>
         </entry>
         <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-        <entry>
           <string>isProgramMemory</string>
           <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
         </entry>
       </elementAttributes>
       <pos x="1080" y="300"/>
@@ -381,6 +381,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>clock cycles for benchmark</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>cnt</string>
         </entry>
@@ -389,8 +393,8 @@
           <int>32</int>
         </entry>
         <entry>
-          <string>Description</string>
-          <string>clock cycles for benchmark</string>
+          <string>intFormat</string>
+          <intFormat>dec</intFormat>
         </entry>
       </elementAttributes>
       <pos x="1500" y="300"/>

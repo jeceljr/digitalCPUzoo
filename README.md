@@ -58,29 +58,33 @@ The benchmark programs are:
 - mandelbrot.S: a text version of the famous fractal
 
 
-|            | drv16   | MCPU16 | NCPU16 | T2H    | baby8   | SERV   | Glacial  |  Darkriscv  | PicoRV32 | Vexriscv |
-|------------|--------:|-------:|-------:|-------:|--------:|-------:|---------:|------------:|---------:|---------:|
-| Gowin LUTs | 282     | 69     |        |        |         | 264    | 249      | 1461        |          |          |
-| Gowin FFs  | 33      | 48     |        |        |         | 182    | 84       | 179         |          |          |
-| Gowin Fmax | 95MHz   | 313MHz |        |        |         | 127MHz | 176MHz   | 70MHz       |          |          |
-| Gowin power| 140mW (19) | 138mW (17) |        |        |         | 183mW (62) | 134mW (14) | 210mW (89) |          |         |
-| sieve lines| 129     |        |        |        |         |        |          |             |          |          |
-| sieve bytes| 280     |        |        |        |         |        |          |             |          |          |
-| sieve clocks| 456486 |        |        |        |         |        |          |             |          |          |
-| sieve ps   | 208     |        |        |        |         |        |          |             |          |          |
-| sine lines | 62      | 129    |        |        |         |        |          | 57        |          |              |
-| sine bytes | 164     | 2403   |        |        |         |        |          | 128       |          |              |
-| sine clocks| 23118   | 130831 |        |        |         |        |          | 9360      |          |              |
-| sine ps    | 4109    | 2392   |        |        |         |        |          | 8120      |          |              |
-| mandelbrot lines | 143     |        |        |        |         |        |          | 130       |          |            |
-| mandelbrot bytes | 392     |        |        |        |         |        |          | 364       |          |            |
-| mandelbrot clocks| 13726887|        |        |        |         |        |          | 5467134   |          |            |
-| mandelbrot ps    | 6.9     |        |        |        |         |        |          | 12.8      |          |            |
+|            | drv16   | MCPU16 | MCPU16mc | T2H    | baby8   |  Darkriscv  | SERV   | Glacial  | PicoRV32 | Vexriscv |
+|------------|--------:|-------:|---------:|-------:|--------:|------------:|-------:|---------:|---------:|---------:|
+| Gowin LUTs | 282     | 69     | 65       |        |         | 1461        | 264    | 249      |          |          |
+| Gowin FFs  | 33      | 48     | 31       |        |         | 179         | 182    | 84       |          |          |
+| Gowin Fmax | 95MHz   | 313MHz | 343MHz   |        |         | 70MHz       | 127MHz | 176MHz   |          |          |
+| Gowin power| 140mW (19) | 138mW (17) | 142mW (20) |    |    | 210mW (89)  | 183mW (62) | 134mW (14) |          |         |
+| sieve lines| 129     |        |          |        |         |             |        |          |          |          |
+| sieve bytes| 280     |        |          |        |         |             |        |          |          |          |
+| sieve clocks| 456486 |        |          |        |         |             |        |          |          |          |
+| sieve ps   | 208     |        |          |        |         |             |        |          |          |          |
+| sine lines | 62      | 129    | =        |        |         | 57          |        |          |          |          |
+| sine bytes | 164     | 2403   | =        |        |         | 128         |        |          |          |          |
+| sine clocks| 23118   | 130831 | 65415    |        |         | 9360        |        |          |          |          |
+| sine ps    | 4109    | 2392   | 5243     |        |         | 8120        |        |          |          |          |
+| mandelbrot lines | 143     |        |        |    |         | 130         |        |          |          |          |
+| mandelbrot bytes | 392     |        |        |    |         | 364         |        |          |          |          |
+| mandelbrot clocks| 13726887|        |        |    |         | 5467134     |        |          |          |          |
+| mandelbrot ps    | 6.9     |        |        |    |         | 12.8        |        |          |          |          |
 
 The "gowin power" numbers are the total power in mW and in parenthesis the dynamic power (the
 static power is always 121mW independent of the project).
 
-Note that "lines" and "bytes" are exactly the same for all RISC-V processors so these numbers are only shown in the SERV column.
+The Fmax figure is just for the processor and doesn't take into account that MCPU16mc must add two memory access times
+per cycle compared to MCPU16's one memory access time.
+
+Note that "lines" and "bytes" are exactly the same for all RISC-V processors so these numbers are only shown in the Darkriscv column,
+as is the case for MCPU16 and MCPU16mc.
 
 The "ps" lines are "per second" which is simply Fmax divided by the number of clock cycles taken up by each benchmark
 and this represents absolute performance which can be directly compared between the different processors. In the
