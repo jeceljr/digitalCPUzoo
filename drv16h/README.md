@@ -1,11 +1,11 @@
-# drv16mc processor
+# drv16h processor
 
-The drv16mc processor is based on the RISC-V standard but with only 16 registers
+The drv16h processor is based on the RISC-V standard but with only 16 registers
 of 16 bits each. It implements fewer instructions than RV32E, but the ones it
 does implement use the same mneomonic and have the same functionality.
 
-In many cases drv16mc will be used for helper functions in a project, like
-abstracting the interface to a keyboard or SD card. Any logic taken up by drv16mc
+In many cases drv16h will be used for helper functions in a project, like
+abstracting the interface to a keyboard or SD card. Any logic taken up by drv16h
 is logic not available to the main project. Just being 16 instead of 32 bits
 should make it take half as much area as a RV32E processor and even less than
 that relative to a RV32I. Such applications need very little memory so the
@@ -75,6 +75,6 @@ that is not a RV32E one. So `SRAI x3,x4,3` can be implemented as the sequence
 `SRS x3,x4,x4. SRS x3,x3,x3. SRS x3,x3,x3` while `SRLI x3,x4,3` can become
 `SRS x3,x4,zero. SRS x3,x3,zero. SRS x3,x3,zero`.
 
-**ECALL** and **EBREAK** are the two remaining RV32E instructions missing from drv16mc.
+**ECALL** and **EBREAK** are the two remaining RV32E instructions missing from drv16h.
 
 
