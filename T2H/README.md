@@ -4,7 +4,8 @@ This 16 bit processor has instructions based on the Inmos T2xx Transputer.
 
 It uses a three element stack with registers *A*, *B* and *C*. *W* is the
 workspace pointer and local variables are stored in memory relative to it.
-*IP* indicates the current instruction. 
+*I* has a pointer to the current instruction. An addional 12 bit register,
+*O*, is used to extend the argument in direct instructions.
 
 None of the fancy Transputer features such as the communication links or
 the operating system in hardware are included in T2H, The *H* in the name
@@ -26,30 +27,29 @@ codes will combine its four bit data with the data of the following instruction
 allowing a compact encoding of any sized data.
 
 
-| op code | assembler | A | B | C | IP   | W | O | Addr | dOut |
+| op code | assembler | A | B | C | I   | W | O | Addr | dOut |
 |---------|-----------|---|---|---|------|---|---|------|------|
-| 0x      | j x       |   |   |   |IP+1+x|   | 0 |      |      |
-| 1x      | ldlp x    |W+x*2| A | B |IP+1  |   | 0 |      |      |
-| 2x      |           |   |   |   |IP+1  |   |O<<4 + x |  |    |
-| 3x      | ldnl x    |dIn|   |   |IP+1  |   | 0 | A+x*2  |      |
-| 4x      | ldc x     | x | A | B |IP+1  |   | 0 |      |      |
-| 5x      | ldnlp x   |A+x*2|   |   |IP+1  |   | 0 |      |      |
-| 6x      |           |   |   |   |IP+1  |   | 0xFFF0 + x |  | |
-| 7x      | ldl x     |dIn| A | B |IP+1  |   | 0 | W+x*2  |      |
-| 8x      | adc x     |A+x|   |   |IP+1  |   | 0 |      |      |
-| 9x      | call x    |   |   |   |IP+1+x|   | 0 | W    | IP+1 |
-| Ax      | cj x (A==0)|  |   |   |IP+1+x|   | 0 |      |      |
-| Ax      | cj x (A!=0)| B| C | ? |IP+1  |   | 0 |      |      |
-| Bx      | ajw x     |   |   |   |IP+1  |W+x| 0 |      |      |
-| Cx      | eqc x     |A==x|  |   |IP+1  |   | 0 |      |      |
-| Dx      | stl x     | B | C | ? |IP+1  |   | 0 | W+x*2  | A    |
-| Ex      | stnl x    | C | ? | ? |IP+1  |   | 0 | A+x*2  | B    |
+| 0x      | j x       |   |   |   |I+1+x|   | 0 |      |      |
+| 1x      | ldlp x    |W+x*2| A | B |I+1  |   | 0 |      |      |
+| 2x      |           |   |   |   |I+1  |   |(O<<4)\|x |  |    |
+| 3x      | ldnl x    |dIn|   |   |I+1  |   | 0 | A+x*2  |      |
+| 4x      | ldc x     | x | A | B |I+1  |   | 0 |      |      |
+| 5x      | ldnlp x   |A+x*2|   |   |I+1  |   | 0 |      |      |
+| 6x      |           |   |   |   |I+1  |   | (~O<<4)\|x |  | |
+| 7x      | ldl x     |dIn| A | B |I+1  |   | 0 | W+x*2  |      |
+| 8x      | adc x     |A+x|   |   |I+1  |   | 0 |      |      |
+| 9x      | call x    |   |   |   |I+1+x|   | 0 | W    | I+1 |
+| Ax      | cj x (A==0)|  |   |   |I+1+x|   | 0 |      |      |
+| Ax      | cj x (A!=0)| B| C | ? |I+1  |   | 0 |      |      |
+| Bx      | ajw x     |   |   |   |I+1  |W+x| 0 |      |      |
+| Cx      | eqc x     |A==x|  |   |I+1  |   | 0 |      |      |
+| Dx      | stl x     | B | C | ? |I+1  |   | 0 | W+x*2  | A    |
+| Ex      | stnl x    | C | ? | ? |I+1  |   | 0 | A+x*2  | B    |
 
 The assembly names and opcode of the direct instructions are the same as the
 Transputer, but two instructions have a slightly different operation. *call*
-does not change *W* and only saves *IP* while the Transputer saves all registers
-after changing "W" to have 4 new words. To save hardware the negative prefix does
-not negate x and the previous *O* but instead loads a constant and unchanged x.
+does not change *W* and only saves *I* while the Transputer saves all registers
+after changing "W" to have 4 new words.
 
 ## Indirect Instructions
 
@@ -60,23 +60,23 @@ and can be arbitrarily complex, T2H only uses the first 16 opcodes and limits
 itself to one clock instructions.
 
 
-| op code | assembler | A | B | C | IP | W | O | Addr | dOut |
+| op code | assembler | A | B | C | I | W | O | Addr | dOut |
 |---------|-----------|---|---|---|----|---|---|------|------|
-| F0      | rev       | B | A |   |IP+1|   | 0 |      |      |
-| F1      | shl       |A<<1|  |   |IP+1|   | 0 |      |      |
-| F2      | shr       |A>>1|  |   |IP+1|   | 0 |      |      |
-| F3      | xor       |A^B| C | ? |IP+1|   | 0 |      |      |
+| F0      | rev       | B | A |   |I+1|   | 0 |      |      |
+| F1      | shl       |A<<1|  |   |I+1|   | 0 |      |      |
+| F2      | shr       |A>>1|  |   |I+1|   | 0 |      |      |
+| F3      | xor       |A\^B| C | ? |I+1|   | 0 |      |      |
 | F4      |           |   |   |   |    |   |   |      |      |
-| F5      | add       |A+B| C | ? |IP+1|   | 0 |      |      |
-| F6      | gcall     |IP+1|  |   | A  |   | 0 |      |      |
-| F7      | and       |A&B| C | ? |IP+1|   | 0 |      |      |
+| F5      | add       |A+B| C | ? |I+1|   | 0 |      |      |
+| F6      | gcall     |I+1|  |   | A  |   | 0 |      |      |
+| F7      | and       |A&B| C | ? |I+1|   | 0 |      |      |
 | F8      |           |   |   |   |    |   |   |      |      |
-| F9      | gt        |B>A| C | ? |IP+1|   | 0 |      |      |
-| FA      | dup       | A | A | B |IP+1|   | 0 |      |      |
-| FB      | or        |A\|B| C| ? |IP+1|   | 0 |      |      |
-| FC      | sub       |B-A| C | ? |IP+1|   | 0 |      |      |
-| FD      | swb       |AL,AH| |   |IP+1|   | 0 |      |      |
-| FE      | gajw      | W |   |   |IP+1| A | 0 |      |      |
+| F9      | gt        |B>A| C | ? |I+1|   | 0 |      |      |
+| FA      | dup       | A | A | B |I+1|   | 0 |      |      |
+| FB      | or        |A\|B| C| ? |I+1|   | 0 |      |      |
+| FC      | sub       |B-A| C | ? |I+1|   | 0 |      |      |
+| FD      | swb       |AL,AH| |   |I+1|   | 0 |      |      |
+| FE      | gajw      | W |   |   |I+1| A | 0 |      |      |
 | FF      | ret       |   |   |   |dIn |   | 0 | W    |      |
 
 The *shl* and *shr* instructions shift by a single bit instead of
