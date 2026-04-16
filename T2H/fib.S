@@ -1,6 +1,6 @@
 .include "t2h.inc"
 
-    ldc -3
+    ldc -9371
     stl 1 # a in w+1
     ldc 1
     stl 2 # b in w+2
@@ -15,7 +15,7 @@ loop:
     ldl 3
     eqc 20
     cj loop # break if n = 20
-break: j break
+break: j break, -2
 
 iterfib:
     ajw -1 # Leave one space for temp store

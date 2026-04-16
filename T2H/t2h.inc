@@ -63,35 +63,40 @@ absStart:
 /**** T2H direct instrucitons ****/
 
     .macro fprfx num, pre
-    .if \pre
-    .byte 0x20 | ((\num>>(4*\pre))& 0x0F)
-    fprfx (\num>>(4*\pre)), (\pre-1)
+    .if \pre>>32  /* negative */
+    fprfx (~(\num>>4)), (-1-\pre)
+    .byte 0x60 | (\num&0x0f)
+    .elseif \pre
+    fprfx (\num>>4), (\pre-1)
+    .byte 0x20 | (\num&0x0f)
     .endif
     .endm
 
     .macro prfx num
-    .if (\num>>12)
-    fprfx \num, 3
-    .elseif (\num>>8)
-    fprfx \num, 2
-    .elseif (\num>>4)
-    fprfx \num, 1
+    .if \num>>32  /* negative */
+    prfx (~(\num>>4)&0x0000FFFFFFFF)
+    .byte 0x60 | (\num&0x0f)
+    .elseif \num  /* not zero */
+    prfx (\num>>4)
+    .byte 0x20 | (\num&0x0f)
     .endif
     .endm
 
     .macro format_const op, value
-    prfx \value
+    prfx (\value>>4)
     .byte \op | (\value & 0x0F)
     .endm
 
     .macro format_word op, offset
-    prfx \offset
+    prfx (\offset>>4)
     .byte \op | (\offset & 0x0F)
     .endm
 
     .macro format_byte op, dest, pre
-    fprfx (\dest-.-\pre-1), \pre
-    .byte \op | ((\dest-.-1) & 0x0F)
+    .set rel_dest_byte, \dest-0f
+    fprfx ((rel_dest_byte)>>4), (\pre)
+    .byte \op | ((rel_dest_byte) & 0x0F)
+0:
     .endm
 
     .macro j x, pre=3

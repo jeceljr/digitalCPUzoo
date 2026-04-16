@@ -86,3 +86,15 @@ is required in the general case.
 The *swb* (swap bytes) is not a Transputer instruction and used to compensate
 for the lack of the word length independent features. It helps deal with byte
 data stored in the 16 bit word addressed data memory.
+
+## Assembler
+
+By including the *t2h.inc* macro definitions, the GNU AS program can assemble
+T2H programs. One simplification is that all control flow instructions are
+generated with 3 prefix bytes by default. An extra argument can change that to 0, 1
+or 2 for forward jumps and -1 or -2 for backward jumps. Changing the default
+makes programs shorter, but might cause problems if edits move labels further
+from the jumps.
+
+The *../as2hex* script can be used to invoke *as* and then *objcopy* to convert
+the generated binary into Intel HEX format.
