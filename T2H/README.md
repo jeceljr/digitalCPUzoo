@@ -128,12 +128,18 @@ awkward graphically since it is very tall, so it was split into its own module.
 ## Video
 
 A quick test of colors for a videotext style text output has been started but is still
-very incomplete. The plan is to have an 8KB memory with both the character patterns
+very incomplete.
+
+![color test circuit](testvt.svg)
+
+The plan is to have an 8KB memory with both the character patterns
 and the 80x30 character buffer. With a 1280x720 resolution a 16x24 pixel font will be
 used. 16 colors can be used for the foreground and 4 background modes can derive the
 background by selectively inverting the R, G and B components. This allows the color
 combinations to be defined with only 6 bits and a very simple circuit, though not all
 64 combinations are unique.
+
+![output of color test](colortest.png)
 
 | character | description |
 |-----------|-------------|
