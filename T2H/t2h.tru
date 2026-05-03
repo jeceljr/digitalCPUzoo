@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<truthTable>
+  <variables>
+    <variable name="op4"/>
+    <variable name="op3"/>
+    <variable name="op2"/>
+    <variable name="op1"/>
+    <variable name="op0"/>
+  </variables>
+  <results>
+    <result>
+      <name>eA</name>
+      <values class="BoolTable">01011101100011111111011101011110</values>
+    </result>
+    <result>
+      <name>eB</name>
+      <values class="BoolTable">01001001000001111001010101111000</values>
+    </result>
+    <result>
+      <name>eC</name>
+      <values class="BoolTable">01001001000000000000000000100000</values>
+    </result>
+    <result>
+      <name>eW</name>
+      <values class="BoolTable">00000000000100000000000000000010</values>
+    </result>
+    <result>
+      <name>sA</name>
+      <values class="BoolTable">00010001000000000000000000000000</values>
+    </result>
+    <result>
+      <name>sALU3</name>
+      <values class="BoolTable">X1XX01XX1XXX10100000X000X1X1111X</values>
+    </result>
+    <result>
+      <name>sALU2</name>
+      <values class="BoolTable">X1XX11XX0XXX00100000X111X0X0111X</values>
+    </result>
+    <result>
+      <name>sALU1</name>
+      <values class="BoolTable">X1XX01XX0XXX10100011X011X0X1001X</values>
+    </result>
+    <result>
+      <name>sALU0</name>
+      <values class="BoolTable">X1XX01XX0XXX00000101X101X1X1011X</values>
+    </result>
+    <result>
+      <name>sB</name>
+      <values class="BoolTable">X0XX0XX0XXXXX1110XX1X1X1X1011XXX</values>
+    </result>
+    <result>
+      <name>clrO</name>
+      <values class="BoolTable">00100010000000000000000000000000</values>
+    </result>
+    <result>
+      <name>negO</name>
+      <values class="BoolTable">XX0XXX1XXXXXXXXXXXXXXXXXXXXXXXXX</values>
+    </result>
+    <result>
+      <name>sW</name>
+      <values class="BoolTable">XXXXXXXXXXX0XXXXXXXXXXXXXXXXXX1X</values>
+    </result>
+    <result>
+      <name>s+</name>
+      <values class="BoolTable">X0X1X1X0XXXXX01XXXXXXXXXXXXXXXXX</values>
+    </result>
+    <result>
+      <name>sAddr</name>
+      <values class="BoolTable">X1X1X1X1X0XXX11XXXXXXXXXXXXXXX00</values>
+    </result>
+    <result>
+      <name>rd</name>
+      <values class="BoolTable">00010001000000000000000000000001</values>
+    </result>
+    <result>
+      <name>wr</name>
+      <values class="BoolTable">00000000010001100000000000000000</values>
+    </result>
+    <result>
+      <name>sDout1</name>
+      <values class="BoolTable">XXXXXXXXX1XXX00XXXXXXXXXXXXXXXXX</values>
+    </result>
+    <result>
+      <name>sDout0</name>
+      <values class="BoolTable">XXXXXXXXXXXXX01XXXXXXXXXXXXXXXXX</values>
+    </result>
+    <result>
+      <name>sI1</name>
+      <values class="BoolTable">00000000000000000000001000000001</values>
+    </result>
+    <result>
+      <name>sI0</name>
+      <values class="BoolTable">10000000011000000000000000000001</values>
+    </result>
+  </results>
+</truthTable>

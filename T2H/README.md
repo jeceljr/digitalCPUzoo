@@ -98,3 +98,46 @@ from the jumps.
 
 The *../as2hex* script can be used to invoke *as* and then *objcopy* to convert
 the generated binary into Intel HEX format.
+
+## Implementation
+
+The top level circuit includes a T2H processor, a block that implements a keyboard
+and output terminal as well as a count that is useful for benchmarks and a dual
+port memory. FPGAs normally allow each port of a dual port memory to have a different
+width, but the *Digital* simulator does not have that option so a multiplexer is
+needed to implement the 8 bit interface for the T2H instruction input.
+
+![System for testing T2H](system.svg)
+
+The datapath of the processor has most of its complexity in the ALU to generate new
+values for the *A* register. The logic on the top left maps the 8 bits instructions
+into a 5 bit opcode. If the top 4 bits are 0xF then the 4 bottom bits are used as the
+opcode but with the fifth bit set. Otherwise the top 4 bits are used with the fifth
+bit cleared. But when the top bits are 0xC and the *A* register is not zero then the
+opcode is replaced with 0x0F.
+
+![T2H processor](t2h.svg)
+
+A simple combinational circuit converts the 5 bit opcode into all the control signals
+for the datapath. This was generated automatically by *Digital* from a truth table
+that was manually typed in. Combining it with the rest of the processor proved to be
+awkward graphically since it is very tall, so it was split into its own module.
+
+![control unit](t2hcontrol.svg)
+
+## Video
+
+A quick test of colors for a videotext style text output has been started but is still
+very incomplete. The plan is to have an 8KB memory with both the character patterns
+and the 80x30 character buffer. With a 1280x720 resolution a 16x24 pixel font will be
+used. 16 colors can be used for the foreground and 4 background modes can derive the
+background by selectively inverting the R, G and B components. This allows the color
+combinations to be defined with only 6 bits and a very simple circuit, though not all
+64 combinations are unique.
+
+| character | description |
+|-----------|-------------|
+| 0x00 - 0x1F | blank |
+| 0x20 - 0x7F | patterns in memory |
+| 0x80 - 0xBF | shows as blank, bottom 6 bits change color |
+| 0xC0 - 0xFF | bottm 6 bits define 2x3 pattern |
