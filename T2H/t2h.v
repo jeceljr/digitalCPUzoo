@@ -128,7 +128,6 @@ module t2hcontrol (
   assign eB = ((op0 & s0 & sDout1_temp & s2 & s1) | (sDout0_temp & s0 & op2 & s2 & s1) | (sDout0_temp & s0 & sDout1_temp & s2 & op4) | (sDout0_temp & s0 & op2 & op3 & op4) | (op0 & op1 & op2 & s2) | (op0 & op1 & sDout1_temp & op4) | (op0 & op2 & op3 & s1) | (op0 & op2 & s2 & op4) | (op0 & sDout1_temp & op3 & op4) | (op1 & op2 & op3 & s1) | (op1 & sDout1_temp & op3 & op4));
   assign eC = ((op0 & s0 & sDout1_temp & s2 & s1) | (sDout0_temp & s0 & op2 & s2 & s1) | (op0 & op1 & op2 & s2 & s1) | (sDout0_temp & op1 & sDout1_temp & op3 & op4));
   assign eW = ((op0 & op1 & sDout1_temp & op3 & s1) | (sDout0_temp & op1 & op2 & op3 & op4));
-  assign sA = (op0 & op1 & s2 & s1);
   assign sALU3 = ((op0 & s2 & s1) | (sDout0_temp & op3) | (op3 & op4));
   assign sALU2 = ((sDout0_temp & op1 & op2) | (op2 & op4) | (s2 & s1));
   assign sALU1 = ((sDout0_temp & op2 & op3 & s1) | (op0 & s2 & s1) | (op1 & op4));
@@ -141,6 +140,7 @@ module t2hcontrol (
   assign wr = ((sDout0_temp & op1 & op2 & op3 & s1) | (op0 & s0 & op3 & s1));
   assign sI1 = ((sDout0_temp & op1 & op2 & s2 & op4) | (op0 & op1 & op2 & op3 & op4));
   assign sI0 = ((sDout0_temp & s0 & sDout1_temp & s2 & s1) | (op0 & s0 & sDout1_temp & op3 & s1) | (sDout0_temp & op1 & sDout1_temp & op3 & s1) | (op0 & op1 & op2 & op3 & op4));
+  assign sA = ~ (op0 & op1 & s2 & s1);
   assign negO = op2;
   assign sW = sDout0_temp;
   assign sDout1 = sDout1_temp;
@@ -367,7 +367,7 @@ module t2h (
     .in_1( s18 ),
     .out( s1 )
   );
-  assign s46 = (~ s41 & ~ s42 & ((s49[0] | s49[1] | s49[2] | s49[3]) | (s50[0] | s50[1] | s50[2] | s50[3]) | (s51[0] | s51[1] | s51[2] | s51[3]) | (s52[0] | s52[1] | s52[2] | s52[3])) & s43 & s44);
+  assign s46 = (~ s41 & s42 & ((s49[0] | s49[1] | s49[2] | s49[3]) | (s50[0] | s50[1] | s50[2] | s50[3]) | (s51[0] | s51[1] | s51[2] | s51[3]) | (s52[0] | s52[1] | s52[2] | s52[3])) & ~ s43 & s44);
   Mux_2x1_NBits #(
     .Bits(4)
   )

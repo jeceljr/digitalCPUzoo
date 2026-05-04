@@ -1346,6 +1346,11 @@
       </elementAttributes>
       <pos x="-20" y="-60"/>
     </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="220" y="2800"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -1973,16 +1978,20 @@
       <p2 x="20" y="240"/>
     </wire>
     <wire>
-      <p1 x="100" y="2800"/>
-      <p2 x="320" y="2800"/>
-    </wire>
-    <wire>
       <p1 x="-40" y="5360"/>
       <p2 x="20" y="5360"/>
     </wire>
     <wire>
       <p1 x="120" y="5360"/>
       <p2 x="140" y="5360"/>
+    </wire>
+    <wire>
+      <p1 x="100" y="2800"/>
+      <p2 x="220" y="2800"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="2800"/>
+      <p2 x="320" y="2800"/>
     </wire>
     <wire>
       <p1 x="100" y="4340"/>

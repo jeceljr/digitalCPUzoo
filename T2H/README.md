@@ -134,16 +134,13 @@ very incomplete.
 
 The plan is to have an 8KB memory with both the character patterns
 and the 80x30 character buffer. With a 1280x720 resolution a 16x24 pixel font will be
-used. 16 colors can be used for the foreground and 4 background modes can derive the
-background by selectively inverting the R, G and B components. This allows the color
-combinations to be defined with only 6 bits and a very simple circuit, though not all
-64 combinations are unique.
+used. 64 colors can be used for the foreground and 32 background colors (only 1 blue bit).
 
 ![output of color test](colortest.png)
 
 | character | description |
 |-----------|-------------|
-| 0x00 - 0x1F | blank |
+| 0x00 - 0x1F | shows as blank, background color RRGGB |
 | 0x20 - 0x7F | patterns in memory |
-| 0x80 - 0xBF | shows as blank, bottom 6 bits change color |
+| 0x80 - 0xBF | shows as blank, foreground color RRGGBB |
 | 0xC0 - 0xFF | bottm 6 bits define 2x3 pattern |
