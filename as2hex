@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 bname=`basename $1 .S`
 as -a -o $bname.o $1
 objcopy -S -O ihex $bname.o $bname.hex 
