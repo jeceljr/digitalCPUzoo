@@ -99,6 +99,12 @@ absStart:
 0:
     .endm
 
+    .macro format_const_label op, lbl, pre
+    .set abs_lbl_val, \lbl-absStart
+    fprfx ((abs_lbl_val)>>4), (\pre)
+    .byte \op | ((abs_lbl_val) & 0x0F)
+    .endm
+
     .macro j x, pre=3
     format_byte 0x00, \x, \pre
     .endm
@@ -109,6 +115,10 @@ absStart:
 
     .macro ldnl x
     format_word 0x30, \x
+    .endm
+
+    .macro ldLabel x, pre=3
+    format_const_label 0x40, \x, \pre
     .endm
 
     .macro ldc x

@@ -2,7 +2,7 @@
 
     ldc 0xFFE0
     gajw
-    ldc 0x24 # mess
+    ldLabel mess, 1
     stl 0
 loop:
     ldl 0

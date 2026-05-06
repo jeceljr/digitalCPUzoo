@@ -1,5 +1,5 @@
 #!/bin/sh
 bname=`basename $1 .S`
 as -a -o $bname.o $1
-objcopy -S -O ihex $bname.o $bname.hex 
+objcopy -S -O ihex -j .text $bname.o $bname.hex 
 rm $bname.o
