@@ -101,13 +101,22 @@ the generated binary into Intel HEX format.
 
 ## Implementation
 
-The top level circuit includes a T2H processor, a block that implements a keyboard
+One top level circuit includes a T2H processor, a block that implements a keyboard
 and output terminal as well as a count that is useful for benchmarks and a dual
 port memory. FPGAs normally allow each port of a dual port memory to have a different
 width, but the *Digital* simulator does not have that option so a multiplexer is
 needed to implement the 8 bit interface for the T2H instruction input.
 
 ![System for testing T2H](system.svg)
+
+The second top level circuit also includes a T2H processor, a 32K x 16 bit dual port
+memory for the instructions and data, an Audio/Video circuit and a 4K x 16 bit dual
+port memory that holds the text buffer, the audio buffer and the character patterns.
+
+A simple memory decoder makes all processor data accesses go to the frame buffer
+instead of the main memory, so the top 8KB of that are simply wasted.
+
+![System for Audio and Video programs using the T2H](vg.svg)
 
 The datapath of the processor has most of its complexity in the ALU to generate new
 values for the *A* register. The logic on the top left maps the 8 bits instructions
@@ -127,10 +136,10 @@ awkward graphically since it is very tall, so it was split into its own module.
 
 ## Video
 
-A quick test of colors for a videotext style text output has been started but is still
-very incomplete.
+For now, the audio and video circuit generated a fixed pattern to see all color
+combinations..
 
-![color test circuit](testvt.svg)
+![Audio and Video circuit](av.svg)
 
 The plan is to have an 8KB memory with both the character patterns
 and the 80x30 character buffer. With a 1280x720 resolution a 16x24 pixel font will be
@@ -138,9 +147,32 @@ used. 64 colors can be used for the foreground and 32 background colors (only 1 
 
 ![output of color test](colortest.png)
 
+The characters are defined as follows:
+
 | character | description |
 |-----------|-------------|
 | 0x00 - 0x1F | shows as blank, background color RRGGB |
 | 0x20 - 0x7F | patterns in memory |
 | 0x80 - 0xBF | shows as blank, foreground color RRGGBB |
 | 0xC0 - 0xFF | bottm 6 bits define 2x3 pattern |
+
+The memory map of the frame buffer can be divided into 512 byte (256 word) blocks:
+
+| block | description |
+|-------|-------------|
+| 0000  | text columns 0 to 15 |
+| 0001  | text columns 16 to 31 |
+| 0010  | text columns 32 to 47 |
+| 0011  | text columns 48 to 63 |
+| 0100  | text columns 64 to 79 |
+| 0101  | rows 16 to 23 of characters 0x20 to 0x3F |
+| 0110  | rows 8 to 15 of characters 0x20 to 0x3F |
+| 0111  | rows 0 to 7 of characters 0x20 to 0x3F |
+| 1000  | sound buffer 0 |
+| 1001  | rows 16 to 23 of characters 0x40 to 0x5F |
+| 1010  | rows 8 to 15 of characters 0x40 to 0x5F |
+| 1011  | rows 0 to 7 of characters 0x40 to 0x5F |
+| 1100  | sound buffer 1 |
+| 1101  | rows 16 to 23 of characters 0x60 to 0x7F |
+| 1110  | rows 8 to 15 of characters 0x60 to 0x7F |
+| 1111  | rows 0 to 7 of characters 0x60 to 0x7F |
