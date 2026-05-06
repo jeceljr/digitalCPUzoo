@@ -2,7 +2,7 @@
 
     ldc 0xFFE0
     gajw
-    ldc 0x24 /* mess */
+    ldc 0x24 # mess
     stl 0
 loop:
     ldl 0
@@ -24,6 +24,7 @@ loop:
 
 halt:
     j halt
+    .align 2
 mess:
     .ascii "Hello World!"
     .word 0, 0
