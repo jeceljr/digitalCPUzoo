@@ -3,6 +3,14 @@
   <version>2</version>
   <attributes>
     <entry>
+      <string>Description</string>
+      <string>A trivial videogame using a T2H processor and a videotext style HDMI output</string>
+    </entry>
+    <entry>
+      <string>Label</string>
+      <string>videogame</string>
+    </entry>
+    <entry>
       <string>romContent</string>
       <romList>
         <roms/>
@@ -14,7 +22,7 @@
     </entry>
     <entry>
       <string>preloadProgramFile</string>
-      <file>./testTerm.hex</file>
+      <file>./initBuf.hex</file>
     </entry>
   </attributes>
   <visualElements>
