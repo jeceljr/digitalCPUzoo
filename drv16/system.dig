@@ -22,7 +22,7 @@
     </entry>
     <entry>
       <string>preloadProgramFile</string>
-      <file>/home/jecel/mygit/digitalCPUzoo/drv16/generated/mandelbrot.hex</file>
+      <file>generated/mandelbrot.hex</file>
     </entry>
   </attributes>
   <visualElements>
