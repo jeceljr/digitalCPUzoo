@@ -4,7 +4,7 @@ use strict;
 my @buf = (0) x 4096;
 
 my $bmess = "01234567890123456789012345678901234567890123456789012345678901234567890123456789".
-			"01                                      X                                       ".
+			"01                                           X                                  ".
 			"02                                                                              ".
 			"03                                                                              ".
 			"04                                                                              ".
@@ -27,9 +27,9 @@ my $bmess = "0123456789012345678901234567890123456789012345678901234567890123456
 			"21                                                                              ".
 			"22                                                                              ".
 			"23                                                                              ".
-			"24                                            abcdefghijklmnopqrstuvwxyz        ".
-			"25                                            ABCDEFGHIJKLMNOPQRSTUVWXYZ        ".
-			"26                                            0123456789-_=+!@#\$%^&*()[]        ".
+			"24                                               abcdefghijklmnopqrstuvwxyz     ".
+			"25                                               ABCDEFGHIJKLMNOPQRSTUVWXYZ     ".
+			"26                                               0123456789-_=+!@#\$%^&*()[]     ".
 			"27                                                                              ".
 			"28                                                                              ".
 			"29                                                                              ";
@@ -38,7 +38,7 @@ for my $cCol (0..39){
 	for my $cRow (0..29){
 		my $off = 2*$cCol+80*$cRow;
 	    my $low = substr($bmess,$off,1);
-		my $off = 2*$cCol+1+80*$cRow;
+		$off = 2*$cCol+1+80*$cRow;
 	    my $high = substr($bmess,$off,1);
 		my $word = 256*ord($high)+ord($low);
 		$buf[32*$cCol+$cRow] = $word;
@@ -53,12 +53,29 @@ my $size = <FH>;
 
 my $x = 0;
 my $y = 0;
+my $tbits = 0;
+my $offset = 0;
+my @bitpos = (0x0020,0x0010,0x2000,0x1000,0x0008,0x0004,0x0800,0x0400,0x0002,0x0001,0x0200,0x0100);
 
 while(<FH>){
-	if ($_ eq "0\n"){
-		print "." if ($x % 3) == 0;
-	} else {
-		print "@" if ($x % 3) == 0;
+	if (($x % 12) == 0){
+		$offset = 32*int($x/12) + int($y/3);
+		if (($y % 3) == 0){
+			$tbits = 0xC0C0;
+		} else {
+			$tbits = $buf[$offset];
+		};
+	};
+	if (($x % 3) == 0){
+		if ($_ eq "0\n"){
+			print ".";
+		} else {
+			print "@";
+			$tbits = $tbits | $bitpos[4*($y%3)+(int($x/3)%4)];
+		};
+	};
+	if (($x % 12) == 10){
+		$buf[$offset] = $tbits;
 	};
 	if (++$x == 3*92){
 		$x = 0;
