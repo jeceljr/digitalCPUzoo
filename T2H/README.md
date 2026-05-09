@@ -118,7 +118,8 @@ instead of the main memory, so the top 8KB of that are simply wasted.
 
 ![System for Audio and Video programs using the T2H](vg.svg)
 
-The datapath of the processor has most of its complexity in the ALU to generate new
+The datapath of the processor, shown in the right side of the figure,
+has most of its complexity in the ALU to generate new
 values for the *A* register. The logic on the top left maps the 8 bits instructions
 into a 5 bit opcode. If the top 4 bits are 0xF then the 4 bottom bits are used as the
 opcode but with the fifth bit set. Otherwise the top 4 bits are used with the fifth
@@ -129,23 +130,16 @@ opcode is replaced with 0x0F.
 
 A simple combinational circuit converts the 5 bit opcode into all the control signals
 for the datapath. This was generated automatically by *Digital* from a truth table
-that was manually typed in. Combining it with the rest of the processor proved to be
-awkward graphically since it is very tall, so it was split into its own module.
-
-![control unit](t2hcontrol.svg)
+that was manually typed in. It can be seen split into three parts on the left of
+the figure.
 
 ## Video
 
-For now, the audio and video circuit generated a fixed pattern to see all color
-combinations..
-
 ![Audio and Video circuit](av.svg)
 
-The plan is to have an 8KB memory with both the character patterns
+An external 8KB memory (4K x 16 bits) holds both the character patterns
 and the 80x30 character buffer. With a 1280x720 resolution a 16x24 pixel font will be
 used. 64 colors can be used for the foreground and 32 background colors (only 1 blue bit).
-
-![output of color test](colortest.png)
 
 The characters are defined as follows:
 
