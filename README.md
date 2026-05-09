@@ -21,7 +21,7 @@ It addresses 256 bytes of memory compared to just 64 for the *MCPU*.
 *drv16* is a 16 bit processor that is compatible at the assembly language level with
 the RV32E standard.
 
-*drv16mc* is a mono cycle implementation of drv16 with a reorganized binary for the
+*drv16h* is a mono cycle implementation of drv16 with a reorganized binary for the
 instructions. The goal is to reduce the FPGA resources required while making it simpler
 
 ## Proposed
@@ -58,12 +58,12 @@ The benchmark programs are:
 - mandelbrot.S: a text version of the famous fractal
 
 
-|            | drv16   | MCPU16 | MCPU16mc | T2H    | baby8   |  Darkriscv  | SERV   | Glacial  | PicoRV32 | Vexriscv |
+|            | drv16   | MCPU16 | MCPU16h  | T2H    | baby8   |  Darkriscv  | SERV   | Glacial  | PicoRV32 | Vexriscv |
 |------------|--------:|-------:|---------:|-------:|--------:|------------:|-------:|---------:|---------:|---------:|
-| Gowin LUTs | 282     | 69     | 65       |        |         | 1461        | 264    | 249      |          |          |
-| Gowin FFs  | 33      | 48     | 31       |        |         | 179         | 182    | 84       |          |          |
-| Gowin Fmax | 95MHz   | 313MHz | 343MHz   |        |         | 70MHz       | 127MHz | 176MHz   |          |          |
-| Gowin power| 140mW (19) | 138mW (17) | 142mW (20) |    |    | 210mW (89)  | 183mW (62) | 134mW (14) |          |         |
+| Gowin LUTs | 282     | 69     | 65       | 563    |         | 1461        | 264    | 249      |          |          |
+| Gowin FFs  | 33      | 48     | 31       | 92     |         | 179         | 182    | 84       |          |          |
+| Gowin Fmax | 95MHz   | 313MHz | 343MHz   | 94Mhz  |         | 70MHz       | 127MHz | 176MHz   |          |          |
+| Gowin power| 140mW (19) | 138mW (17) | 142mW (20) | 147mW(26) |    | 210mW (89)  | 183mW (62) | 134mW (14) |          |         |
 | sieve lines| 129     |        |          |        |         |             |        |          |          |          |
 | sieve bytes| 280     |        |          |        |         |             |        |          |          |          |
 | sieve clocks| 456486 |        |          |        |         |             |        |          |          |          |
