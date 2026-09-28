@@ -58,24 +58,24 @@ The benchmark programs are:
 - mandelbrot.S: a text version of the famous fractal
 
 
-|            | drv16   | MCPU16 | MCPU16h  | T2H    | baby8   |  Darkriscv  | SERV   | Glacial  | PicoRV32 | Vexriscv |
+|            | drv16   | MCPU16 | MCPU16h  | T2H    | baby8   |  Darkriscv  | SERV   | Glacial  | riscplay:| PicoRV32 | Vexriscv |
 |------------|--------:|-------:|---------:|-------:|--------:|------------:|-------:|---------:|---------:|---------:|
-| Gowin LUTs | 282     | 69     | 65       | 563    |         | 1461        | 264    | 249      |          |          |
-| Gowin FFs  | 33      | 48     | 31       | 92     |         | 179         | 182    | 84       |          |          |
-| Gowin Fmax | 95MHz   | 313MHz | 343MHz   | 94Mhz  |         | 70MHz       | 127MHz | 176MHz   |          |          |
-| Gowin power| 140mW (19) | 138mW (17) | 142mW (20) | 147mW(26) |    | 210mW (89)  | 183mW (62) | 134mW (14) |          |         |
-| sieve lines| 129     |        |          |        |         |             |        |          |          |          |
-| sieve bytes| 280     |        |          |        |         |             |        |          |          |          |
-| sieve clocks| 456486 |        |          |        |         |             |        |          |          |          |
-| sieve ps   | 208     |        |          |        |         |             |        |          |          |          |
-| sine lines | 62      | 129    | =        |        |         | 57          |        |          |          |          |
-| sine bytes | 164     | 2403   | =        |        |         | 128         |        |          |          |          |
-| sine clocks| 23118   | 130831 | 65415    |        |         | 9360        |        |          |          |          |
-| sine ps    | 4109    | 2392   | 5243     |        |         | 8120        |        |          |          |          |
-| mandelbrot lines | 143     |        |        |    |         | 130         |        |          |          |          |
-| mandelbrot bytes | 392     |        |        |    |         | 364         |        |          |          |          |
-| mandelbrot clocks| 13726887|        |        |    |         | 5467134     |        |          |          |          |
-| mandelbrot ps    | 6.9     |        |        |    |         | 12.8        |        |          |          |          |
+| Gowin LUTs | 282     | 69     | 65       | 563    |         | 1461        | 264    | 249      | 2692     |          |          |
+| Gowin FFs  | 33      | 48     | 31       | 92     |         | 179         | 182    | 84       | 1344     |          |          |
+| Gowin Fmax | 95MHz   | 313MHz | 343MHz   | 94Mhz  |         | 70MHz       | 127MHz | 176MHz   | 104MHz   |          |          |
+| Gowin power| 140mW (19) | 138mW (17) | 142mW (20) | 147mW(26) |    | 210mW (89)  | 183mW (62) | 134mW (14) | 158mW (121) |          |         |
+| sieve lines| 129     |        |          |        |         |             |        |          |          |          |          |
+| sieve bytes| 280     |        |          |        |         |             |        |          |          |          |          |
+| sieve clocks| 456486 |        |          |        |         |             |        |          |          |          |          |
+| sieve ps   | 208     |        |          |        |         |             |        |          |          |          |          |
+| sine lines | 62      | 129    | =        |        |         | 57          |        |          |          |          |          |
+| sine bytes | 164     | 2403   | =        |        |         | 128         |        |          |          |          |          |
+| sine clocks| 23118   | 130831 | 65415    |        |         | 9360        |        |          |          |          |          |
+| sine ps    | 4109    | 2392   | 5243     |        |         | 8120        |        |          |          |          |          |
+| mandelbrot lines | 143     |        |        |    |         | 130         |        |          |          |          |          |
+| mandelbrot bytes | 392     |        |        |    |         | 364         |        |          |          |          |          |
+| mandelbrot clocks| 13726887|        |        |    |         | 5467134     |        |          |          |          |          |
+| mandelbrot ps    | 6.9     |        |        |    |         | 12.8        |        |          |          |          |          |
 
 The "gowin power" numbers are the total power in mW and in parenthesis the dynamic power (the
 static power is always 121mW independent of the project).
