@@ -58,7 +58,7 @@ The benchmark programs are:
 - mandelbrot.S: a text version of the famous fractal
 
 
-|            | drv16   | MCPU16 | MCPU16h  | T2H    | baby8   |  Darkriscv  | SERV   | Glacial  | riscplay:| PicoRV32 | Vexriscv |
+|            | drv16   | MCPU16 | MCPU16h  | T2H    | baby8   |  Darkriscv  | SERV   | Glacial  | riscplay | PicoRV32 | Vexriscv |
 |------------|--------:|-------:|---------:|-------:|--------:|------------:|-------:|---------:|---------:|---------:|
 | Gowin LUTs | 282     | 69     | 65       | 563    |         | 1461        | 264    | 249      | 2692     |          |          |
 | Gowin FFs  | 33      | 48     | 31       | 92     |         | 179         | 182    | 84       | 1344     |          |          |
